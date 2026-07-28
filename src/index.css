@@ -12,3 +12,28 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+@keyframes monster-greet {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-18px) rotate(-6deg);
+  }
+  40% {
+    transform: translateY(0) rotate(6deg);
+  }
+  55% {
+    transform: translateY(-8px) rotate(-4deg);
+  }
+  70% {
+    transform: translateY(0) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.monster-greet {
+  animation: monster-greet 1s ease-in-out;
+}
