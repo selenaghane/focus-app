@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import GlassesDeviceCard from '../components/GlassesDeviceCard'
+import ScienceCard from '../components/ScienceCard'
 import SettingRow from '../components/SettingRow'
 import SegmentedControl from '../components/SegmentedControl'
 
@@ -18,8 +19,17 @@ export default function GlassesSettings() {
   const [quietBreaks, setQuietBreaks] = useState(true)
 
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto px-5 pt-2 pb-4 flex flex-col gap-4">
+    <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar px-5 pt-2 pb-4 flex flex-col gap-4">
       <GlassesDeviceCard />
+
+      <ScienceCard title="How your glasses read focus">
+        Your glasses track tiny changes in your pupils and eye movements,
+        moment to moment. Those changes are tied to your brain&rsquo;s locus
+        coeruleus&ndash;norepinephrine (LC-NE) system &mdash; the network
+        that controls attention and alertness. It&rsquo;s a
+        scientifically-backed proxy for what&rsquo;s happening in your
+        brain, not a direct measurement of it.
+      </ScienceCard>
 
       <div className="flex flex-col gap-2">
         <SectionLabel>During focus sessions</SectionLabel>
