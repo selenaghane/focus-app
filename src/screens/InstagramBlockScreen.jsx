@@ -1,0 +1,163 @@
+import { useState } from 'react'
+
+function LockIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <rect x="5" y="10.5" width="14" height="9.5" rx="2.4" stroke="#64748b" strokeWidth="1.8" />
+      <path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7" stroke="#64748b" strokeWidth="1.8" strokeLinecap="round" />
+      <circle cx="12" cy="15" r="1.4" fill="#64748b" />
+    </svg>
+  )
+}
+
+function CheckCircleIcon({ size = 14 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="9" stroke="#1baf7a" strokeWidth="1.8" />
+      <path
+        d="M8 12.3l2.5 2.5L16 9.3"
+        stroke="#1baf7a"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+const MIN_WORDS = 60
+
+function countWords(text) {
+  const trimmed = text.trim()
+  return trimmed.length === 0 ? 0 : trimmed.split(/\s+/).length
+}
+
+const blockEvent = (e) => e.preventDefault()
+
+export default function InstagramBlockScreen() {
+  const [stage, setStage] = useState('prompt') // 'prompt' | 'unlocked' | 'dismissed'
+  const [text, setText] = useState('')
+
+  const wordCount = countWords(text)
+  const enoughWords = wordCount >= MIN_WORDS
+  const wordsToGo = MIN_WORDS - wordCount
+
+  if (stage === 'unlocked') {
+    return (
+      <div className="relative flex-1 min-h-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
+        <div className="w-14 h-14 rounded-full bg-emerald-50 flex items-center justify-center">
+          <CheckCircleIcon size={28} />
+        </div>
+        <h1 className="text-lg font-bold text-slate-900">
+          Unlocked — 5:00 remaining
+        </h1>
+        <p className="text-sm text-slate-500">
+          Instagram will pause again automatically when time&rsquo;s up.
+        </p>
+      </div>
+    )
+  }
+
+  if (stage === 'dismissed') {
+    return (
+      <div className="relative flex-1 min-h-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
+        <div className="w-14 h-14 rounded-full bg-emerald-50 flex items-center justify-center text-2xl">
+          💪
+        </div>
+        <h1 className="text-lg font-bold text-slate-900">
+          Nice — staying focused 💪
+        </h1>
+        <p className="text-sm text-slate-500">
+          Instagram stays paused for the rest of this block.
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="relative flex-1 min-h-0 flex flex-col overflow-hidden">
+      {/* Blurred "app behind" background, simulating Instagram dimmed out */}
+      <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-200 via-rose-200 to-amber-100 blur-2xl scale-110 opacity-60" />
+      <div className="absolute inset-0 bg-white/75 backdrop-blur-xl" />
+
+      <div className="relative flex-1 min-h-0 overflow-y-auto no-scrollbar px-5 pt-3 pb-4 flex flex-col gap-4">
+        <div className="flex justify-center pt-1">
+          <div className="w-12 h-12 rounded-full bg-white/90 shadow-sm flex items-center justify-center">
+            <LockIcon />
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center gap-1.5 text-center">
+          <div className="w-11 h-11 rounded-2xl bg-[#e1306c] flex items-center justify-center text-white font-bold text-lg shadow-sm">
+            I
+          </div>
+          <h1 className="text-lg font-bold text-slate-900 mt-0.5">
+            Instagram is paused
+          </h1>
+          <p className="text-xs text-slate-500">
+            Homework block · 4:00–5:30 PM · powered by FocusGlasses
+          </p>
+        </div>
+
+        <div className="bg-white/85 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-3">
+          <p className="text-sm text-slate-600 leading-snug">
+            Before you unlock, tell us why. Write at least {MIN_WORDS} words
+            about why you need Instagram right now.
+          </p>
+
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            onPaste={blockEvent}
+            onCopy={blockEvent}
+            onCut={blockEvent}
+            onDrop={blockEvent}
+            onContextMenu={blockEvent}
+            rows={5}
+            placeholder="Type your reason here — copy & paste is turned off."
+            className="w-full resize-none rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-300 outline-none focus:border-[#2a78d6] transition-colors"
+          />
+
+          <div className="flex items-center gap-1.5 text-[11px] font-medium">
+            {enoughWords ? (
+              <>
+                <CheckCircleIcon />
+                <span className="text-emerald-600">
+                  {wordCount} / {MIN_WORDS} words
+                </span>
+              </>
+            ) : (
+              <span className="text-rose-500">
+                {wordCount} / {MIN_WORDS} words
+                {wordCount > 0 &&
+                  ` — ${wordsToGo} more word${wordsToGo === 1 ? '' : 's'} to go.`}
+              </span>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-auto flex flex-col items-center gap-2 pb-1">
+          <button
+            type="button"
+            disabled={!enoughWords}
+            onClick={() => setStage('unlocked')}
+            className={`w-full rounded-full py-3 text-sm font-semibold shadow-sm transition-colors ${
+              enoughWords
+                ? 'bg-emerald-500 text-white active:bg-emerald-600'
+                : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+            }`}
+          >
+            Unlock for 5 minutes
+          </button>
+          <button
+            type="button"
+            onClick={() => setStage('dismissed')}
+            className="text-sm font-medium text-slate-400 active:text-slate-500 py-1"
+          >
+            Never mind, stay focused
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
