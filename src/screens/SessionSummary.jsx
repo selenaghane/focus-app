@@ -1,13 +1,19 @@
-import SummaryHeader from '../components/SummaryHeader'
 import StatCard from '../components/StatCard'
 import SessionChart from '../components/SessionChart'
 import InsightCard from '../components/InsightCard'
-import { SESSION_STATS, BEST_WINDOW_LABEL } from '../data/sessionData'
+import {
+  SESSION_STATS,
+  BEST_WINDOW_LABEL,
+  SESSION_START_LABEL,
+  SESSION_END_LABEL,
+} from '../data/sessionData'
 
 export default function SessionSummary() {
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto px-5 pt-2 pb-4 flex flex-col gap-4">
-      <SummaryHeader />
+    <>
+      <p className="text-center text-xs text-slate-400 -mt-1">
+        Today, {SESSION_START_LABEL} – {SESSION_END_LABEL}
+      </p>
 
       <div className="flex gap-2">
         <StatCard
@@ -34,6 +40,6 @@ export default function SessionSummary() {
           text="Longest distraction-free streak: 14 minutes."
         />
       </div>
-    </div>
+    </>
   )
 }
