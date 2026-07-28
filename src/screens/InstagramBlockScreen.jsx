@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import Monster from '../components/Monster'
+import MonsterNudge from '../components/MonsterNudge'
 
 function LockIcon() {
   return (
@@ -34,13 +36,28 @@ function countWords(text) {
 
 const blockEvent = (e) => e.preventDefault()
 
-export default function InstagramBlockScreen() {
+export default function InstagramBlockScreen({
+  monsterConfig,
+  monsterEnergy = 0,
+  onUnlock,
+  onStayFocused,
+}) {
   const [stage, setStage] = useState('prompt') // 'prompt' | 'unlocked' | 'dismissed'
   const [text, setText] = useState('')
 
   const wordCount = countWords(text)
   const enoughWords = wordCount >= MIN_WORDS
   const wordsToGo = MIN_WORDS - wordCount
+
+  const handleUnlock = () => {
+    onUnlock?.()
+    setStage('unlocked')
+  }
+
+  const handleStayFocused = () => {
+    onStayFocused?.()
+    setStage('dismissed')
+  }
 
   if (stage === 'unlocked') {
     return (
@@ -53,6 +70,10 @@ export default function InstagramBlockScreen() {
         </h1>
         <p className="text-sm text-slate-500">
           Instagram will pause again automatically when time&rsquo;s up.
+        </p>
+        <Monster {...monsterConfig} energy={monsterEnergy} size={96} />
+        <p className="text-xs text-slate-400">
+          {monsterConfig.name} looks a little tired...
         </p>
       </div>
     )
@@ -69,6 +90,10 @@ export default function InstagramBlockScreen() {
         </h1>
         <p className="text-sm text-slate-500">
           Instagram stays paused for the rest of this block.
+        </p>
+        <Monster {...monsterConfig} energy={monsterEnergy} size={96} />
+        <p className="text-xs text-slate-400">
+          {monsterConfig.name} is so proud of you!
         </p>
       </div>
     )
@@ -95,9 +120,11 @@ export default function InstagramBlockScreen() {
             Instagram is paused
           </h1>
           <p className="text-xs text-slate-500">
-            Homework block · 4:00–5:30 PM · powered by FocusGlasses
+            Homework block · 4:00–5:30 PM · powered by your glasses
           </p>
         </div>
+
+        <MonsterNudge config={monsterConfig} energy={monsterEnergy} />
 
         <div className="bg-white/85 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-3">
           <p className="text-sm text-slate-600 leading-snug">
@@ -140,7 +167,7 @@ export default function InstagramBlockScreen() {
           <button
             type="button"
             disabled={!enoughWords}
-            onClick={() => setStage('unlocked')}
+            onClick={handleUnlock}
             className={`w-full rounded-full py-3 text-sm font-semibold shadow-sm transition-colors ${
               enoughWords
                 ? 'bg-emerald-500 text-white active:bg-emerald-600'
@@ -151,7 +178,7 @@ export default function InstagramBlockScreen() {
           </button>
           <button
             type="button"
-            onClick={() => setStage('dismissed')}
+            onClick={handleStayFocused}
             className="text-sm font-medium text-slate-400 active:text-slate-500 py-1"
           >
             Never mind, stay focused
