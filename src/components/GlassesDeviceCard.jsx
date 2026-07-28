@@ -41,7 +41,7 @@ export default function GlassesDeviceCard({ ownerName = 'Alex', batteryPct = 82 
         <GlassesIcon />
       </div>
       <div className="min-w-0 flex-1 flex flex-col gap-0.5">
-        <span className="text-sm font-bold text-slate-900">FocusGlasses</span>
+        <span className="text-sm font-bold text-slate-900">Focus glasses</span>
         <span className="flex items-center gap-1.5 text-xs text-slate-400">
           <BluetoothIcon />
           Connected to {ownerName}&rsquo;s glasses

@@ -7,7 +7,7 @@ export const FOCUS_STREAK_DAYS = 6
 export const FOCUS_STREAK_BEST = 9
 
 export const STRATEGY_EFFECTIVENESS = [
-  { label: 'Neurogum', delta: 18 },
+  { label: 'Focus gum', delta: 18 },
   { label: '15-min sprints', delta: 12 },
   { label: 'Stand & reset', delta: 7 },
 ]
