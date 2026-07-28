@@ -8,7 +8,7 @@ export const FOCUS_STREAK_BEST = 9
 
 export const STRATEGY_EFFECTIVENESS = [
   { label: 'Focus gum', delta: 18 },
-  { label: '15-min sprints', delta: 12 },
+  { label: 'Walks', delta: 12 },
   { label: 'Stand & reset', delta: 7 },
 ]
 
