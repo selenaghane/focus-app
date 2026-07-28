@@ -68,7 +68,7 @@ const TABS = [
   { id: 'insights', label: 'Insights', Icon: InsightsIcon },
   { id: 'glasses', label: 'Glasses', Icon: GlassesIcon },
   { id: 'schedule', label: 'Schedule', Icon: ScheduleIcon },
-  { id: 'monster', label: 'Monster', Icon: MonsterIcon },
+  { id: 'monster', label: 'MediaMonster', Icon: MonsterIcon },
 ]
 
 export default function TabBar({ active, onChange }) {
@@ -81,11 +81,11 @@ export default function TabBar({ active, onChange }) {
             key={id}
             type="button"
             onClick={() => onChange(id)}
-            className="flex flex-col items-center gap-0.5 px-2 py-1"
+            className="flex flex-col items-center gap-0.5 px-1 py-1"
           >
             <Icon active={isActive} />
             <span
-              className={`text-[11px] font-medium ${
+              className={`text-[11px] font-medium whitespace-nowrap ${
                 isActive ? 'text-[#2a78d6]' : 'text-slate-400'
               }`}
             >

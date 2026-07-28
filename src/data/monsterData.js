@@ -20,7 +20,7 @@ export const HEAD_FEATURE_COLORS = ['#f2b134', '#2a78d6', '#1baf7a', '#e8607a']
 
 export const TEXTURES = ['smooth', 'curly', 'fuzzy', 'spiky']
 export const EXPRESSIONS = ['happy', 'goofy', 'meh', 'sad']
-export const HEAD_FEATURES = ['horns', 'curls', 'spikes']
+export const HEAD_FEATURES = ['horns', 'antennae', 'spikes']
 
 export const NUDGE_MESSAGES_LOW_ENERGY = [
   "You've got this! I believe in you!",
@@ -40,7 +40,7 @@ export function nudgeMessage(energy) {
 export const DEFAULT_MONSTER = {
   name: 'Fluffernaut',
   furColor: FUR_COLORS[0],
-  texture: 'smooth',
+  texture: 'fuzzy',
   eyeCount: 2,
   expression: 'happy',
   headFeature: 'horns',
