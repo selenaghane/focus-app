@@ -2,17 +2,15 @@ import { useState } from 'react'
 import PhoneFrame from './components/PhoneFrame'
 import TabBar from './components/TabBar'
 import LiveSession from './screens/LiveSession'
-import SessionSummary from './screens/SessionSummary'
+import Insights from './screens/Insights'
 import GlassesSettings from './screens/GlassesSettings'
 import ScheduleSettings from './screens/ScheduleSettings'
-import AppBlocking from './screens/AppBlocking'
 
 const SCREENS = {
   live: LiveSession,
-  summary: SessionSummary,
+  insights: Insights,
   glasses: GlassesSettings,
   schedule: ScheduleSettings,
-  blocking: AppBlocking,
 }
 
 function App() {

@@ -12,7 +12,7 @@ function LiveIcon({ active }) {
   )
 }
 
-function SummaryIcon({ active }) {
+function InsightsIcon({ active }) {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
       <rect x="4" y="12" width="3.2" height="8" rx="1" fill={active ? '#2a78d6' : '#94a3b8'} />
@@ -47,22 +47,11 @@ function ScheduleIcon({ active }) {
   )
 }
 
-function BlockingIcon({ active }) {
-  const color = active ? '#2a78d6' : '#94a3b8'
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="8.5" stroke={color} strokeWidth="1.8" />
-      <path d="M6.5 17.5l11-11" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-  )
-}
-
 const TABS = [
   { id: 'live', label: 'Live', Icon: LiveIcon },
-  { id: 'summary', label: 'Summary', Icon: SummaryIcon },
+  { id: 'insights', label: 'Insights', Icon: InsightsIcon },
   { id: 'glasses', label: 'Glasses', Icon: GlassesIcon },
   { id: 'schedule', label: 'Schedule', Icon: ScheduleIcon },
-  { id: 'blocking', label: 'Blocking', Icon: BlockingIcon },
 ]
 
 export default function TabBar({ active, onChange }) {
@@ -75,7 +64,7 @@ export default function TabBar({ active, onChange }) {
             key={id}
             type="button"
             onClick={() => onChange(id)}
-            className="flex flex-col items-center gap-0.5 px-2 py-1"
+            className="flex flex-col items-center gap-0.5 px-4 py-1"
           >
             <Icon active={isActive} />
             <span

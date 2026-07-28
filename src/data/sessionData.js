@@ -18,6 +18,7 @@ export const SESSION_END_LABEL = '10:40 AM'
 export const NOW_INDEX = 30
 export const NOW_LABEL = '10:22 AM'
 export const CURRENT_SCORE = FULL_SESSION[NOW_INDEX]
+export const IS_DIPPING = focusState(CURRENT_SCORE).label === 'Dipping'
 
 // Live screen shows the trailing 20-minute window ending at "now".
 export const LIVE_WINDOW = FULL_SESSION.slice(NOW_INDEX - 20, NOW_INDEX + 1)
