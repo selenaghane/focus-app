@@ -1,8 +1,6 @@
-// Rotating focusing strategies surfaced when the glasses detect a dip.
-
-export const STRATEGIES = [
-  { id: 'focus-gum', emoji: '🧠', text: 'Chew your focus gum' },
-  { id: 'stand', emoji: '🧍', text: 'Stand and reset — 60 seconds' },
-  { id: 'walk', emoji: '🚶', text: 'Go for a walk' },
-  { id: 'look-away', emoji: '👀', text: 'Look at something 20 ft away' },
-]
+// The single cue the glasses give when they detect a dip. One option, not a
+// menu: a nudge the student can act on without deciding anything first.
+export const BRAIN_BREAK = {
+  emoji: '🚶',
+  text: 'Get up and take a brain break',
+}

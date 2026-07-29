@@ -28,6 +28,7 @@ export default function Collapsible({ title, defaultOpen = false, children }) {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
+        data-flat
         className="flex items-center justify-between px-1 py-1"
       >
         <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide">

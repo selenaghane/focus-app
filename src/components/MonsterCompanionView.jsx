@@ -1,7 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Monster from './Monster'
 import MonsterScene from './MonsterScene'
-import { GREETINGS } from '../data/monsterData'
+import EnergyMeter from './EnergyMeter'
+import ScreenTimeCard from './ScreenTimeCard'
+import ScreenTimeSettings from './ScreenTimeSettings'
+import { DEFAULT_ENERGY } from '../data/monsterData'
 
 function playChirp() {
   try {
@@ -26,11 +29,15 @@ function playChirp() {
   }
 }
 
-export default function MonsterCompanionView({ config, energy = 0 }) {
-  const [greeting] = useState(
-    () => GREETINGS[Math.floor(Math.random() * GREETINGS.length)],
-  )
-
+export default function MonsterCompanionView({
+  config,
+  energy = DEFAULT_ENERGY,
+  usedMin,
+  goalMin,
+  onGoalChange,
+  unlockMin,
+  onUnlockChange,
+}) {
   useEffect(() => {
     playChirp()
   }, [])
@@ -38,19 +45,19 @@ export default function MonsterCompanionView({ config, energy = 0 }) {
   return (
     <div className="flex flex-col items-center gap-3">
       <MonsterScene scene={config.scene}>
-        <div className="flex flex-col items-center gap-2">
-          <div className="relative bg-white rounded-2xl shadow-sm px-3.5 py-2 max-w-[220px]">
-            <p className="text-sm font-medium text-slate-700 text-center">
-              {greeting}
-            </p>
-            <div className="absolute left-1/2 -bottom-1.5 -translate-x-1/2 w-3 h-3 bg-white rotate-45" />
-          </div>
-          <div className="monster-greet">
-            <Monster {...config} energy={energy} />
-          </div>
+        <div className="monster-greet">
+          <Monster {...config} energy={energy} />
         </div>
       </MonsterScene>
       <span className="text-base font-bold text-slate-900">{config.name}</span>
+      <EnergyMeter energy={energy} />
+      <ScreenTimeCard usedMin={usedMin} goalMin={goalMin} />
+      <ScreenTimeSettings
+        goalMin={goalMin}
+        onGoalChange={onGoalChange}
+        unlockMin={unlockMin}
+        onUnlockChange={onUnlockChange}
+      />
     </div>
   )
 }
