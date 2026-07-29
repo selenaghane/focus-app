@@ -12,11 +12,11 @@ function GlassesIcon() {
 
 function BluetoothIcon() {
   return (
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
       <path
         d="M7 7l10 10-5 5V2l5 5L7 17"
-        stroke="#94a3b8"
-        strokeWidth="2.4"
+        stroke="#2a78d6"
+        strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -34,17 +34,20 @@ function MiniBatteryIcon({ pct }) {
   )
 }
 
-export default function GlassesDeviceCard({ ownerName = 'Alex', batteryPct = 82 }) {
+import { GLASSES_NAME } from '../data/branding'
+
+export default function GlassesDeviceCard({ ownerName = 'Selena', batteryPct = 82 }) {
   return (
     <div className="bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-4 flex items-center gap-3.5">
-      <div className="shrink-0 w-12 h-12 rounded-full bg-sky-50 flex items-center justify-center">
+      <div className="shrink-0 w-11 h-11 rounded-full bg-sky-50 flex items-center justify-center">
         <GlassesIcon />
       </div>
-      <div className="min-w-0 flex-1 flex flex-col gap-0.5">
-        <span className="text-sm font-bold text-slate-900">Focus glasses</span>
-        <span className="flex items-center gap-1.5 text-xs text-slate-400">
+      <div className="min-w-0 flex-1 flex items-center gap-2">
+        <span className="shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-sky-50">
           <BluetoothIcon />
-          Connected to {ownerName}&rsquo;s glasses
+        </span>
+        <span className="text-[13px] font-bold text-slate-900 leading-snug">
+          Connected to {ownerName}&rsquo;s {GLASSES_NAME}
         </span>
       </div>
       <div className="shrink-0 flex flex-col items-end gap-1">

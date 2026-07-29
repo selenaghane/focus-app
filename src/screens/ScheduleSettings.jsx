@@ -1,9 +1,18 @@
 import { useState } from 'react'
 import SettingRow from '../components/SettingRow'
 import ScheduleBlockCard from '../components/ScheduleBlockCard'
+import BlockEditor from '../components/BlockEditor'
 import Collapsible from '../components/Collapsible'
 import AppBlockRow from '../components/AppBlockRow'
-import { SCHEDULE_BLOCKS } from '../data/scheduleData'
+import {
+  createBlock,
+  isBlockActive,
+  activeBlock,
+  nextBlock,
+  whenLabel,
+  formatTime,
+  DEMO_NOW,
+} from '../data/scheduleData'
 import { APP_LIST } from '../data/blockingData'
 
 function SectionLabel({ children }) {
@@ -14,45 +23,130 @@ function SectionLabel({ children }) {
   )
 }
 
-export default function ScheduleSettings() {
-  const [autoOn, setAutoOn] = useState(true)
-  const [blocks, setBlocks] = useState(SCHEDULE_BLOCKS)
+function StatusBanner({ blocks, autoOn, now }) {
+  if (!autoOn) {
+    return (
+      <div className="rounded-2xl bg-slate-50 border border-slate-100 px-4 py-3">
+        <span className="text-xs text-slate-400">
+          Automatic scheduling is off — the glasses stay quiet all day.
+        </span>
+      </div>
+    )
+  }
+
+  const running = activeBlock(blocks, now)
+  if (running) {
+    return (
+      <div className="rounded-2xl bg-emerald-50 border border-emerald-100 px-4 py-3 flex flex-col gap-0.5">
+        <span className="text-xs font-semibold text-emerald-700">
+          {running.label} is running now
+        </span>
+        <span className="text-[11px] text-emerald-600/80 tabular-nums">
+          Until {formatTime(running.endMin)} · blocked apps are paused
+        </span>
+      </div>
+    )
+  }
+
+  const next = nextBlock(blocks, now)
+  if (!next) {
+    return (
+      <div className="rounded-2xl bg-slate-50 border border-slate-100 px-4 py-3">
+        <span className="text-xs text-slate-400">
+          No focus blocks scheduled — add one below.
+        </span>
+      </div>
+    )
+  }
+
+  return (
+    <div className="rounded-2xl bg-sky-50 border border-sky-100 px-4 py-3 flex flex-col gap-0.5">
+      <span className="text-xs font-semibold text-[#2a78d6]">
+        Next: {next.block.label}
+      </span>
+      <span className="text-[11px] text-[#2a78d6]/70 tabular-nums">
+        {whenLabel(next, now)} at {formatTime(next.block.startMin)}
+      </span>
+    </div>
+  )
+}
+
+export default function ScheduleSettings({
+  blocks,
+  onBlocksChange,
+  autoOn,
+  onAutoOnChange,
+  now = DEMO_NOW,
+}) {
+  const [editing, setEditing] = useState(null) // { block, isNew } | null
   const [blockingOn, setBlockingOn] = useState(true)
   const [apps, setApps] = useState(APP_LIST)
 
-  const toggleBlock = (id) => {
-    setBlocks((prev) =>
-      prev.map((b) => (b.id === id ? { ...b, enabled: !b.enabled } : b)),
+  const toggleBlock = (id) =>
+    onBlocksChange(
+      blocks.map((b) => (b.id === id ? { ...b, enabled: !b.enabled } : b)),
     )
+
+  const saveBlock = (updated) => {
+    onBlocksChange(
+      editing.isNew
+        ? [...blocks, updated]
+        : blocks.map((b) => (b.id === updated.id ? updated : b)),
+    )
+    setEditing(null)
   }
 
-  const toggleApp = (id) => {
+  const deleteBlock = () => {
+    onBlocksChange(blocks.filter((b) => b.id !== editing.block.id))
+    setEditing(null)
+  }
+
+  const toggleApp = (id) =>
     setApps((prev) =>
       prev.map((a) => (a.id === id ? { ...a, blocked: !a.blocked } : a)),
     )
-  }
 
   const blockedCount = apps.filter((a) => a.blocked).length
 
+  if (editing) {
+    return (
+      <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar px-5 pt-2 pb-4">
+        <BlockEditor
+          block={editing.block}
+          isNew={editing.isNew}
+          onSave={saveBlock}
+          onCancel={() => setEditing(null)}
+          onDelete={deleteBlock}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar px-5 pt-2 pb-4 flex flex-col gap-4">
+      <StatusBanner blocks={blocks} autoOn={autoOn} now={now} />
+
       <SettingRow
         label="Automatic scheduling"
         sub="Glasses activate during the focus blocks below, and do nothing outside them"
         checked={autoOn}
-        onChange={setAutoOn}
+        onChange={onAutoOnChange}
       />
 
       <div className="flex flex-col gap-2">
         <SectionLabel>Focus blocks</SectionLabel>
+        {blocks.length === 0 && (
+          <span className="text-xs text-slate-400 px-1 py-2">
+            No blocks yet — add your first one below.
+          </span>
+        )}
         {blocks.map((b) => (
           <ScheduleBlockCard
             key={b.id}
-            label={b.label}
-            time={b.time}
-            days={b.days}
-            enabled={b.enabled}
+            block={b}
+            active={autoOn && isBlockActive(b, now)}
             onToggle={() => toggleBlock(b.id)}
+            onEdit={() => setEditing({ block: b, isNew: false })}
             disabled={!autoOn}
           />
         ))}
@@ -60,7 +154,8 @@ export default function ScheduleSettings() {
 
       <button
         type="button"
-        className="rounded-2xl border-2 border-dashed border-slate-200 text-slate-400 text-sm font-semibold py-3 active:border-slate-300 transition-colors"
+        onClick={() => setEditing({ block: createBlock(), isNew: true })}
+        className="rounded-2xl border-2 border-dashed border-slate-200 text-slate-400 text-sm font-semibold py-3 active:border-slate-300 active:text-slate-500 transition-colors"
       >
         + Add focus block
       </button>
@@ -85,10 +180,8 @@ export default function ScheduleSettings() {
         {apps.map((a) => (
           <AppBlockRow
             key={a.id}
+            id={a.id}
             name={a.name}
-            color={a.color}
-            letter={a.letter}
-            textDark={a.textDark}
             blocked={a.blocked}
             onToggle={() => toggleApp(a.id)}
             disabled={!blockingOn}

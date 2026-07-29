@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { STRATEGIES } from '../data/strategiesData'
+import { BRAIN_BREAK } from '../data/strategiesData'
 
 function VibrationIcon() {
   return (
@@ -25,9 +25,6 @@ function CheckIcon() {
 }
 
 export default function StrategyCard({ onDismiss }) {
-  const [strategy] = useState(
-    () => STRATEGIES[Math.floor(Math.random() * STRATEGIES.length)],
-  )
   const [done, setDone] = useState(false)
 
   const handleDone = () => {
@@ -54,10 +51,10 @@ export default function StrategyCard({ onDismiss }) {
       </div>
       <div className="flex items-center gap-3">
         <div className="shrink-0 w-10 h-10 rounded-full bg-white flex items-center justify-center text-xl shadow-sm">
-          {strategy.emoji}
+          {BRAIN_BREAK.emoji}
         </div>
         <p className="text-sm font-semibold text-slate-700 leading-snug">
-          {strategy.text}
+          {BRAIN_BREAK.text}
         </p>
       </div>
       <button

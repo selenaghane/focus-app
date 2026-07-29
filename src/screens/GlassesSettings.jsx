@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import GlassesDeviceCard from '../components/GlassesDeviceCard'
-import ScienceCard from '../components/ScienceCard'
 import SettingRow from '../components/SettingRow'
 import SegmentedControl from '../components/SegmentedControl'
+import AppearanceSettings from '../components/AppearanceSettings'
 
 function SectionLabel({ children }) {
   return (
@@ -15,21 +15,10 @@ function SectionLabel({ children }) {
 export default function GlassesSettings() {
   const [remindersOn, setRemindersOn] = useState(true)
   const [intensity, setIntensity] = useState('Medium')
-  const [ambientGlow, setAmbientGlow] = useState(true)
-  const [quietBreaks, setQuietBreaks] = useState(true)
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar px-5 pt-2 pb-4 flex flex-col gap-4">
       <GlassesDeviceCard />
-
-      <ScienceCard title="How your glasses read focus">
-        Your glasses track tiny changes in your pupils and eye movements,
-        moment to moment. Those changes are tied to your brain&rsquo;s locus
-        coeruleus&ndash;norepinephrine (LC-NE) system &mdash; the network
-        that controls attention and alertness. It&rsquo;s a
-        scientifically-backed proxy for what&rsquo;s happening in your
-        brain, not a direct measurement of it.
-      </ScienceCard>
 
       <div className="flex flex-col gap-2">
         <SectionLabel>During focus sessions</SectionLabel>
@@ -57,19 +46,8 @@ export default function GlassesSettings() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <SectionLabel>Extra cues</SectionLabel>
-        <SettingRow
-          label="Ambient glow"
-          sub="Subtle lens tint when focus drops, no buzz needed"
-          checked={ambientGlow}
-          onChange={setAmbientGlow}
-        />
-        <SettingRow
-          label="Quiet during breaks"
-          sub="Pause all reminders while you're on a scheduled break"
-          checked={quietBreaks}
-          onChange={setQuietBreaks}
-        />
+        <SectionLabel>Appearance</SectionLabel>
+        <AppearanceSettings />
       </div>
 
       <div className="flex gap-2">
@@ -84,6 +62,7 @@ export default function GlassesSettings() {
           <span className="text-[11px] text-slate-400">Auto-sync on</span>
         </div>
       </div>
+
     </div>
   )
 }

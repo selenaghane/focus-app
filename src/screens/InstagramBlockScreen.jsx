@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import Monster from '../components/Monster'
 import MonsterNudge from '../components/MonsterNudge'
+import AppIcon from '../components/AppIcon'
+import { GLASSES_NAME } from '../data/branding'
+import { DEFAULT_ENERGY } from '../data/monsterData'
+import { formatRange } from '../data/scheduleData'
 
 function LockIcon() {
   return (
@@ -27,18 +31,23 @@ function CheckCircleIcon({ size = 14 }) {
   )
 }
 
-const MIN_WORDS = 60
+const MIN_WORDS = 30
 
 function countWords(text) {
   const trimmed = text.trim()
   return trimmed.length === 0 ? 0 : trimmed.split(/\s+/).length
 }
 
-const blockEvent = (e) => e.preventDefault()
+// DEMO ONLY: paste blocking is temporarily disabled so the flow can be
+// driven quickly during a walkthrough. The copy still says it's off.
+// Restore `(e) => e.preventDefault()` to re-enable the real behaviour.
+const blockEvent = () => {}
 
 export default function InstagramBlockScreen({
   monsterConfig,
-  monsterEnergy = 0,
+  monsterEnergy = DEFAULT_ENERGY,
+  block,
+  unlockMin = 5,
   onUnlock,
   onStayFocused,
 }) {
@@ -66,7 +75,7 @@ export default function InstagramBlockScreen({
           <CheckCircleIcon size={28} />
         </div>
         <h1 className="text-lg font-bold text-slate-900">
-          Unlocked — 5:00 remaining
+          Unlocked — {unlockMin}:00 remaining
         </h1>
         <p className="text-sm text-slate-500">
           Instagram will pause again automatically when time&rsquo;s up.
@@ -113,14 +122,16 @@ export default function InstagramBlockScreen({
         </div>
 
         <div className="flex flex-col items-center gap-1.5 text-center">
-          <div className="w-11 h-11 rounded-2xl bg-[#e1306c] flex items-center justify-center text-white font-bold text-lg shadow-sm">
-            I
+          <div className="shadow-sm rounded-[13px]">
+            <AppIcon id="instagram" size={44} />
           </div>
           <h1 className="text-lg font-bold text-slate-900 mt-0.5">
             Instagram is paused
           </h1>
           <p className="text-xs text-slate-500">
-            Homework block · 4:00–5:30 PM · powered by your glasses
+            {block
+              ? `${block.label} · ${formatRange(block.startMin, block.endMin)}`
+              : 'Focus block'} · powered by {GLASSES_NAME}
           </p>
         </div>
 
@@ -174,7 +185,7 @@ export default function InstagramBlockScreen({
                 : 'bg-slate-200 text-slate-400 cursor-not-allowed'
             }`}
           >
-            Unlock for 5 minutes
+            Unlock for {unlockMin} minutes
           </button>
           <button
             type="button"

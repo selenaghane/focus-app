@@ -5,9 +5,9 @@ import {
   FUR_COLORS,
   HEAD_FEATURE_COLORS,
   TEXTURES,
-  EXPRESSIONS,
   HEAD_FEATURES,
   SCENES,
+  MAX_ENERGY,
 } from '../data/monsterData'
 
 function FieldLabel({ children }) {
@@ -43,7 +43,7 @@ export default function MonsterCustomizeView({ config, onChange }) {
   return (
     <div className="flex flex-col gap-4">
       <MonsterScene scene={config.scene}>
-        <Monster {...config} energy={0} />
+        <Monster {...config} energy={MAX_ENERGY} />
       </MonsterScene>
 
       <div className="bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-1.5">
@@ -80,15 +80,6 @@ export default function MonsterCustomizeView({ config, onChange }) {
           options={['1 eye', '2 eyes']}
           value={config.eyeCount === 1 ? '1 eye' : '2 eyes'}
           onChange={(v) => set({ eyeCount: v === '1 eye' ? 1 : 2 })}
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <FieldLabel>Mood</FieldLabel>
-        <SegmentedControl
-          options={EXPRESSIONS}
-          value={config.expression}
-          onChange={(v) => set({ expression: v })}
         />
       </div>
 
