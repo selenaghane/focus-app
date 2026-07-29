@@ -1,8 +1,9 @@
 import StatCard from '../components/StatCard'
 import TrendsChart from '../components/TrendsChart'
-import StrategyRankCard from '../components/StrategyRankCard'
-import CoachInsightCard from '../components/CoachInsightCard'
-import { FOCUS_STREAK_DAYS, FOCUS_STREAK_BEST, COACH_INSIGHT } from '../data/trendsData'
+import RecommendationsCard from '../components/RecommendationsCard'
+import BreakResponseCard from '../components/BreakResponseCard'
+import UnlockReasonsCard from '../components/UnlockReasonsCard'
+import { FOCUS_STREAK_DAYS, FOCUS_STREAK_BEST } from '../data/trendsData'
 
 export default function TrendsView() {
   return (
@@ -16,9 +17,11 @@ export default function TrendsView() {
         wide
       />
 
-      <StrategyRankCard />
+      <BreakResponseCard />
 
-      <CoachInsightCard text={COACH_INSIGHT} />
+      <RecommendationsCard />
+
+      <UnlockReasonsCard />
     </>
   )
 }

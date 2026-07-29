@@ -1,3 +1,5 @@
+import { GLASSES_NAME } from '../data/branding'
+
 export default function StatusPill() {
   return (
     <div className="self-center flex items-center gap-2 bg-emerald-50 border border-emerald-100 rounded-full pl-2.5 pr-3.5 py-1.5">
@@ -6,7 +8,7 @@ export default function StatusPill() {
         <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
       </span>
       <span className="text-xs font-medium text-slate-600">
-        Glasses connected
+        {GLASSES_NAME} connected
       </span>
     </div>
   )
