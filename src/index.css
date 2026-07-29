@@ -13,6 +13,44 @@ body {
   display: none;
 }
 
+/* Press feedback ------------------------------------------------------
+   Native apps acknowledge every tap. One rule gives all buttons a quick
+   scale-down and a softer spring back, so nothing feels inert.
+
+   These live in the utilities layer and outrank Tailwind's own
+   `transition-*` classes, so the shorthand has to re-declare the colour
+   transitions components rely on — otherwise it would silently cancel
+   them. Row-shaped buttons opt out of the scale with `data-flat` and
+   dim instead, which reads better than shrinking a line of text. */
+@layer utilities {
+  button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+  }
+
+  button:not(:disabled) {
+    transition:
+      transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      opacity 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  button:not(:disabled):active:not([data-flat]) {
+    transform: scale(0.955);
+    /* Snap in fast, spring back slow. */
+    transition-duration: 40ms, 150ms, 150ms, 150ms, 150ms, 150ms;
+  }
+
+  button:not(:disabled)[data-flat]:active {
+    opacity: 0.55;
+    transition-duration: 40ms;
+  }
+}
+
 @keyframes monster-greet {
   0% {
     transform: translateY(0) rotate(0deg);

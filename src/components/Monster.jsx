@@ -1,5 +1,19 @@
 import { useId } from 'react'
 import { lighten, darken } from '../utils/color'
+import { stageFromEnergy, DEFAULT_ENERGY } from '../data/monsterData'
+
+// Five discrete conditions, from thriving to lifeless. Energy rounds to one
+// of these rather than sliding continuously, so each step is clearly visible.
+// Mood is NOT customisable — it belongs to the energy meter alone, so time
+// spent on blocked apps is the only thing that makes the monster sadder and
+// greyer. `lid` is the fraction of the eye covered.
+const STAGE_PRESETS = [
+  { lid: 0, slump: 0, droop: 0, saturate: 1.1, brightness: 1.03, sparkle: 1, zzz: 0, mouth: 'goofy' },
+  { lid: 0.1, slump: 0.8, droop: 1, saturate: 1, brightness: 1, sparkle: 0.5, zzz: 0, mouth: 'happy' },
+  { lid: 0.34, slump: 2.4, droop: 2.5, saturate: 0.68, brightness: 0.99, sparkle: 0, zzz: 0.3, mouth: 'meh' },
+  { lid: 0.58, slump: 4.6, droop: 4, saturate: 0.34, brightness: 0.95, sparkle: 0, zzz: 0.7, mouth: 'sad' },
+  { lid: 0.8, slump: 7, droop: 5.5, saturate: 0, brightness: 0.9, sparkle: 0, zzz: 1, mouth: 'sad' },
+]
 
 const CX = 100
 const CY = 100
@@ -7,12 +21,16 @@ const RX = 60
 const RY = 66
 
 // Each texture is defined by how far apart its edge tufts sit, how far they
-// stick out, and whether they come to a point. The silhouette IS the texture.
+// stick out, whether they come to a point, and how irregular the whole
+// outline is. The silhouette IS the texture.
+//
+// `smooth` is short plush fur rather than bare skin: lots of small, even
+// bumps on a near-perfect round body — visibly furry, but no spikes.
 const EDGE = {
-  smooth: { spacing: 26, push: 2, jagged: false },
-  curly: { spacing: 17, push: 9, jagged: false },
-  fuzzy: { spacing: 8, push: 11, jagged: true },
-  spiky: { spacing: 19, push: 19, jagged: true },
+  smooth: { spacing: 10, push: 3.2, jagged: false, irregular: 0.18 },
+  curly: { spacing: 17, push: 9, jagged: false, irregular: 0.75 },
+  fuzzy: { spacing: 8, push: 11, jagged: true, irregular: 1 },
+  spiky: { spacing: 19, push: 19, jagged: true, irregular: 1 },
 }
 
 function ellipsePerimeter(rx, ry) {
@@ -28,16 +46,18 @@ function rand(i, seed) {
 
 // A furry blob outline, reusable for the body and the arms so they match.
 function blobPath(cx, cy, rx, ry, texture, pear = 0) {
-  const { spacing, push, jagged } = EDGE[texture] || EDGE.smooth
+  const { spacing, push, jagged, irregular } = EDGE[texture] || EDGE.smooth
   const n = Math.max(8, Math.round(ellipsePerimeter(rx, ry) / spacing))
   const scale = Math.min(1, Math.max(rx, ry) / 34)
   const out = push * scale
 
   const pt = (i) => {
     // Uneven angular spacing and radius so the base outline isn't a clean ring.
+    // `irregular` dials that back, which is what keeps smooth fur tidy.
     const a =
-      ((360 / n) * (i + (rand(i, 4) - 0.5) * 0.45) - 90) * (Math.PI / 180)
-    const wobble = 1 + (rand(i, 1) - 0.5) * 0.09
+      ((360 / n) * (i + (rand(i, 4) - 0.5) * 0.3 * irregular) - 90) *
+      (Math.PI / 180)
+    const wobble = 1 + (rand(i, 1) - 0.5) * 0.06 * irregular
     const widen = (1 + pear * Math.max(0, Math.sin(a))) * wobble
     return { x: cx + rx * widen * Math.cos(a), y: cy + ry * widen * Math.sin(a) }
   }
@@ -54,8 +74,12 @@ function blobPath(cx, cy, rx, ry, texture, pear = 0) {
     const dy = my - cy
     const len = Math.hypot(dx, dy) || 1
     // Each tuft gets its own length and lean, so no two look alike.
-    const k = out * (0.5 + rand(i, 2) * 1.05)
-    const lean = (rand(i, 3) - 0.5) * Math.hypot(p2.x - p1.x, p2.y - p1.y) * 0.55
+    const k = out * (1 + (rand(i, 2) - 0.5) * 1.05 * irregular)
+    const lean =
+      (rand(i, 3) - 0.5) *
+      Math.hypot(p2.x - p1.x, p2.y - p1.y) *
+      0.55 *
+      irregular
     const ox = mx + (dx / len) * k - (dy / len) * lean
     const oy = my + (dy / len) * k + (dx / len) * lean
     d += jagged
@@ -107,8 +131,8 @@ function HeadFeature({ headFeature, headFeatureColor }) {
   )
 }
 
-function Eye({ cx, cy, r, energy, furColor, id }) {
-  const lidHeight = (energy / 3) * (r * 1.45)
+function Eye({ cx, cy, r, lid, furColor, id }) {
+  const lidHeight = lid * (r * 2.05)
   return (
     <g>
       <defs>
@@ -120,7 +144,7 @@ function Eye({ cx, cy, r, energy, furColor, id }) {
       <circle cx={cx} cy={cy + r * 0.1} r={r * 0.6} fill="#1f1c1c" />
       <circle cx={cx - r * 0.22} cy={cy - r * 0.24} r={r * 0.24} fill="#fff" />
       <circle cx={cx + r * 0.26} cy={cy + r * 0.3} r={r * 0.1} fill="#fff" opacity="0.9" />
-      {energy > 0 && (
+      {lid > 0 && (
         <rect
           x={cx - r - 1}
           y={cy - r - 1}
@@ -134,8 +158,8 @@ function Eye({ cx, cy, r, energy, furColor, id }) {
   )
 }
 
-function Mouth({ expression, energy, uid }) {
-  const dy = energy * 3
+function Mouth({ expression, droop, uid }) {
+  const dy = droop
 
   if (expression === 'goofy') {
     // Big open laugh: dark interior, jagged white teeth along the top, tongue.
@@ -191,9 +215,7 @@ function Mouth({ expression, energy, uid }) {
   )
 }
 
-function Aura({ energy }) {
-  const sparkle = Math.max(0, 1 - energy * 0.45)
-  const zzz = Math.min(1, energy * 0.42)
+function Aura({ sparkle, zzz }) {
   return (
     <g>
       <g opacity={sparkle}>
@@ -213,17 +235,15 @@ export default function Monster({
   furColor = '#7fb3e8',
   texture = 'smooth',
   eyeCount = 2,
-  expression = 'happy',
   headFeature = 'horns',
   headFeatureColor = '#f2b134',
-  energy = 0,
+  energy = DEFAULT_ENERGY,
   size = 176,
 }) {
   const uid = useId()
+  const preset = STAGE_PRESETS[stageFromEnergy(energy)]
   const bellyColor = lighten(furColor, 0.28)
   const footColor = darken(furColor, 0.2)
-  const slumpRotate = energy * 2.5
-  const slumpShift = energy * 2
 
   return (
     <svg
@@ -231,10 +251,11 @@ export default function Monster({
       height={size}
       viewBox="0 0 200 200"
       style={{
-        filter: `saturate(${1 - energy * 0.22}) brightness(${1 - energy * 0.08})`,
+        filter: `saturate(${preset.saturate}) brightness(${preset.brightness})`,
+        transition: 'filter 0.4s ease',
       }}
     >
-      <g transform={`rotate(${slumpRotate} 100 110) translate(0 ${slumpShift})`}>
+      <g transform={`rotate(${preset.slump} 100 110) translate(0 ${preset.slump * 0.8})`}>
         {/* Feet */}
         <ellipse cx="77" cy="176" rx="17" ry="9.5" fill={footColor} />
         <ellipse cx="123" cy="176" rx="17" ry="9.5" fill={footColor} />
@@ -256,17 +277,17 @@ export default function Monster({
         <ellipse cx="140" cy="115" rx="10" ry="5.5" fill="#f4849e" opacity="0.5" />
 
         {eyeCount === 1 ? (
-          <Eye cx={100} cy={80} r={35} energy={energy} furColor={furColor} id={`${uid}-eye`} />
+          <Eye cx={100} cy={80} r={35} lid={preset.lid} furColor={furColor} id={`${uid}-eye`} />
         ) : (
           <>
-            <Eye cx={76} cy={78} r={24} energy={energy} furColor={furColor} id={`${uid}-eye-l`} />
-            <Eye cx={124} cy={78} r={24} energy={energy} furColor={furColor} id={`${uid}-eye-r`} />
+            <Eye cx={76} cy={78} r={24} lid={preset.lid} furColor={furColor} id={`${uid}-eye-l`} />
+            <Eye cx={124} cy={78} r={24} lid={preset.lid} furColor={furColor} id={`${uid}-eye-r`} />
           </>
         )}
 
-        <Mouth expression={expression} energy={energy} uid={uid} />
+        <Mouth expression={preset.mouth} droop={preset.droop} uid={uid} />
 
-        <Aura energy={energy} />
+        <Aura sparkle={preset.sparkle} zzz={preset.zzz} />
       </g>
     </svg>
   )

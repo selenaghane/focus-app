@@ -2,7 +2,16 @@ import { useState } from 'react'
 import MonsterCompanionView from '../components/MonsterCompanionView'
 import MonsterCustomizeView from '../components/MonsterCustomizeView'
 
-export default function MonsterScreen({ config, onConfigChange, energy }) {
+export default function MonsterScreen({
+  config,
+  onConfigChange,
+  energy,
+  usedMin,
+  goalMin,
+  onGoalChange,
+  unlockMin,
+  onUnlockChange,
+}) {
   const [view, setView] = useState('companion')
 
   return (
@@ -19,7 +28,15 @@ export default function MonsterScreen({ config, onConfigChange, energy }) {
       </div>
 
       {view === 'companion' ? (
-        <MonsterCompanionView config={config} energy={energy} />
+        <MonsterCompanionView
+          config={config}
+          energy={energy}
+          usedMin={usedMin}
+          goalMin={goalMin}
+          onGoalChange={onGoalChange}
+          unlockMin={unlockMin}
+          onUnlockChange={onUnlockChange}
+        />
       ) : (
         <MonsterCustomizeView config={config} onChange={onConfigChange} />
       )}
