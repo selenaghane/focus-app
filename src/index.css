@@ -13,6 +13,20 @@ body {
   display: none;
 }
 
+/* Fit-to-viewport phone -----------------------------------------------
+   PhoneFrame measures the window and sets --phone-scale (1 on desktop,
+   smaller on a real phone). A transform alone would shrink the pixels but
+   still reserve the full 390x844 box, leaving a screenful of dead space, so
+   the negative margins claw the difference back on both axes. */
+.phone-device {
+  --s: var(--phone-scale, 1);
+  transform: scale(var(--s));
+  transform-origin: top center;
+  margin-bottom: calc((var(--s) - 1) * 844px);
+  margin-left: calc((var(--s) - 1) * 195px);
+  margin-right: calc((var(--s) - 1) * 195px);
+}
+
 /* Press feedback ------------------------------------------------------
    Native apps acknowledge every tap. One rule gives all buttons a quick
    scale-down and a softer spring back, so nothing feels inert.
