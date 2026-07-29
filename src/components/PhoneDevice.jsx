@@ -2,7 +2,7 @@ import StatusBar from './StatusBar'
 
 export default function PhoneDevice({ children }) {
   return (
-    <div className="relative shrink-0 w-[390px] h-[844px] rounded-[55px] bg-slate-900 p-3 shadow-[0_30px_60px_-15px_rgba(15,23,42,0.45)]">
+    <div className="phone-device relative shrink-0 w-[390px] h-[844px] rounded-[55px] bg-slate-900 p-3 shadow-[0_30px_60px_-15px_rgba(15,23,42,0.45)]">
       {/* Side buttons */}
       <div className="absolute -left-[2px] top-[120px] w-[3px] h-8 rounded-l-sm bg-slate-800" />
       <div className="absolute -left-[2px] top-[165px] w-[3px] h-14 rounded-l-sm bg-slate-800" />
