@@ -17,9 +17,9 @@ export default function TrendsView() {
         wide
       />
 
-      <BreakResponseCard />
-
       <RecommendationsCard />
+
+      <BreakResponseCard />
 
       <UnlockReasonsCard />
     </>
