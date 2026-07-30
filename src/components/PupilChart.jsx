@@ -83,23 +83,12 @@ export default function PupilChart() {
         <span>Now</span>
       </div>
 
-      <div className="flex items-center justify-between gap-2 mt-2">
-        <div className="flex items-center gap-1.5 min-w-0">
-          <span className="inline-block w-2.5 h-2.5 rounded-sm bg-emerald-500/20 border border-emerald-500/40 shrink-0" />
-          <span className="text-[11px] text-slate-400 truncate">
-            Reacting above +{ENGAGED_THRESHOLD_MM.toFixed(2)} mm
-          </span>
-        </div>
-        <span className="text-[11px] text-slate-400 shrink-0">
-          Light-corrected
+      <div className="flex items-center gap-1.5 mt-2">
+        <span className="inline-block w-2.5 h-2.5 rounded-sm bg-emerald-500/20 border border-emerald-500/40 shrink-0" />
+        <span className="text-[11px] text-slate-400 truncate">
+          Reacting above +{ENGAGED_THRESHOLD_MM.toFixed(2)} mm
         </span>
       </div>
-
-      <p className="text-[11px] text-slate-400 leading-snug mt-1.5">
-        This line is how much your pupil <em className="not-italic font-semibold text-slate-500">moves</em>, not
-        how wide it is. A lapse is the line going flat — your pupil stops
-        reacting to the work.
-      </p>
     </div>
   )
 }
