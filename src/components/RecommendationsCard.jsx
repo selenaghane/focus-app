@@ -77,12 +77,12 @@ function buildTips() {
     },
     {
       Icon: BuzzIcon,
-      title: 'Actually get up when it buzzes',
+      title: 'Take scheduled breaks',
       body: `You ignored ${ignored} of ${BREAK_NUDGES_SENT} nudges. Breaking straight away gets you back on task in ${RECOVERY_WITH_BREAK_MIN} minutes; pushing through costs about ${costOfIgnoring} more.`,
     },
     {
       Icon: TrendIcon,
-      title: `Protect the run around ${DEEPEST_DIP_LABEL}`,
+      title: `Avoid the ${DEEPEST_DIP_LABEL.replace(/\s/g, '')} distractions`,
       body: `That's when you dip hardest. A planned break just before it tends to prevent the crash. You're up ${gain} points in two weeks — worth keeping.`,
     },
   ]
