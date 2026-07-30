@@ -111,12 +111,6 @@ export default function SessionChart() {
           <span className="text-[11px] text-slate-400">Nudge sent</span>
         </div>
       </div>
-
-      <p className="text-[11px] text-slate-400 leading-snug mt-1.5">
-        Each lapse is a flat stretch below the line — moments your pupil
-        stopped reacting. Pupil size on its own doesn&rsquo;t count as a lapse:
-        a bigger or smaller baseline can mean either thing.
-      </p>
     </div>
   )
 }
