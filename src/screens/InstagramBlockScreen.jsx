@@ -31,7 +31,7 @@ function CheckCircleIcon({ size = 14 }) {
   )
 }
 
-const MIN_WORDS = 30
+const MIN_WORDS = 60
 
 function countWords(text) {
   const trimmed = text.trim()
