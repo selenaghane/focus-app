@@ -137,13 +137,23 @@ html[data-theme="dark"] {
   height: 100vh;
   height: 100dvh;
   display: flex;
-  background: #f1f5f9;
+  justify-content: center;
+  background: #e7ecf3;
 }
 
+/* This is a phone app, so it stays a phone app at every width — one column,
+   tab bar along the bottom, thumb-reachable. On a phone that column is the
+   whole screen; on a desktop browser it's centred at phone width against a
+   flat surround, with no rounded corners, shadow or bezel, because it isn't
+   pretending to be a device sitting on a desk. What you see there is what
+   ships, just with the monitor showing through either side. */
 .app-shell {
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  /* iPhone 15 Pro Max is 430pt; nothing wider than the largest phone. */
+  max-width: 430px;
   overflow: hidden;
   padding-top: env(safe-area-inset-top);
   background: linear-gradient(to bottom, #f0f9ff, #ffffff 45%, #ecfdf5);
@@ -168,46 +178,50 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="dark"] .app-viewport {
-  background: #090f1a;
+  background: #05080e;
 }
 
 html[data-theme="dark"] .app-shell {
   background: linear-gradient(to bottom, #0e1a2b, #0b1220 45%, #0c1b18);
 }
 
-/* On a wide screen this stops being a phone layout. The tab bar becomes a
-   left rail and the content gets a readable column beside it, which is a
-   web app — not a phone-shaped card floating in grey. Below this width the
-   bar stays at the bottom, where a thumb can reach it. */
-@media (min-width: 1024px) {
-  .app-shell {
-    flex-direction: row-reverse;
-  }
-
-  .app-content {
-    align-items: center;
-  }
-
-  /* The screens are built as narrow card stacks; letting them span a
-     1600px monitor would leave every row stretched to nonsense. */
-  .app-content > * {
-    width: 100%;
-    max-width: 44rem;
-  }
-}
-
 /* Installed on a phone, the gap below the tab bar has to be whatever the
    device's home indicator actually needs. In a browser tab and inside the
    demo frame the inset is 0 and the 24px floor wins, so one rule covers
-   both. The rail on desktop sits against the left edge and needs none of it. */
+   both. */
 .tab-bar-safe {
   padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
 }
 
-@media (min-width: 1024px) {
-  .tab-bar-safe {
-    padding-bottom: 1rem;
-  }
+/* Feels like an app rather than a page ---------------------------------
+   Things a web view does by default that no native app does: rubber-band
+   the whole page past its ends, offer a text-selection I-beam over the
+   chrome, pop a callout on long-press, and resize text on rotation. */
+html,
+body {
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  -webkit-touch-callout: none;
+}
+
+/* Selection stays available where there's something worth copying. */
+.app-shell {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.app-shell input,
+.app-shell textarea {
+  user-select: text;
+  -webkit-user-select: text;
+
+  /* iOS Safari zooms the whole page when a control smaller than 16px takes
+     focus, then leaves it zoomed — the single most recognisable tell that
+     an app is a web view. The design's 14px controls have to give. */
+  font-size: 16px;
 }
 
 /* Reduce motion -------------------------------------------------------
