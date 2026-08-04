@@ -1,0 +1,76 @@
+# Compiles the iOS app on a macOS runner.
+#
+# THIS FILE IS NOT ACTIVE WHERE IT SITS. GitHub only runs workflows from
+# .github/workflows/, and writing there needs a token scope this repo's
+# automation doesn't have — so it's parked here. To turn it on, copy it to
+# .github/workflows/ios-build.yml (see "Building without a Mac" in the
+# README; it's a two-minute job in the GitHub web UI).
+#
+# Xcode only runs on macOS, so this is how the project gets built without
+# owning a Mac. It signs nothing and needs no Apple account: it builds for the
+# simulator with signing off, which is enough to prove the project compiles,
+# the web assets copy into place, and the Swift package dependencies resolve.
+#
+# Turning this into a TestFlight upload is a separate job — see the README.
+# That one does need a paid account and App Store Connect credentials.
+
+name: iOS build
+
+on:
+  push:
+    paths:
+      - 'ios/**'
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'capacitor.config.json'
+      - 'vite.config.js'
+      - '.github/workflows/ios-build.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Builds the web assets with the native base path and copies them into
+      # ios/App/App/public, which is what the app actually loads.
+      - run: npm run build:ios
+
+      - name: Show the toolchain
+        run: xcodebuild -version
+
+      - name: Build for the simulator, unsigned
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project ios/App/App.xcodeproj \
+            -scheme App \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -skipPackagePluginValidation \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            build
+
+      # The compiled app bundle, so a failure can be inspected and so there's
+      # something to point a simulator at.
+      - name: Upload the built app
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: App-simulator
+          path: ~/Library/Developer/Xcode/DerivedData/**/Build/Products/Debug-iphonesimulator/App.app
+          if-no-files-found: warn
+          retention-days: 7
