@@ -80,24 +80,64 @@ survives a launch. Bump `SCHEMA_VERSION` when a shape changes and stale data is
 dropped in one place. It degrades to memory when storage is unavailable, so
 private-mode Safari doesn't crash the app.
 
-## Getting to a native build
+## The iOS app
 
-The web app is the shell, so this is additive rather than a rewrite:
+Capacitor wraps this build in a native shell. `ios/` is a real Xcode project,
+committed, with the app icon, launch screens and Info.plist already set up.
 
-1. Wrap it with Capacitor (`@capacitor/ios`). The existing build output becomes
-   the web view's contents unchanged.
-2. Write a small plugin exposing iOS **FamilyControls** + **DeviceActivity**,
-   and have it install `globalThis.__focusScreenTime` on startup. That fills in
-   real per-app totals — the app's usage numbers become complete with no UI
-   changes.
-3. Use **ManagedSettings** shields for the actual interception, with the
-   justification screen as the shield's action. This is the part that needs a
-   paid developer account and a Family Controls entitlement from Apple.
-4. Android is the same shape: `UsageStatsManager` for totals, an accessibility
-   or overlay service for the shield.
+```sh
+npm run build:ios    # native build + copy into the Xcode project
+npm run ios          # the same, then open Xcode
+```
 
-Steps 1 and 2 stand alone and are worth doing first — usage stops depending on
-self-reported unlocks well before shields exist.
+The two builds differ, which is why they're separate commands. The web build
+is served from a repo subpath and registers an offline service worker; the
+native one is served from `capacitor://localhost` at the root and skips the
+worker, since its assets are already on disk. Running `npm run build` and
+copying that into the shell gives a blank screen — every asset path would be
+prefixed with `/focus-app/`.
+
+### Building it
+
+Needs a Mac with Xcode. Capacitor 8 uses Swift Package Manager, so there's no
+CocoaPods step.
+
+1. `npm install && npm run build:ios`
+2. `npx cap open ios`
+3. In Xcode, select the **App** target → Signing & Capabilities → set your
+   team. The bundle id is `com.optifocus.app`; change it in
+   `capacitor.config.json` if that's taken, then re-run `npm run build:ios`.
+4. Run on a device. The simulator is fine for layout, but Screen Time APIs
+   only work on real hardware.
+5. Product → Archive → Distribute App to get it to TestFlight.
+
+After any change to the app, `npm run build:ios` again — Xcode serves the
+copied files in `ios/App/App/public`, not `dist/`.
+
+### What still blocks the App Store
+
+Being honest about the gap, because it isn't small:
+
+- **The blocking doesn't work yet.** Interception needs a Swift plugin over
+  **FamilyControls**, **DeviceActivity** and **ManagedSettings** — shields on
+  the blocked apps, with the justification screen as the shield action. That
+  plugin is the one substantial piece of native code left, and it's what fills
+  `services/screenTime.js` and turns the self-reported unlocks into real
+  per-app totals.
+- **Family Controls is a restricted entitlement.** It's requested from Apple
+  separately, reviewed by hand, and can be turned down. Worth applying for
+  early — it gates everything above.
+- **An Apple Developer Program membership** ($99/yr) is needed before anything
+  can go to TestFlight, let alone the store.
+- **Review will ask what the app does.** Right now a reviewer sees focus
+  blocks, a screen-time goal and a companion creature, with the glasses
+  screens hidden — that's a coherent app, but it isn't the one the pitch
+  describes.
+
+### Android
+
+Same shape when you get there: `UsageStatsManager` for per-app totals, an
+accessibility or overlay service for the shield, behind the same two seams.
 
 ## Deploying
 
