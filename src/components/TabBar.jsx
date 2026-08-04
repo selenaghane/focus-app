@@ -73,7 +73,7 @@ const TABS = [
 
 export default function TabBar({ active, onChange }) {
   return (
-    <div className="shrink-0 bg-white/90 backdrop-blur border-t border-slate-100 pt-2 pb-6 flex justify-around">
+    <div className="tab-bar-safe shrink-0 bg-white/90 backdrop-blur border-t border-slate-100 pt-2 flex justify-around">
       {TABS.map(({ id, label, Icon }) => {
         const isActive = active === id
         return (

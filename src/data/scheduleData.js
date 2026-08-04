@@ -13,9 +13,9 @@ export const DAY_NAMES = [
   'Sunday',
 ]
 
-// The demo runs against a pinned clock so screenshots stay deterministic and
-// the block screen always has a block to belong to. Swap this for
-// `nowFromClock()` below to run the schedule against real wall-clock time.
+// Demo mode runs against a pinned clock so screenshots stay deterministic and
+// the block screen always has a block to belong to. The app itself uses
+// `nowFromClock()` via the useNow hook; only `?demo=1` reaches for this.
 export const DEMO_NOW = { day: 0, min: 16 * 60 + 20 } // Monday, 4:20 PM
 
 export function nowFromClock(date = new Date()) {

@@ -1,20 +1,18 @@
-// Screen Time figures. On a real build these come from Apple's Screen Time
-// APIs (DeviceActivity / FamilyControls), which report per-app totals for the
-// current day. The prototype ships one fixed day so the demo is repeatable.
+// Screen Time constants and the maths built on them. Live usage figures come
+// from services/screenTime.js instead, which is the one seam a native Screen
+// Time bridge has to fill.
 
+// Only shown once a native bridge is genuinely supplying the numbers.
 export const SCREEN_TIME_SOURCE = 'Apple Screen Time'
-export const SCREEN_TIME_SYNCED_AT = '10:41 AM'
 
-// Minutes on each blocked app so far today. Ids line up with APP_LIST, and
-// only apps actually marked blocked there belong here — otherwise the card
-// counts unblocked time toward a "time on blocked apps" total.
+// The day demo mode starts from. Ids line up with APP_LIST, and only apps
+// actually marked blocked there belong here — otherwise the card counts
+// unblocked time toward a "time on blocked apps" total.
 export const BLOCKED_APP_USAGE = [
   { id: 'instagram', minutes: 48 },
   { id: 'tiktok', minutes: 32 },
   { id: 'snapchat', minutes: 22 },
 ]
-
-export const BASE_USED_MIN = BLOCKED_APP_USAGE.reduce((a, b) => a + b.minutes, 0) // 102
 
 // How long each unlock buys, and the daily cap for blocked apps. Both are
 // user-editable on the companion tab.
