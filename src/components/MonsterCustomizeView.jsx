@@ -46,7 +46,7 @@ export default function MonsterCustomizeView({ config, onChange }) {
         <Monster {...config} energy={MAX_ENERGY} />
       </MonsterScene>
 
-      <div className="bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-1.5">
+      <div className="bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-1.5">
         <span className="text-[11px] font-medium text-slate-400">Name</span>
         <input
           value={config.name}

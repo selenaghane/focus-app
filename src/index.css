@@ -1,7 +1,116 @@
 @import "tailwindcss";
 
+/* Card and bar surfaces. These were literal `bg-white`, which is a colour
+   rather than a role — and a role is what's needed, because in dark mode the
+   same surfaces have to go dark while `text-white` on the coloured buttons
+   stays white. */
+@theme {
+  --color-surface: #fff;
+}
+
 body {
   margin: 0;
+}
+
+/* Dark mode ----------------------------------------------------------
+   Tailwind v4 compiles every colour utility down to `var(--color-*)`, so
+   redefining those variables here re-themes all thirty-odd components
+   without touching one of them.
+
+   Only the variables that are *always* a surface or a border can be
+   remapped wholesale. The slate scale can't: `text-slate-900` is body copy
+   and wants to become near-white, while `bg-slate-900` is a dark chip and
+   wants to stay dark. Those are handled per-utility below. */
+html[data-theme="dark"] {
+  --color-surface: #172033;
+  --color-slate-50: #131d2f;
+  --color-slate-100: #26324a;
+  --color-slate-200: #33415c;
+
+  /* Tinted status panels: same jobs, dark enough to sit on the page. */
+  --color-sky-50: #14263d;
+  --color-sky-100: #1d3352;
+  --color-emerald-50: #10291f;
+  --color-emerald-100: #1a3f30;
+  --color-amber-50: #2d2411;
+  --color-amber-100: #3d3116;
+  --color-rose-50: #2e1620;
+}
+
+/* Text tones, mapped by role rather than by inverting the scale. */
+html[data-theme="dark"] .text-slate-900,
+html[data-theme="dark"] .text-slate-800,
+html[data-theme="dark"] .text-slate-700 {
+  color: #e9eff8;
+}
+
+html[data-theme="dark"] .text-slate-600,
+html[data-theme="dark"] .text-slate-500 {
+  color: #b9c4d4;
+}
+
+html[data-theme="dark"] .text-slate-400 {
+  color: #8fa0b6;
+}
+
+html[data-theme="dark"] .text-slate-300 {
+  color: #64748b;
+}
+
+/* Accent text is legible on white but muddy on a dark card, so the
+   foreground shades lift. The matching `bg-*` utilities are deliberately
+   left alone — those are filled buttons that already carry white text. */
+html[data-theme="dark"] .text-emerald-600 {
+  color: #34d399;
+}
+
+html[data-theme="dark"] .text-emerald-700 {
+  color: #6ee7b7;
+}
+
+html[data-theme="dark"] .text-amber-600 {
+  color: #fbbf24;
+}
+
+html[data-theme="dark"] .text-amber-700 {
+  color: #fcd34d;
+}
+
+html[data-theme="dark"] .text-rose-500 {
+  color: #fb7185;
+}
+
+/* The decorative wash behind the block screen is tuned for a white page and
+   glows through a dark one. */
+html[data-theme="dark"] .app-shell .blur-2xl {
+  opacity: 0.25;
+}
+
+/* Night versions of the monster's habitats. Each is stated in full so the
+   three stops stay in step with each other. */
+html[data-theme="dark"] .monster-scene[data-scene="Room"] {
+  background-image: linear-gradient(to bottom, #2a2114, #2a1a16, #2a1620);
+}
+
+html[data-theme="dark"] .monster-scene[data-scene="Forest"] {
+  background-image: linear-gradient(to bottom, #12291d, #14291a, #1b2c14);
+}
+
+html[data-theme="dark"] .monster-scene[data-scene="Space"] {
+  background-image: linear-gradient(to bottom, #1a1b3a, #201a33, #141c2b);
+}
+
+html[data-theme="dark"] .monster-scene[data-scene="Beach"] {
+  background-image: linear-gradient(to bottom, #12283f, #133038, #2a2414);
+}
+
+/* The scene's decorative blobs are the same tints, and only live here — apart
+   from one active-block border, which wants darkening too. */
+html[data-theme="dark"] {
+  --color-amber-200: #6b4f1a;
+  --color-emerald-200: #1f5a43;
+  --color-green-200: #235c30;
+  --color-sky-200: #1d4a72;
 }
 
 .no-scrollbar {
@@ -28,44 +137,112 @@ body {
   height: 100vh;
   height: 100dvh;
   display: flex;
-  justify-content: center;
   background: #f1f5f9;
 }
 
-.app-surface {
+.app-shell {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
   overflow: hidden;
   padding-top: env(safe-area-inset-top);
   background: linear-gradient(to bottom, #f0f9ff, #ffffff 45%, #ecfdf5);
+
+  /* "Text size" in appearance settings. Every size in the app is written in
+     fixed pixels, so a root font-size would move nothing; zoom scales the
+     whole surface, which is what a phone's display-size control does too.
+     Percentages already resolve against the zoom-adjusted containing block,
+     so 100% still means one viewport — dividing by the scale here would
+     shrink the shell a second time and leave a gap down two edges. */
+  zoom: var(--ui-scale, 1);
+  width: 100%;
+  height: 100%;
 }
 
-/* A phone layout stretched across a desktop monitor just looks broken, so
-   the surface is capped to phone width and centred. Purely a viewport
-   constraint: no bezel, no hardware chrome, just the app at its own size. */
-@media (min-width: 768px) {
-  .app-viewport {
-    align-items: center;
-    padding: 2rem 1rem;
+.app-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+html[data-theme="dark"] .app-viewport {
+  background: #090f1a;
+}
+
+html[data-theme="dark"] .app-shell {
+  background: linear-gradient(to bottom, #0e1a2b, #0b1220 45%, #0c1b18);
+}
+
+/* On a wide screen this stops being a phone layout. The tab bar becomes a
+   left rail and the content gets a readable column beside it, which is a
+   web app — not a phone-shaped card floating in grey. Below this width the
+   bar stays at the bottom, where a thumb can reach it. */
+@media (min-width: 1024px) {
+  .app-shell {
+    flex-direction: row-reverse;
   }
 
-  .app-surface {
-    width: 390px;
-    height: min(844px, 100%);
-    border-radius: 32px;
-    box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.25);
+  .app-content {
+    align-items: center;
+  }
+
+  /* The screens are built as narrow card stacks; letting them span a
+     1600px monitor would leave every row stretched to nonsense. */
+  .app-content > * {
+    width: 100%;
+    max-width: 44rem;
   }
 }
 
 /* Installed on a phone, the gap below the tab bar has to be whatever the
    device's home indicator actually needs. In a browser tab and inside the
    demo frame the inset is 0 and the 24px floor wins, so one rule covers
-   both. */
+   both. The rail on desktop sits against the left edge and needs none of it. */
 .tab-bar-safe {
   padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
+@media (min-width: 1024px) {
+  .tab-bar-safe {
+    padding-bottom: 1rem;
+  }
+}
+
+/* Reduce motion -------------------------------------------------------
+   The OS-level preference is honoured on its own; the in-app switch is an
+   additional way to force it, for someone who wants it here but not
+   everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html[data-motion="reduced"] *,
+html[data-motion="reduced"] *::before,
+html[data-motion="reduced"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Dyslexia-friendly text ----------------------------------------------
+   Wide, unambiguous letterforms with the counters kept open, plus looser
+   tracking and word spacing so words don't crowd. Verdana is the usual
+   recommendation here and ships on effectively every device, which beats
+   pulling a web font over the network on a phone. */
+html[data-font="dyslexia"] body {
+  font-family: Verdana, Tahoma, "DejaVu Sans", sans-serif;
+  letter-spacing: 0.02em;
+  word-spacing: 0.09em;
 }
 
 /* Fit-to-viewport phone -----------------------------------------------

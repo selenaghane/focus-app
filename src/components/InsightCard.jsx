@@ -53,7 +53,7 @@ const ICONS = { clock: ClockIcon, spike: SpikeIcon, streak: StreakIcon }
 export default function InsightCard({ icon = 'clock', text }) {
   const Icon = ICONS[icon]
   return (
-    <div className="flex items-start gap-3 bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-2.5">
+    <div className="flex items-start gap-3 bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-2.5">
       <div className="shrink-0 mt-0.5 w-7 h-7 rounded-full bg-slate-50 flex items-center justify-center">
         <Icon />
       </div>

@@ -25,7 +25,12 @@ state.
 ## How it behaves
 
 - **Fills the device screen**, with safe-area insets keeping content clear of
-  the notch and home indicator.
+  the notch and home indicator. Past 1024px the tab bar becomes a left rail
+  and the content takes a readable column beside it.
+- **The appearance controls do what they say.** Dark mode re-themes every
+  surface, text size scales the whole UI, reduce motion stops the animations
+  (on top of the OS setting, which is always honoured), and the dyslexia
+  option switches to wide letterforms with looser tracking.
 - **Runs on the wall clock.** Focus blocks start and end when they say they
   will.
 - **Remembers.** Schedule, blocked apps, goal, unlock length and the monster

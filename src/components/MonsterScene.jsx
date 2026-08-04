@@ -20,7 +20,7 @@ function SceneDecor({ scene }) {
         {Array.from({ length: 10 }, (_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 rounded-full bg-white"
+            className="absolute w-1 h-1 rounded-full bg-surface"
             style={{
               left: `${(i * 37) % 100}%`,
               top: `${(i * 53) % 70}%`,
@@ -44,9 +44,14 @@ function SceneDecor({ scene }) {
 }
 
 export default function MonsterScene({ scene, children }) {
+  // data-scene lets index.css give each habitat a night version. Those dark
+  // gradients are written out in full there rather than assembled from tint
+  // variables: each scene is a three-stop gradient, and re-theming only some
+  // of the stops leaves it running dark, bright, dark down the middle.
   return (
     <div
-      className={`relative w-full rounded-2xl overflow-hidden bg-gradient-to-b ${
+      data-scene={SCENE_STYLES[scene] ? scene : 'Room'}
+      className={`monster-scene relative w-full rounded-2xl overflow-hidden bg-gradient-to-b ${
         SCENE_STYLES[scene] || SCENE_STYLES.Room
       } flex items-center justify-center py-4`}
       style={{ minHeight: 220 }}

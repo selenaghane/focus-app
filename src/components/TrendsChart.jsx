@@ -31,7 +31,7 @@ export default function TrendsChart() {
   const last = points[points.length - 1]
 
   return (
-    <div className="rounded-2xl bg-white/80 border border-slate-100 shadow-sm px-4 pt-3.5 pb-2.5">
+    <div className="rounded-2xl bg-surface/80 border border-slate-100 shadow-sm px-4 pt-3.5 pb-2.5">
       <div className="flex items-baseline justify-between mb-1">
         <span className="text-sm font-semibold text-slate-700">
           Average focus, last 2 weeks

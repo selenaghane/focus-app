@@ -38,7 +38,7 @@ import { GLASSES_NAME } from '../data/branding'
 
 export default function GlassesDeviceCard({ ownerName = 'Selena', batteryPct = 82 }) {
   return (
-    <div className="bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-4 flex items-center gap-3.5">
+    <div className="bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-4 flex items-center gap-3.5">
       <div className="shrink-0 w-11 h-11 rounded-full bg-sky-50 flex items-center justify-center">
         <GlassesIcon />
       </div>
