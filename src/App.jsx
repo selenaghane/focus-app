@@ -16,6 +16,7 @@ import usePersistentState from './hooks/usePersistentState'
 import useScreenTime from './hooks/useScreenTime'
 import { recordUnlock } from './services/screenTime'
 import { isGlassesConnected } from './services/glasses'
+import { syncStatusBar } from './services/nativeShell'
 import { DEFAULT_MONSTER } from './data/monsterData'
 import { applyAppearance, defaultAppearance } from './data/appearance'
 import {
@@ -87,6 +88,9 @@ function App() {
   // the attributes land before the browser paints instead of a frame after.
   useLayoutEffect(() => {
     applyAppearance(appearance)
+    // The iOS status bar sits above the web view and doesn't know the app
+    // went dark, so its text stays black on a black bar without this.
+    syncStatusBar(appearance.darkMode)
   }, [appearance])
 
   // A hand-typed or bookmarked URL can name a tab that doesn't exist, or one

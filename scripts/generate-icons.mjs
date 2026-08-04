@@ -8,6 +8,7 @@
 // The glyph is the same monster outline the tab bar uses, so the icon on the
 // home screen and the icon in the app are recognisably the same creature.
 
+import { existsSync } from 'node:fs'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -61,6 +62,17 @@ const TARGETS = [
   { file: 'apple-touch-icon.png', size: 180, rounded: false },
 ]
 
+// The iOS asset catalog. Modern Xcode wants a single 1024px app icon and
+// scales the rest itself, and the launch images are flat colour on purpose:
+// Apple's guidance is that a launch screen shouldn't carry a logo, and a
+// plain field matching the app's own background makes the handover from
+// launch screen to first paint invisible.
+const IOS_ICON = 'ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png'
+const IOS_SPLASH_DIR = 'ios/App/App/Assets.xcassets/Splash.imageset'
+const SPLASH_LIGHT = '#f0f9ff'
+const SPLASH_DARK = '#0b1220'
+const SPLASH_SIZE = 2732
+
 // Playwright resolves a browser build matching its own version, which isn't
 // always the one an environment has on disk. CHROMIUM_PATH points it at an
 // existing Chromium instead of forcing a download.
@@ -78,6 +90,62 @@ for (const { file, size, rounded } of TARGETS) {
   )
   await page.screenshot({ path: join(PUBLIC_DIR, file), omitBackground: true })
   console.log(`wrote public/${file}`)
+}
+
+// --- iOS -------------------------------------------------------------
+// Only written when the platform has been added; the web build doesn't need
+// it and shouldn't fail without it.
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
+
+if (existsSync(join(ROOT, 'ios'))) {
+  // App Store Connect rejects an app icon that carries an alpha channel,
+  // even one that's fully opaque — so this is the one icon screenshotted
+  // *with* a background rather than with omitBackground.
+  await page.setViewportSize({ width: 1024, height: 1024 })
+  await page.setContent(
+    `<body style="margin:0">${svg({ size: 1024, rounded: false })}</body>`,
+    { waitUntil: 'load' },
+  )
+  await page.screenshot({ path: join(ROOT, IOS_ICON) })
+  console.log(`wrote ${IOS_ICON}`)
+
+  // Capacitor's catalog holds one file per scale slot. They're identical —
+  // the image is a flat colour — but Xcode wants all three present.
+  for (const [name, colour] of [['', SPLASH_LIGHT], ['-dark', SPLASH_DARK]]) {
+    await page.setViewportSize({ width: SPLASH_SIZE, height: SPLASH_SIZE })
+    await page.setContent(`<body style="margin:0;background:${colour}"></body>`, {
+      waitUntil: 'load',
+    })
+    for (const suffix of ['', '-1', '-2']) {
+      const file = `splash${name}-2732x2732${suffix}.png`
+      await page.screenshot({ path: join(ROOT, IOS_SPLASH_DIR, file) })
+    }
+    console.log(`wrote ${IOS_SPLASH_DIR}/splash${name}-2732x2732*.png`)
+  }
+
+  // Dark entries alongside the light ones, so the launch screen matches the
+  // phone's appearance instead of flashing white into a dark app.
+  const splashEntries = ['1x', '2x', '3x'].flatMap((scale, i) => {
+    const suffix = ['-2', '-1', ''][i]
+    return [
+      { idiom: 'universal', filename: `splash-2732x2732${suffix}.png`, scale },
+      {
+        idiom: 'universal',
+        appearances: [{ appearance: 'luminosity', value: 'dark' }],
+        filename: `splash-dark-2732x2732${suffix}.png`,
+        scale,
+      },
+    ]
+  })
+  await writeFile(
+    join(ROOT, IOS_SPLASH_DIR, 'Contents.json'),
+    `${JSON.stringify(
+      { images: splashEntries, info: { version: 1, author: 'xcode' } },
+      null,
+      2,
+    )}\n`,
+  )
+  console.log(`wrote ${IOS_SPLASH_DIR}/Contents.json`)
 }
 
 await browser.close()

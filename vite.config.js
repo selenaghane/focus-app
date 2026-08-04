@@ -3,9 +3,16 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { APP_NAME } from './src/data/branding.js'
 
-// Served from a repo subpath on GitHub Pages, so assets need that prefix.
-// Dev keeps '/' so localhost is unaffected.
-const base = process.env.NODE_ENV === 'production' ? '/focus-app/' : '/'
+// Inside the iOS shell the app is served from capacitor://localhost, i.e. the
+// root — a '/focus-app/' prefix would send every asset request to a path that
+// doesn't exist there and the app would boot to a blank screen. Set by
+// `npm run build:ios`.
+const isNative = process.env.VITE_NATIVE === '1'
+
+// The web build is served from a repo subpath on GitHub Pages, so its assets
+// need that prefix. Dev keeps '/' so localhost is unaffected.
+const base =
+  isNative || process.env.NODE_ENV !== 'production' ? '/' : '/focus-app/'
 
 // The manifest is generated rather than committed so the product name stays
 // in one place — branding.js — instead of being copied into a static file the
