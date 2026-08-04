@@ -48,8 +48,12 @@ screen rather than implying otherwise. Until then usage is counted from the
 unlocks the app hands out itself: a real number, just an incomplete one, and
 labelled as such on the Screen Time card.
 
-The pupil and focus figures on the Live and Insights screens are sample data
-from `src/data/`, pending glasses hardware to read from.
+The Live and Insights screens are nothing but glasses telemetry — a focus
+score, pupil reactivity, and the trends built from them — and there is no
+hardware to read yet. They're hidden rather than filled with invented numbers,
+as is the paired-device card on the Glasses tab. The sample figures stay in
+`src/data/`, still wired to their components; connecting a pair brings both
+tabs straight back.
 
 ## The seams
 
@@ -61,6 +65,13 @@ mounts, with `getTodayUsage()` and an optional `subscribe()`; the file documents
 the exact shape. With no bridge present it falls back to the local unlock
 ledger. Screens read it through `useScreenTime()` and can't tell the
 difference.
+
+**`src/services/glasses.js`** — whether there's a real pair to talk to. Same
+shape: a shell sets `globalThis.__focusGlasses` with `isConnected()`,
+`getDevice()` and `getSession()`. Everything downstream of the glasses is
+gated on it, so the screens that need hardware appear the moment it reports
+connected — and demo mode reports connected, which is how `?demo=1` still
+shows the whole product.
 
 **`src/services/storage.js`** — one versioned key holding everything that
 survives a launch. Bump `SCHEMA_VERSION` when a shape changes and stale data is

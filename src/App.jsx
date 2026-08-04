@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect } from 'react'
+import { useCallback, useEffect, useLayoutEffect } from 'react'
 import AppShell from './components/AppShell'
 import PhoneFrame from './components/PhoneFrame'
 import PhoneDevice from './components/PhoneDevice'
@@ -15,6 +15,7 @@ import useNow from './hooks/useNow'
 import usePersistentState from './hooks/usePersistentState'
 import useScreenTime from './hooks/useScreenTime'
 import { recordUnlock } from './services/screenTime'
+import { isGlassesConnected } from './services/glasses'
 import { DEFAULT_MONSTER } from './data/monsterData'
 import { applyAppearance, defaultAppearance } from './data/appearance'
 import {
@@ -32,7 +33,25 @@ const SCREENS = {
   monster: MonsterScreen,
 }
 
-const DEFAULT_TAB = 'live'
+const TAB_ORDER = ['live', 'insights', 'glasses', 'schedule', 'monster']
+
+// Live and Insights are nothing but glasses telemetry — a focus score, pupil
+// reactivity, and the trends built from them. With no glasses there is no
+// reading to show, so they stay out of the app rather than displaying the
+// sample figures as if they were measurements.
+const GLASSES_ONLY_TABS = ['live', 'insights']
+
+// Which tab to land on, best first. The head of this list is usually
+// available; when it isn't, the next real screen takes over.
+const LANDING_ORDER = ['live', 'schedule', 'monster', 'glasses']
+
+// Fixed for the session: the bridge is installed before the app mounts, and
+// demo mode is read from the URL at startup.
+const GLASSES_CONNECTED = isGlassesConnected()
+const AVAILABLE_TABS = TAB_ORDER.filter(
+  (id) => GLASSES_CONNECTED || !GLASSES_ONLY_TABS.includes(id),
+)
+const DEFAULT_TAB = LANDING_ORDER.find((id) => AVAILABLE_TABS.includes(id))
 // The block screen isn't a tab — it takes over the whole surface, the way it
 // would if the OS had thrown it up over Instagram.
 const BLOCK_ROUTE = 'blocked'
@@ -70,8 +89,23 @@ function App() {
     applyAppearance(appearance)
   }, [appearance])
 
-  const tab = SCREENS[route] ? route : DEFAULT_TAB
+  // A hand-typed or bookmarked URL can name a tab that doesn't exist, or one
+  // that's hidden because the hardware behind it isn't connected, so the
+  // route is always resolved against what's actually available.
+  const tab = AVAILABLE_TABS.includes(route) ? route : DEFAULT_TAB
   const Screen = SCREENS[tab]
+
+  // Put the resolved tab in the URL when it doesn't match — a bare '/' or a
+  // bookmark to a section that's since been hidden would otherwise show one
+  // screen while the address bar claimed another. Replace rather than push,
+  // so correcting the URL doesn't leave a dead entry in the back history.
+  useEffect(() => {
+    if (route === BLOCK_ROUTE) return
+    // Checked against the address bar rather than against `route`, because a
+    // bare '/' already reads back as the fallback tab — the two would agree
+    // while the URL still said nothing at all.
+    if (window.location.hash !== `#/${tab}`) navigate(tab, { replace: true })
+  }, [route, tab, navigate])
 
   // Minutes on blocked apps today, straight from the Screen Time service.
   // How far past the daily goal that lands is what wears the monster down.
@@ -129,7 +163,7 @@ function App() {
       <PhoneFrame>
         <PhoneDevice>
           <Screen {...screenProps} />
-          <TabBar active={tab} onChange={navigate} />
+          <TabBar active={tab} tabs={AVAILABLE_TABS} onChange={navigate} />
         </PhoneDevice>
 
         <PhoneDevice>
@@ -153,7 +187,9 @@ function App() {
   }
 
   return (
-    <AppShell nav={<TabBar active={tab} onChange={navigate} />}>
+    <AppShell
+      nav={<TabBar active={tab} tabs={AVAILABLE_TABS} onChange={navigate} />}
+    >
       <Screen {...screenProps} />
     </AppShell>
   )

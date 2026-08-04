@@ -75,7 +75,11 @@ const TABS = [
 
 // Bottom bar on a phone, left rail on a wide display. Same buttons either
 // way — only the axis and the chrome change, so there's one nav to maintain.
-export default function TabBar({ active, onChange }) {
+export default function TabBar({ active, tabs, onChange }) {
+  // `tabs` names the sections that have something real behind them; App works
+  // that out. Without it, every section shows — which is what the demo wants.
+  const visible = tabs ? TABS.filter((t) => tabs.includes(t.id)) : TABS
+
   return (
     <nav
       aria-label="Sections"
@@ -86,7 +90,7 @@ export default function TabBar({ active, onChange }) {
         {APP_NAME}
       </span>
 
-      {TABS.map(({ id, label, Icon }) => {
+      {visible.map(({ id, label, Icon }) => {
         const isActive = active === id
         return (
           <button
