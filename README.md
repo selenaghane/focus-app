@@ -24,9 +24,11 @@ state.
 
 ## How it behaves
 
-- **Fills the device screen**, with safe-area insets keeping content clear of
-  the notch and home indicator. Past 1024px the tab bar becomes a left rail
-  and the content takes a readable column beside it.
+- **Is a phone app at every width.** One column capped to phone width, tab bar
+  along the bottom, safe-area insets keeping content clear of the notch and
+  home indicator. On a desktop browser it centres against a flat surround —
+  no bezel, no shadow, nothing pretending to be hardware. What's on screen
+  there is what ships.
 - **The appearance controls do what they say.** Dark mode re-themes every
   surface, text size scales the whole UI, reduce motion stops the animations
   (on top of the OS setting, which is always honoured), and the dyslexia
