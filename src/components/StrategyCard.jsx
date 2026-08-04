@@ -50,7 +50,7 @@ export default function StrategyCard({ onDismiss }) {
         Your glasses just buzzed
       </div>
       <div className="flex items-center gap-3">
-        <div className="shrink-0 w-10 h-10 rounded-full bg-white flex items-center justify-center text-xl shadow-sm">
+        <div className="shrink-0 w-10 h-10 rounded-full bg-surface flex items-center justify-center text-xl shadow-sm">
           {BRAIN_BREAK.emoji}
         </div>
         <p className="text-sm font-semibold text-slate-700 leading-snug">

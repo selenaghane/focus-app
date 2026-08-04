@@ -68,7 +68,7 @@ function DoneButton({ onClose }) {
     <button
       type="button"
       onClick={onClose}
-      className="mt-2 rounded-full bg-slate-900 text-white text-sm font-semibold px-6 py-2.5 active:bg-slate-700"
+      className="mt-2 rounded-full bg-[#2a78d6] text-white text-sm font-semibold px-6 py-2.5 active:bg-[#215fa9]"
     >
       Done
     </button>
@@ -148,7 +148,7 @@ export default function InstagramBlockScreen({
     <div className="relative flex-1 min-h-0 flex flex-col overflow-hidden">
       {/* Blurred "app behind" background, simulating Instagram dimmed out */}
       <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-200 via-rose-200 to-amber-100 blur-2xl scale-110 opacity-60" />
-      <div className="absolute inset-0 bg-white/75 backdrop-blur-xl" />
+      <div className="absolute inset-0 bg-surface/75 backdrop-blur-xl" />
 
       <div className="relative flex-1 min-h-0 overflow-y-auto no-scrollbar px-5 pt-3 pb-4 flex flex-col gap-4">
         <div className="relative flex justify-center pt-1">
@@ -163,7 +163,7 @@ export default function InstagramBlockScreen({
               <BackIcon />
             </button>
           )}
-          <div className="w-12 h-12 rounded-full bg-white/90 shadow-sm flex items-center justify-center">
+          <div className="w-12 h-12 rounded-full bg-surface/90 shadow-sm flex items-center justify-center">
             <LockIcon />
           </div>
         </div>
@@ -203,7 +203,7 @@ export default function InstagramBlockScreen({
 
         <MonsterNudge config={monsterConfig} energy={monsterEnergy} />
 
-        <div className="bg-white/85 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-3">
+        <div className="bg-surface/85 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-3">
           <p className="text-sm text-slate-600 leading-snug">
             Before you unlock, tell us why. Write at least {MIN_WORDS} words
             about why you need Instagram right now.
@@ -219,7 +219,7 @@ export default function InstagramBlockScreen({
             onContextMenu={blockEvent}
             rows={5}
             placeholder="Type your reason here — copy & paste is turned off."
-            className="w-full resize-none rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-300 outline-none focus:border-[#2a78d6] transition-colors"
+            className="w-full resize-none rounded-xl border border-slate-200 bg-surface px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-300 outline-none focus:border-[#2a78d6] transition-colors"
           />
 
           <div className="flex items-center gap-1.5 text-[11px] font-medium">

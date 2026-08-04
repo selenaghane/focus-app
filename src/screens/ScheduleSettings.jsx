@@ -140,7 +140,7 @@ export default function ScheduleSettings({
           type="button"
           data-flat
           onClick={onOpenBlockScreen}
-          className="rounded-2xl bg-white/80 border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-0.5 text-left"
+          className="rounded-2xl bg-surface/80 border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-0.5 text-left"
         >
           <span className="text-sm font-semibold text-slate-700">
             Open the block screen
@@ -193,7 +193,7 @@ export default function ScheduleSettings({
           onChange={setBlockingOn}
         />
 
-        <div className="bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex items-center justify-between">
+        <div className="bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex items-center justify-between">
           <span className="text-[11px] font-medium text-slate-400">
             Currently blocked
           </span>

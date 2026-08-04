@@ -32,7 +32,7 @@ export default function PupilStatRow() {
       {metrics.map((m) => (
         <div
           key={m.label}
-          className="flex-1 min-w-0 bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-2.5 py-3 flex flex-col items-center text-center gap-0.5"
+          className="flex-1 min-w-0 bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-2.5 py-3 flex flex-col items-center text-center gap-0.5"
         >
           <span className="text-[10px] font-medium text-slate-400 truncate w-full">
             {m.label}

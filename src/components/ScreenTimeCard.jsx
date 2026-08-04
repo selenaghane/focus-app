@@ -34,7 +34,7 @@ export default function ScreenTimeCard({ usedMin, goalMin }) {
   const maxApp = Math.max(1, ...rows.map((r) => r.minutes))
 
   return (
-    <div className="w-full bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-3">
+    <div className="w-full bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-3">
       <div className="flex items-baseline justify-between gap-2">
         <span className="text-sm font-semibold text-slate-700">
           Time on blocked apps

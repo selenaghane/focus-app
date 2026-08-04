@@ -34,7 +34,7 @@ export default function BreakResponseCard() {
   const ignored = BREAK_NUDGES_SENT - BREAK_NUDGES_TAKEN
 
   return (
-    <div className="bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-3">
+    <div className="bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-3">
       <div className="flex flex-col gap-0.5">
         <span className="text-sm font-semibold text-slate-700">
           When the frame buzzed

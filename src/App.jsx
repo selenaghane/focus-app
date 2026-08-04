@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useLayoutEffect } from 'react'
 import AppShell from './components/AppShell'
 import PhoneFrame from './components/PhoneFrame'
 import PhoneDevice from './components/PhoneDevice'
@@ -16,6 +16,7 @@ import usePersistentState from './hooks/usePersistentState'
 import useScreenTime from './hooks/useScreenTime'
 import { recordUnlock } from './services/screenTime'
 import { DEFAULT_MONSTER } from './data/monsterData'
+import { applyAppearance, defaultAppearance } from './data/appearance'
 import {
   DEFAULT_GOAL_MIN,
   DEFAULT_UNLOCK_MIN,
@@ -55,6 +56,19 @@ function App() {
   )
   const [blocks, setBlocks] = usePersistentState('blocks', DEFAULT_BLOCKS)
   const [autoOn, setAutoOn] = usePersistentState('autoOn', true)
+  const [appearance, setAppearance] = usePersistentState(
+    'appearance',
+    defaultAppearance,
+  )
+
+  // Dark mode, text size, motion and the font are all CSS hanging off
+  // attributes on <html>, so they have to be pushed out of React onto the
+  // document — that's also what puts them outside the app's own subtree,
+  // where the page background lives. Layout effect rather than effect, so
+  // the attributes land before the browser paints instead of a frame after.
+  useLayoutEffect(() => {
+    applyAppearance(appearance)
+  }, [appearance])
 
   const tab = SCREENS[route] ? route : DEFAULT_TAB
   const Screen = SCREENS[tab]
@@ -89,6 +103,8 @@ function App() {
     onGoalChange: setGoalMin,
     unlockMin,
     onUnlockChange: setUnlockMin,
+    appearance,
+    onAppearanceChange: setAppearance,
     // Demo mode already has the block screen up on its own phone, so it has
     // nowhere to navigate to.
     onOpenBlockScreen: DEMO_MODE ? undefined : () => navigate(BLOCK_ROUTE),
@@ -123,19 +139,22 @@ function App() {
     )
   }
 
-  return (
-    <AppShell>
-      {route === BLOCK_ROUTE ? (
+  // The block screen takes the whole surface with no nav: it stands in for
+  // what the OS shows over a blocked app, which has no tab bar either.
+  if (route === BLOCK_ROUTE) {
+    return (
+      <AppShell>
         <InstagramBlockScreen
           {...blockScreenProps}
           onClose={() => navigate(tab)}
         />
-      ) : (
-        <>
-          <Screen {...screenProps} />
-          <TabBar active={tab} onChange={navigate} />
-        </>
-      )}
+      </AppShell>
+    )
+  }
+
+  return (
+    <AppShell nav={<TabBar active={tab} onChange={navigate} />}>
+      <Screen {...screenProps} />
     </AppShell>
   )
 }

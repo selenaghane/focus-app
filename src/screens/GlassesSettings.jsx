@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import usePersistentState from '../hooks/usePersistentState'
 import GlassesDeviceCard from '../components/GlassesDeviceCard'
 import SettingRow from '../components/SettingRow'
 import SegmentedControl from '../components/SegmentedControl'
@@ -12,9 +12,12 @@ function SectionLabel({ children }) {
   )
 }
 
-export default function GlassesSettings() {
-  const [remindersOn, setRemindersOn] = useState(true)
-  const [intensity, setIntensity] = useState('Medium')
+export default function GlassesSettings({ appearance, onAppearanceChange }) {
+  const [remindersOn, setRemindersOn] = usePersistentState('remindersOn', true)
+  const [intensity, setIntensity] = usePersistentState(
+    'reminderIntensity',
+    'Medium',
+  )
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar px-5 pt-2 pb-4 flex flex-col gap-4">
@@ -29,7 +32,7 @@ export default function GlassesSettings() {
           onChange={setRemindersOn}
         />
         <div
-          className={`bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-2 transition-opacity ${
+          className={`bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-2 transition-opacity ${
             remindersOn ? '' : 'opacity-40'
           }`}
         >
@@ -47,16 +50,19 @@ export default function GlassesSettings() {
 
       <div className="flex flex-col gap-2">
         <SectionLabel>Appearance</SectionLabel>
-        <AppearanceSettings />
+        <AppearanceSettings
+          appearance={appearance}
+          onChange={onAppearanceChange}
+        />
       </div>
 
       <div className="flex gap-2">
-        <div className="flex-1 min-w-0 bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-0.5">
+        <div className="flex-1 min-w-0 bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-0.5">
           <span className="text-[11px] font-medium text-slate-400">Firmware</span>
           <span className="text-sm font-bold text-slate-900">v2.4.1</span>
           <span className="text-[11px] text-emerald-600">Up to date</span>
         </div>
-        <div className="flex-1 min-w-0 bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-0.5">
+        <div className="flex-1 min-w-0 bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-0.5">
           <span className="text-[11px] font-medium text-slate-400">Last synced</span>
           <span className="text-sm font-bold text-slate-900">Just now</span>
           <span className="text-[11px] text-slate-400">Auto-sync on</span>

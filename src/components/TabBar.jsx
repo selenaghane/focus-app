@@ -63,6 +63,8 @@ function MonsterIcon({ active }) {
   )
 }
 
+import { APP_NAME } from '../data/branding'
+
 const TABS = [
   { id: 'live', label: 'Live', Icon: LiveIcon },
   { id: 'insights', label: 'Insights', Icon: InsightsIcon },
@@ -71,9 +73,19 @@ const TABS = [
   { id: 'monster', label: 'MediaMonster', Icon: MonsterIcon },
 ]
 
+// Bottom bar on a phone, left rail on a wide display. Same buttons either
+// way — only the axis and the chrome change, so there's one nav to maintain.
 export default function TabBar({ active, onChange }) {
   return (
-    <div className="tab-bar-safe shrink-0 bg-white/90 backdrop-blur border-t border-slate-100 pt-2 flex justify-around">
+    <nav
+      aria-label="Sections"
+      className="tab-bar-safe shrink-0 bg-surface/90 backdrop-blur border-t border-slate-100 pt-2 flex justify-around
+                 lg:h-full lg:w-60 lg:flex-col lg:justify-start lg:gap-1 lg:border-t-0 lg:border-r lg:px-3 lg:pt-7"
+    >
+      <span className="hidden lg:block px-3 pb-5 text-base font-bold text-slate-900">
+        {APP_NAME}
+      </span>
+
       {TABS.map(({ id, label, Icon }) => {
         const isActive = active === id
         return (
@@ -81,11 +93,15 @@ export default function TabBar({ active, onChange }) {
             key={id}
             type="button"
             onClick={() => onChange(id)}
-            className="flex flex-col items-center gap-0.5 px-1 py-1"
+            aria-current={isActive ? 'page' : undefined}
+            data-flat
+            className={`flex flex-col items-center gap-0.5 px-1 py-1
+                        lg:w-full lg:flex-row lg:gap-3 lg:rounded-xl lg:px-3 lg:py-2.5 lg:justify-start
+                        ${isActive ? 'lg:bg-sky-50' : 'lg:hover:bg-slate-50'}`}
           >
             <Icon active={isActive} />
             <span
-              className={`text-[11px] font-medium whitespace-nowrap ${
+              className={`text-[11px] font-medium whitespace-nowrap lg:text-sm ${
                 isActive ? 'text-[#2a78d6]' : 'text-slate-400'
               }`}
             >
@@ -94,6 +110,6 @@ export default function TabBar({ active, onChange }) {
           </button>
         )
       })}
-    </div>
+    </nav>
   )
 }
