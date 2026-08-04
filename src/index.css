@@ -13,6 +13,61 @@ body {
   display: none;
 }
 
+/* App shell -----------------------------------------------------------
+   The app fills the device screen directly.
+
+   Height comes from dvh so iOS Safari's collapsing toolbar can't strand
+   the tab bar below the fold — with vh the bar sits under the browser
+   chrome until you scroll. vh stays as the fallback for older engines.
+
+   The safe-area insets keep content clear of the notch and the home
+   indicator. They're zero in a browser tab and only become real numbers
+   once the app is installed to a home screen, which is exactly when the
+   hardware starts overlapping the content. */
+.app-viewport {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  background: #f1f5f9;
+}
+
+.app-surface {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding-top: env(safe-area-inset-top);
+  background: linear-gradient(to bottom, #f0f9ff, #ffffff 45%, #ecfdf5);
+}
+
+/* A phone layout stretched across a desktop monitor just looks broken, so
+   the surface is capped to phone width and centred. Purely a viewport
+   constraint: no bezel, no hardware chrome, just the app at its own size. */
+@media (min-width: 768px) {
+  .app-viewport {
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  .app-surface {
+    width: 390px;
+    height: min(844px, 100%);
+    border-radius: 32px;
+    box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.25);
+  }
+}
+
+/* Installed on a phone, the gap below the tab bar has to be whatever the
+   device's home indicator actually needs. In a browser tab and inside the
+   demo frame the inset is 0 and the 24px floor wins, so one rule covers
+   both. */
+.tab-bar-safe {
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
 /* Fit-to-viewport phone -----------------------------------------------
    PhoneFrame measures the window and sets --phone-scale (1 on desktop,
    smaller on a real phone). A transform alone would shrink the pixels but

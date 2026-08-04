@@ -1,9 +1,7 @@
 import AppIcon from './AppIcon'
+import useScreenTime from '../hooks/useScreenTime'
 import { APP_LIST } from '../data/blockingData'
 import {
-  BLOCKED_APP_USAGE,
-  SCREEN_TIME_SOURCE,
-  SCREEN_TIME_SYNCED_AT,
   formatMinutes,
   minutesOver,
   pctOverGoal,
@@ -18,6 +16,7 @@ function AppleIcon() {
 }
 
 export default function ScreenTimeCard({ usedMin, goalMin }) {
+  const usage = useScreenTime()
   const over = minutesOver(usedMin, goalMin)
   const pct = pctOverGoal(usedMin, goalMin)
   const isOver = over > 0
@@ -26,11 +25,13 @@ export default function ScreenTimeCard({ usedMin, goalMin }) {
   const goalWidth = Math.min(100, (usedMin / Math.max(usedMin, goalMin)) * 100)
   const withinGoalWidth = Math.min(goalWidth, (goalMin / Math.max(usedMin, goalMin)) * 100)
 
-  const rows = BLOCKED_APP_USAGE.map((u) => ({
+  const rows = usage.perApp.map((u) => ({
     ...u,
     ...(APP_LIST.find((a) => a.id === u.id) || {}),
   }))
-  const maxApp = Math.max(...rows.map((r) => r.minutes))
+  // A fresh install has no rows at all. Math.max() of nothing is -Infinity,
+  // which would turn every bar width into NaN, so guard the divisor.
+  const maxApp = Math.max(1, ...rows.map((r) => r.minutes))
 
   return (
     <div className="w-full bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-3">
@@ -77,6 +78,12 @@ export default function ScreenTimeCard({ usedMin, goalMin }) {
       </div>
 
       <div className="flex flex-col gap-1.5">
+        {rows.length === 0 && (
+          <span className="text-[11px] text-slate-400 leading-snug">
+            Nothing on blocked apps today. Every unlock you spend shows up
+            here.
+          </span>
+        )}
         {rows.map((r) => (
           <div key={r.id} className="flex items-center gap-2">
             <AppIcon id={r.id} size={18} />
@@ -96,10 +103,16 @@ export default function ScreenTimeCard({ usedMin, goalMin }) {
         ))}
       </div>
 
+      {/* Where the numbers came from. The Apple mark only appears once a
+          native bridge is genuinely supplying them — without one these are
+          the app's own unlock grants, and the line says so. */}
       <div className="flex items-center gap-1.5 pt-0.5">
-        <AppleIcon />
+        {usage.native && <AppleIcon />}
         <span className="text-[10px] text-slate-400">
-          From {SCREEN_TIME_SOURCE} · synced {SCREEN_TIME_SYNCED_AT}
+          From {usage.sourceLabel}
+          {usage.native
+            ? usage.syncedAt && ` · synced ${usage.syncedAt}`
+            : ' · resets at midnight'}
         </span>
       </div>
     </div>
