@@ -1,40 +1,3 @@
-function LiveIcon({ active }) {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M3 12h3l2 6 4-14 2 9 1.5-4H21"
-        stroke={active ? '#2a78d6' : '#94a3b8'}
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function InsightsIcon({ active }) {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <rect x="4" y="12" width="3.2" height="8" rx="1" fill={active ? '#2a78d6' : '#94a3b8'} />
-      <rect x="10.4" y="7" width="3.2" height="13" rx="1" fill={active ? '#2a78d6' : '#94a3b8'} />
-      <rect x="16.8" y="4" width="3.2" height="16" rx="1" fill={active ? '#2a78d6' : '#94a3b8'} />
-    </svg>
-  )
-}
-
-function GlassesIcon({ active }) {
-  const color = active ? '#2a78d6' : '#94a3b8'
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <circle cx="5.5" cy="14" r="3.2" stroke={color} strokeWidth="1.8" />
-      <circle cx="18.5" cy="14" r="3.2" stroke={color} strokeWidth="1.8" />
-      <path d="M8.7 14h6.6" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M2.3 13.5 4 9c.4-1 1-1.4 2-1.4" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M21.7 13.5 20 9c-.4-1-1-1.4-2-1.4" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-  )
-}
-
 function ScheduleIcon({ active }) {
   const color = active ? '#2a78d6' : '#94a3b8'
   return (
@@ -63,12 +26,25 @@ function MonsterIcon({ active }) {
   )
 }
 
+function SettingsIcon({ active }) {
+  const color = active ? '#2a78d6' : '#94a3b8'
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="3.2" stroke={color} strokeWidth="1.8" />
+      <path
+        d="M12 2.8v2.1M12 19.1v2.1M21.2 12h-2.1M4.9 12H2.8M18.5 5.5l-1.5 1.5M7 17l-1.5 1.5M18.5 18.5 17 17M7 7 5.5 5.5"
+        stroke={color}
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
 const TABS = [
-  { id: 'live', label: 'Live', Icon: LiveIcon },
-  { id: 'insights', label: 'Insights', Icon: InsightsIcon },
-  { id: 'glasses', label: 'Glasses', Icon: GlassesIcon },
   { id: 'schedule', label: 'Schedule', Icon: ScheduleIcon },
   { id: 'monster', label: 'MediaMonster', Icon: MonsterIcon },
+  { id: 'settings', label: 'Settings', Icon: SettingsIcon },
 ]
 
 // Always the bottom bar. This is a phone app, and the tab bar belongs where

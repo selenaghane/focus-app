@@ -29,7 +29,7 @@ function StatusBanner({ blocks, autoOn, now }) {
     return (
       <div className="rounded-2xl bg-slate-50 border border-slate-100 px-4 py-3">
         <span className="text-xs text-slate-400">
-          Automatic scheduling is off — the glasses stay quiet all day.
+          Automatic scheduling is off — no focus block will start on its own.
         </span>
       </div>
     )
@@ -153,7 +153,7 @@ export default function ScheduleSettings({
 
       <SettingRow
         label="Automatic scheduling"
-        sub="Glasses activate during the focus blocks below, and do nothing outside them"
+        sub="Blocked apps pause during the focus blocks below, and are left alone outside them"
         checked={autoOn}
         onChange={onAutoOnChange}
       />
