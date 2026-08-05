@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import usePersistentState from '../hooks/usePersistentState'
 import SettingRow from '../components/SettingRow'
 import ScheduleBlockCard from '../components/ScheduleBlockCard'
 import BlockEditor from '../components/BlockEditor'
@@ -11,7 +12,7 @@ import {
   nextBlock,
   whenLabel,
   formatTime,
-  DEMO_NOW,
+  nowFromClock,
 } from '../data/scheduleData'
 import { APP_LIST } from '../data/blockingData'
 
@@ -28,7 +29,7 @@ function StatusBanner({ blocks, autoOn, now }) {
     return (
       <div className="rounded-2xl bg-slate-50 border border-slate-100 px-4 py-3">
         <span className="text-xs text-slate-400">
-          Automatic scheduling is off — the glasses stay quiet all day.
+          Automatic scheduling is off — no focus block will start on its own.
         </span>
       </div>
     )
@@ -76,11 +77,19 @@ export default function ScheduleSettings({
   onBlocksChange,
   autoOn,
   onAutoOnChange,
-  now = DEMO_NOW,
+  onOpenBlockScreen,
+  now = nowFromClock(),
 }) {
   const [editing, setEditing] = useState(null) // { block, isNew } | null
-  const [blockingOn, setBlockingOn] = useState(true)
-  const [apps, setApps] = useState(APP_LIST)
+  const [blockingOn, setBlockingOn] = usePersistentState('appBlockingOn', true)
+  // Only the ids are stored, not whole app records: that way adding an app to
+  // APP_LIST later actually shows up for people who already have state saved,
+  // instead of being masked by a stale copy of the old list.
+  const [blockedIds, setBlockedIds] = usePersistentState(
+    'blockedAppIds',
+    APP_LIST.filter((a) => a.blocked).map((a) => a.id),
+  )
+  const apps = APP_LIST.map((a) => ({ ...a, blocked: blockedIds.includes(a.id) }))
 
   const toggleBlock = (id) =>
     onBlocksChange(
@@ -102,8 +111,8 @@ export default function ScheduleSettings({
   }
 
   const toggleApp = (id) =>
-    setApps((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, blocked: !a.blocked } : a)),
+    setBlockedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
     )
 
   const blockedCount = apps.filter((a) => a.blocked).length
@@ -126,9 +135,25 @@ export default function ScheduleSettings({
     <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar px-5 pt-2 pb-4 flex flex-col gap-4">
       <StatusBanner blocks={blocks} autoOn={autoOn} now={now} />
 
+      {onOpenBlockScreen && (
+        <button
+          type="button"
+          data-flat
+          onClick={onOpenBlockScreen}
+          className="rounded-2xl bg-surface/80 border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-0.5 text-left"
+        >
+          <span className="text-sm font-semibold text-slate-700">
+            Open the block screen
+          </span>
+          <span className="text-[11px] text-slate-400 leading-snug">
+            What you see when you reach for a blocked app during a focus block
+          </span>
+        </button>
+      )}
+
       <SettingRow
         label="Automatic scheduling"
-        sub="Glasses activate during the focus blocks below, and do nothing outside them"
+        sub="Blocked apps pause during the focus blocks below, and are left alone outside them"
         checked={autoOn}
         onChange={onAutoOnChange}
       />
@@ -168,7 +193,7 @@ export default function ScheduleSettings({
           onChange={setBlockingOn}
         />
 
-        <div className="bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex items-center justify-between">
+        <div className="bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex items-center justify-between">
           <span className="text-[11px] font-medium text-slate-400">
             Currently blocked
           </span>

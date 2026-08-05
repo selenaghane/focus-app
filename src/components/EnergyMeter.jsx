@@ -11,7 +11,7 @@ export default function EnergyMeter({ energy }) {
   const color = STAGE_COLORS[stage]
 
   return (
-    <div className="w-full bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-2">
+    <div className="w-full bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-2">
       <div className="flex items-baseline justify-between gap-2">
         <span className="text-sm font-semibold text-slate-700">Energy</span>
         <span className="text-sm font-bold tabular-nums" style={{ color }}>

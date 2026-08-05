@@ -4,7 +4,7 @@ import AppIcon from './AppIcon'
 export default function AppBlockRow({ id, name, blocked, onToggle, disabled }) {
   return (
     <div
-      className={`flex items-center justify-between gap-3 bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3 transition-opacity ${
+      className={`flex items-center justify-between gap-3 bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3 transition-opacity ${
         disabled ? 'opacity-40' : ''
       }`}
     >

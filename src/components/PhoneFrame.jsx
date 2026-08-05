@@ -33,7 +33,7 @@ export default function PhoneFrame({ children }) {
 
   return (
     <div
-      className="min-h-screen w-full flex flex-wrap items-center justify-center gap-6 md:gap-12 bg-white p-3 md:p-8"
+      className="min-h-screen w-full flex flex-wrap items-center justify-center gap-6 md:gap-12 bg-surface p-3 md:p-8"
       style={{ '--phone-scale': scale }}
     >
       {children}

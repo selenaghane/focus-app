@@ -1,0 +1,22 @@
+{
+  "appId": "com.optifocus.app",
+  "appName": "OptiFocus",
+  "webDir": "dist",
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#f0f9ff",
+    "limitsNavigationsToAppBoundDomains": true
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false,
+      "backgroundColor": "#f0f9ff",
+      "iosSpinnerStyle": "small",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DEFAULT",
+      "overlaysWebView": false
+    }
+  }
+}

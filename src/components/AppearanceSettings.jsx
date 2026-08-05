@@ -1,15 +1,21 @@
-import { useState } from 'react'
 import SettingRow from './SettingRow'
 import SegmentedControl from './SegmentedControl'
+import { TEXT_SIZES, defaultAppearance } from '../data/appearance'
 
-// PROTOTYPE: these controls hold their own state so they look and feel alive
-// in a demo, but none of them restyle the app yet. Wiring dark mode up for
-// real means threading a theme through every surface, which is its own pass.
-export default function AppearanceSettings() {
-  const [darkMode, setDarkMode] = useState(false)
-  const [dyslexiaFont, setDyslexiaFont] = useState(false)
-  const [reduceMotion, setReduceMotion] = useState(false)
-  const [textSize, setTextSize] = useState('Default')
+// Each control writes one field of the stored appearance object; App pushes
+// that onto <html>, where the rules in index.css pick it up. Nothing here
+// keeps its own copy, so the switches always show what's actually applied.
+export default function AppearanceSettings({
+  appearance = defaultAppearance(),
+  onChange,
+}) {
+  const { darkMode, textSize, dyslexiaFont, reduceMotion } = appearance
+  const set = (field) => (value) => onChange?.({ ...appearance, [field]: value })
+
+  const setDarkMode = set('darkMode')
+  const setTextSize = set('textSize')
+  const setDyslexiaFont = set('dyslexiaFont')
+  const setReduceMotion = set('reduceMotion')
 
   return (
     <div className="flex flex-col gap-2">
@@ -20,10 +26,10 @@ export default function AppearanceSettings() {
         onChange={setDarkMode}
       />
 
-      <div className="bg-white/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-2">
+      <div className="bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-2">
         <span className="text-sm font-semibold text-slate-700">Text size</span>
         <SegmentedControl
-          options={['Small', 'Default', 'Large']}
+          options={TEXT_SIZES}
           value={textSize}
           onChange={setTextSize}
         />

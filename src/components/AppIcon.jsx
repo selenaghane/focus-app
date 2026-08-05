@@ -1,7 +1,8 @@
 import { useId } from 'react'
 
-// Recognisable stand-ins for each app's real icon, drawn as inline SVG so the
-// mockup needs no image assets. Keyed by the ids in blockingData.
+// Recognisable stand-ins for each app's real icon, drawn as inline SVG so
+// there are no image assets to ship or license. Keyed by the ids in
+// blockingData.
 
 function Instagram({ uid }) {
   return (
