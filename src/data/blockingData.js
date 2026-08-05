@@ -1,5 +1,5 @@
-// The social/entertainment apps the glasses+phone pairing can block during
-// scheduled focus blocks, and which of them are blocked by default.
+// The social/entertainment apps that can be blocked during scheduled focus
+// blocks, and which of them are blocked by default.
 
 export const APP_LIST = [
   { id: 'instagram', name: 'Instagram', color: '#e1306c', letter: 'I', blocked: true },

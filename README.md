@@ -1,9 +1,8 @@
 # Focus app
 
 A phone app for staying off distracting apps: scheduled focus blocks, a
-justification gate in front of anything blocked, a companion creature whose
-health tracks how far past your daily screen-time goal you are, and a screen
-for the paired glasses.
+justification gate in front of anything blocked, and a companion creature
+whose health tracks how far past your daily screen-time goal you are.
 
 React + Vite + Tailwind. It installs to a home screen and runs offline.
 
@@ -50,12 +49,11 @@ screen rather than implying otherwise. Until then usage is counted from the
 unlocks the app hands out itself: a real number, just an incomplete one, and
 labelled as such on the Screen Time card.
 
-The Live and Insights screens are nothing but glasses telemetry — a focus
-score, pupil reactivity, and the trends built from them — and there is no
-hardware to read yet. They're hidden rather than filled with invented numbers,
-as is the paired-device card on the Glasses tab. The sample figures stay in
-`src/data/`, still wired to their components; connecting a pair brings both
-tabs straight back.
+Everything on screen is either something you set or something the app
+recorded. There is no sample data left in the shipping app — the
+focus-tracking glasses feature it used to carry is archived under
+`archive/glasses/`, with a README covering what it was and how to put it
+back.
 
 ## The seams
 
@@ -67,13 +65,6 @@ mounts, with `getTodayUsage()` and an optional `subscribe()`; the file documents
 the exact shape. With no bridge present it falls back to the local unlock
 ledger. Screens read it through `useScreenTime()` and can't tell the
 difference.
-
-**`src/services/glasses.js`** — whether there's a real pair to talk to. Same
-shape: a shell sets `globalThis.__focusGlasses` with `isConnected()`,
-`getDevice()` and `getSession()`. Everything downstream of the glasses is
-gated on it, so the screens that need hardware appear the moment it reports
-connected — and demo mode reports connected, which is how `?demo=1` still
-shows the whole product.
 
 **`src/services/storage.js`** — one versioned key holding everything that
 survives a launch. Bump `SCHEMA_VERSION` when a shape changes and stale data is
@@ -160,10 +151,9 @@ Being honest about the gap, because it isn't small:
   early — it gates everything above.
 - **An Apple Developer Program membership** ($99/yr) is needed before anything
   can go to TestFlight, let alone the store.
-- **Review will ask what the app does.** Right now a reviewer sees focus
-  blocks, a screen-time goal and a companion creature, with the glasses
-  screens hidden — that's a coherent app, but it isn't the one the pitch
-  describes.
+- **Review will ask what the app does.** A reviewer sees focus blocks, a
+  screen-time goal and a companion creature — coherent, and honest about
+  what it measures, but the blocking is the reason to install it.
 
 ### Android
 

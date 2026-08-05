@@ -2,7 +2,6 @@ import { useState } from 'react'
 import Monster from '../components/Monster'
 import MonsterNudge from '../components/MonsterNudge'
 import AppIcon from '../components/AppIcon'
-import { GLASSES_NAME } from '../data/branding'
 import { DEMO_MODE } from '../config'
 import { DEFAULT_ENERGY } from '../data/monsterData'
 import { formatRange } from '../data/scheduleData'
@@ -181,7 +180,7 @@ export default function InstagramBlockScreen({
                   block.startMin,
                   block.endMin,
                 )}`
-              : 'Focus block'} · powered by {GLASSES_NAME}
+              : 'Focus block'}
           </p>
         </div>
 

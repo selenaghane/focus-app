@@ -3,10 +3,8 @@ import AppShell from './components/AppShell'
 import PhoneFrame from './components/PhoneFrame'
 import PhoneDevice from './components/PhoneDevice'
 import TabBar from './components/TabBar'
-import LiveSession from './screens/LiveSession'
-import Insights from './screens/Insights'
-import GlassesSettings from './screens/GlassesSettings'
 import ScheduleSettings from './screens/ScheduleSettings'
+import Settings from './screens/Settings'
 import InstagramBlockScreen from './screens/InstagramBlockScreen'
 import MonsterScreen from './screens/MonsterScreen'
 import { DEMO_MODE } from './config'
@@ -15,7 +13,6 @@ import useNow from './hooks/useNow'
 import usePersistentState from './hooks/usePersistentState'
 import useScreenTime from './hooks/useScreenTime'
 import { recordUnlock } from './services/screenTime'
-import { isGlassesConnected } from './services/glasses'
 import { syncStatusBar } from './services/nativeShell'
 import { DEFAULT_MONSTER } from './data/monsterData'
 import { applyAppearance, defaultAppearance } from './data/appearance'
@@ -27,32 +24,13 @@ import {
 import { DEFAULT_BLOCKS, activeBlock, nextBlock } from './data/scheduleData'
 
 const SCREENS = {
-  live: LiveSession,
-  insights: Insights,
-  glasses: GlassesSettings,
   schedule: ScheduleSettings,
   monster: MonsterScreen,
+  settings: Settings,
 }
 
-const TAB_ORDER = ['live', 'insights', 'glasses', 'schedule', 'monster']
-
-// Live and Insights are nothing but glasses telemetry — a focus score, pupil
-// reactivity, and the trends built from them. With no glasses there is no
-// reading to show, so they stay out of the app rather than displaying the
-// sample figures as if they were measurements.
-const GLASSES_ONLY_TABS = ['live', 'insights']
-
-// Which tab to land on, best first. The head of this list is usually
-// available; when it isn't, the next real screen takes over.
-const LANDING_ORDER = ['live', 'schedule', 'monster', 'glasses']
-
-// Fixed for the session: the bridge is installed before the app mounts, and
-// demo mode is read from the URL at startup.
-const GLASSES_CONNECTED = isGlassesConnected()
-const AVAILABLE_TABS = TAB_ORDER.filter(
-  (id) => GLASSES_CONNECTED || !GLASSES_ONLY_TABS.includes(id),
-)
-const DEFAULT_TAB = LANDING_ORDER.find((id) => AVAILABLE_TABS.includes(id))
+const AVAILABLE_TABS = ['schedule', 'monster', 'settings']
+const DEFAULT_TAB = 'schedule'
 // The block screen isn't a tab — it takes over the whole surface, the way it
 // would if the OS had thrown it up over Instagram.
 const BLOCK_ROUTE = 'blocked'
@@ -93,9 +71,8 @@ function App() {
     syncStatusBar(appearance.darkMode)
   }, [appearance])
 
-  // A hand-typed or bookmarked URL can name a tab that doesn't exist, or one
-  // that's hidden because the hardware behind it isn't connected, so the
-  // route is always resolved against what's actually available.
+  // A hand-typed or bookmarked URL can name a tab that doesn't exist, so the
+  // route is always resolved against the real screen list.
   const tab = AVAILABLE_TABS.includes(route) ? route : DEFAULT_TAB
   const Screen = SCREENS[tab]
 
