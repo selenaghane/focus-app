@@ -2,9 +2,10 @@ import { useState } from 'react'
 import Monster from '../components/Monster'
 import MonsterNudge from '../components/MonsterNudge'
 import AppIcon from '../components/AppIcon'
-import { GLASSES_NAME } from '../data/branding'
+import { DEMO_MODE } from '../config'
 import { DEFAULT_ENERGY } from '../data/monsterData'
 import { formatRange } from '../data/scheduleData'
+import { hasNativeScreenTime } from '../services/screenTime'
 
 function LockIcon() {
   return (
@@ -38,18 +39,50 @@ function countWords(text) {
   return trimmed.length === 0 ? 0 : trimmed.split(/\s+/).length
 }
 
-// DEMO ONLY: paste blocking is temporarily disabled so the flow can be
-// driven quickly during a walkthrough. The copy still says it's off.
-// Restore `(e) => e.preventDefault()` to re-enable the real behaviour.
-const blockEvent = () => {}
+// Writing the justification by hand is the whole gate — pasting sixty words
+// in defeats it. Demo mode opts out so a walkthrough can be driven quickly
+// without typing an essay on stage.
+const blockEvent = DEMO_MODE ? () => {} : (e) => e.preventDefault()
+
+function BackIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M15 5l-7 7 7 7"
+        stroke="#64748b"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+// Reached as a route, this screen needs a way back. The OS version won't
+// have one — there you leave by leaving the app — so it only renders when a
+// caller actually supplies somewhere to go.
+function DoneButton({ onClose }) {
+  if (!onClose) return null
+  return (
+    <button
+      type="button"
+      onClick={onClose}
+      className="mt-2 rounded-full bg-[#2a78d6] text-white text-sm font-semibold px-6 py-2.5 active:bg-[#215fa9]"
+    >
+      Done
+    </button>
+  )
+}
 
 export default function InstagramBlockScreen({
   monsterConfig,
   monsterEnergy = DEFAULT_ENERGY,
   block,
+  isBlockRunning = false,
   unlockMin = 5,
   onUnlock,
   onStayFocused,
+  onClose,
 }) {
   const [stage, setStage] = useState('prompt') // 'prompt' | 'unlocked' | 'dismissed'
   const [text, setText] = useState('')
@@ -84,6 +117,7 @@ export default function InstagramBlockScreen({
         <p className="text-xs text-slate-400">
           {monsterConfig.name} looks a little tired...
         </p>
+        <DoneButton onClose={onClose} />
       </div>
     )
   }
@@ -104,6 +138,7 @@ export default function InstagramBlockScreen({
         <p className="text-xs text-slate-400">
           {monsterConfig.name} is so proud of you!
         </p>
+        <DoneButton onClose={onClose} />
       </div>
     )
   }
@@ -112,11 +147,22 @@ export default function InstagramBlockScreen({
     <div className="relative flex-1 min-h-0 flex flex-col overflow-hidden">
       {/* Blurred "app behind" background, simulating Instagram dimmed out */}
       <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-200 via-rose-200 to-amber-100 blur-2xl scale-110 opacity-60" />
-      <div className="absolute inset-0 bg-white/75 backdrop-blur-xl" />
+      <div className="absolute inset-0 bg-surface/75 backdrop-blur-xl" />
 
       <div className="relative flex-1 min-h-0 overflow-y-auto no-scrollbar px-5 pt-3 pb-4 flex flex-col gap-4">
-        <div className="flex justify-center pt-1">
-          <div className="w-12 h-12 rounded-full bg-white/90 shadow-sm flex items-center justify-center">
+        <div className="relative flex justify-center pt-1">
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Back"
+              data-flat
+              className="absolute left-0 top-1 w-10 h-10 flex items-center justify-center"
+            >
+              <BackIcon />
+            </button>
+          )}
+          <div className="w-12 h-12 rounded-full bg-surface/90 shadow-sm flex items-center justify-center">
             <LockIcon />
           </div>
         </div>
@@ -130,14 +176,33 @@ export default function InstagramBlockScreen({
           </h1>
           <p className="text-xs text-slate-500">
             {block
-              ? `${block.label} · ${formatRange(block.startMin, block.endMin)}`
-              : 'Focus block'} · powered by {GLASSES_NAME}
+              ? `${isBlockRunning ? '' : 'Next: '}${block.label} · ${formatRange(
+                  block.startMin,
+                  block.endMin,
+                )}`
+              : 'Focus block'}
           </p>
         </div>
 
+        {/* Say plainly what this is. A web build can't put itself in front of
+            Instagram — that needs the native shell described in the README —
+            so without a bridge this screen is reached on purpose, and the
+            honest framing is a self-reported unlock rather than an
+            interception that already works. Demo mode is showing the finished
+            idea to a room, and doesn't need the footnote. */}
+        {!DEMO_MODE && !hasNativeScreenTime() && (
+          <div className="rounded-2xl bg-amber-50/90 border border-amber-100 px-3.5 py-2.5">
+            <span className="text-[11px] text-amber-700 leading-snug">
+              Blocked apps can&rsquo;t be interrupted automatically yet — that
+              needs the native build. Unlocking here still spends{' '}
+              {unlockMin} minutes against today&rsquo;s goal.
+            </span>
+          </div>
+        )}
+
         <MonsterNudge config={monsterConfig} energy={monsterEnergy} />
 
-        <div className="bg-white/85 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-3">
+        <div className="bg-surface/85 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-3">
           <p className="text-sm text-slate-600 leading-snug">
             Before you unlock, tell us why. Write at least {MIN_WORDS} words
             about why you need Instagram right now.
@@ -153,7 +218,7 @@ export default function InstagramBlockScreen({
             onContextMenu={blockEvent}
             rows={5}
             placeholder="Type your reason here — copy & paste is turned off."
-            className="w-full resize-none rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-300 outline-none focus:border-[#2a78d6] transition-colors"
+            className="w-full resize-none rounded-xl border border-slate-200 bg-surface px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-300 outline-none focus:border-[#2a78d6] transition-colors"
           />
 
           <div className="flex items-center gap-1.5 text-[11px] font-medium">

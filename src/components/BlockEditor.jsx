@@ -15,7 +15,7 @@ function FieldLabel({ children }) {
 }
 
 const TIME_INPUT_CLASS =
-  'w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 tabular-nums outline-none focus:border-[#2a78d6] transition-colors'
+  'w-full rounded-xl border border-slate-200 bg-surface px-3 py-2.5 text-sm text-slate-700 tabular-nums outline-none focus:border-[#2a78d6] transition-colors'
 
 export default function BlockEditor({ block, isNew, onSave, onCancel, onDelete }) {
   const [draft, setDraft] = useState(block)
@@ -78,7 +78,7 @@ export default function BlockEditor({ block, isNew, onSave, onCancel, onDelete }
           onChange={(e) => set({ label: e.target.value })}
           placeholder="e.g. Homework block"
           maxLength={28}
-          className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-700 placeholder:text-slate-300 outline-none focus:border-[#2a78d6] transition-colors"
+          className="w-full rounded-xl border border-slate-200 bg-surface px-3.5 py-2.5 text-sm text-slate-700 placeholder:text-slate-300 outline-none focus:border-[#2a78d6] transition-colors"
         />
       </div>
 

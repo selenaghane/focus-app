@@ -17,7 +17,7 @@ export default function ScheduleBlockCard({
 
   return (
     <div
-      className={`bg-white/80 rounded-2xl border shadow-sm px-4 py-3.5 flex flex-col gap-2.5 transition-opacity ${
+      className={`bg-surface/80 rounded-2xl border shadow-sm px-4 py-3.5 flex flex-col gap-2.5 transition-opacity ${
         disabled ? 'opacity-40' : ''
       } ${active ? 'border-emerald-200' : 'border-slate-100'}`}
     >
