@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=cover is what makes env(safe-area-inset-*) report real
+         numbers. Without it the insets are all 0, and once installed the tab
+         bar sits underneath the home indicator. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#2a78d6" />
+    <meta
+      name="description"
+      content="Focus blocks, app blocking and a screen-time companion that runs on how much you actually use your phone."
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/focus-app/favicon.svg" />
+    <link rel="apple-touch-icon" href="/focus-app/apple-touch-icon.png" />
+    <link rel="manifest" href="/focus-app/manifest.webmanifest" />
+
+    <!-- iOS ignores the manifest's display mode and needs its own opt-in
+         before an installed app runs without Safari's chrome. -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="OptiFocus" />
+
+    <title>OptiFocus</title>
+    <script type="module" crossorigin src="/focus-app/assets/index-CYBX_cuL.js"></script>
+    <link rel="stylesheet" crossorigin href="/focus-app/assets/index-BoIQRWQs.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
