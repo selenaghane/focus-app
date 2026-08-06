@@ -31,7 +31,7 @@ export default function Collapsible({ title, defaultOpen = false, children }) {
         data-flat
         className="flex items-center justify-between px-1 py-1"
       >
-        <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide">
+        <span className="text-[calc(11px*var(--ui-text-scale,1))] font-semibold text-slate-400 uppercase tracking-wide">
           {title}
         </span>
         <ChevronIcon open={open} />

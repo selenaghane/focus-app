@@ -62,11 +62,11 @@ export default function ScreenTimeCard({ usedMin, goalMin }) {
           )}
         </div>
         <div className="flex items-baseline justify-between gap-2 mt-1.5">
-          <span className="text-[11px] text-slate-400 tabular-nums">
+          <span className="text-[calc(11px*var(--ui-text-scale,1))] text-slate-400 tabular-nums">
             Goal {formatMinutes(goalMin)}
           </span>
           <span
-            className={`text-[11px] font-semibold tabular-nums ${
+            className={`text-[calc(11px*var(--ui-text-scale,1))] font-semibold tabular-nums ${
               isOver ? 'text-amber-600' : 'text-emerald-600'
             }`}
           >
@@ -79,7 +79,7 @@ export default function ScreenTimeCard({ usedMin, goalMin }) {
 
       <div className="flex flex-col gap-1.5">
         {rows.length === 0 && (
-          <span className="text-[11px] text-slate-400 leading-snug">
+          <span className="text-[calc(11px*var(--ui-text-scale,1))] text-slate-400 leading-snug">
             Nothing on blocked apps today. Every unlock you spend shows up
             here.
           </span>
@@ -87,7 +87,7 @@ export default function ScreenTimeCard({ usedMin, goalMin }) {
         {rows.map((r) => (
           <div key={r.id} className="flex items-center gap-2">
             <AppIcon id={r.id} size={18} />
-            <span className="text-[11px] text-slate-500 w-16 shrink-0 truncate">
+            <span className="text-[calc(11px*var(--ui-text-scale,1))] text-slate-500 w-16 shrink-0 truncate">
               {r.name}
             </span>
             <span className="flex-1 h-1.5 rounded-full bg-slate-100 overflow-hidden">
@@ -96,7 +96,7 @@ export default function ScreenTimeCard({ usedMin, goalMin }) {
                 style={{ width: `${(r.minutes / maxApp) * 100}%` }}
               />
             </span>
-            <span className="text-[11px] text-slate-400 tabular-nums w-9 text-right shrink-0">
+            <span className="text-[calc(11px*var(--ui-text-scale,1))] text-slate-400 tabular-nums w-9 text-right shrink-0">
               {formatMinutes(r.minutes)}
             </span>
           </div>
@@ -108,7 +108,7 @@ export default function ScreenTimeCard({ usedMin, goalMin }) {
           the app's own unlock grants, and the line says so. */}
       <div className="flex items-center gap-1.5 pt-0.5">
         {usage.native && <AppleIcon />}
-        <span className="text-[10px] text-slate-400">
+        <span className="text-[calc(10px*var(--ui-text-scale,1))] text-slate-400">
           From {usage.sourceLabel}
           {usage.native
             ? usage.syncedAt && ` · synced ${usage.syncedAt}`

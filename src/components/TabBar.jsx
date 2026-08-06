@@ -30,13 +30,13 @@ function SettingsIcon({ active }) {
   const color = active ? '#2a78d6' : '#94a3b8'
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="3.2" stroke={color} strokeWidth="1.8" />
       <path
-        d="M12 2.8v2.1M12 19.1v2.1M21.2 12h-2.1M4.9 12H2.8M18.5 5.5l-1.5 1.5M7 17l-1.5 1.5M18.5 18.5 17 17M7 7 5.5 5.5"
+        d="M9.6 3.4h4.8l.6 2.6a7 7 0 0 1 1.8 1l2.5-.9 2.4 4.2-2 1.7a7 7 0 0 1 0 2l2 1.7-2.4 4.2-2.5-.9a7 7 0 0 1-1.8 1l-.6 2.6H9.6l-.6-2.6a7 7 0 0 1-1.8-1l-2.5.9-2.4-4.2 2-1.7a7 7 0 0 1 0-2l-2-1.7 2.4-4.2 2.5.9a7 7 0 0 1 1.8-1z"
         stroke={color}
-        strokeWidth="1.8"
-        strokeLinecap="round"
+        strokeWidth="1.7"
+        strokeLinejoin="round"
       />
+      <circle cx="12" cy="12" r="3" stroke={color} strokeWidth="1.7" />
     </svg>
   )
 }
@@ -72,7 +72,7 @@ export default function TabBar({ active, tabs, onChange }) {
           >
             <Icon active={isActive} />
             <span
-              className={`text-[11px] font-medium whitespace-nowrap ${
+              className={`text-[calc(11px*var(--ui-text-scale,1))] font-medium whitespace-nowrap ${
                 isActive ? 'text-[#2a78d6]' : 'text-slate-400'
               }`}
             >

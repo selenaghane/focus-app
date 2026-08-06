@@ -1,6 +1,6 @@
 import SettingRow from './SettingRow'
-import SegmentedControl from './SegmentedControl'
-import { TEXT_SIZES, defaultAppearance } from '../data/appearance'
+import TextSizeSlider from './TextSizeSlider'
+import { defaultAppearance } from '../data/appearance'
 
 // Each control writes one field of the stored appearance object; App pushes
 // that onto <html>, where the rules in index.css pick it up. Nothing here
@@ -28,11 +28,7 @@ export default function AppearanceSettings({
 
       <div className="bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-2">
         <span className="text-sm font-semibold text-slate-700">Text size</span>
-        <SegmentedControl
-          options={TEXT_SIZES}
-          value={textSize}
-          onChange={setTextSize}
-        />
+        <TextSizeSlider value={textSize} onChange={setTextSize} />
       </div>
 
       <SettingRow

@@ -12,7 +12,7 @@ import {
 
 function FieldLabel({ children }) {
   return (
-    <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide px-1">
+    <span className="text-[calc(11px*var(--ui-text-scale,1))] font-semibold text-slate-400 uppercase tracking-wide px-1">
       {children}
     </span>
   )
@@ -47,7 +47,7 @@ export default function MonsterCustomizeView({ config, onChange }) {
       </MonsterScene>
 
       <div className="bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-1.5">
-        <span className="text-[11px] font-medium text-slate-400">Name</span>
+        <span className="text-[calc(11px*var(--ui-text-scale,1))] font-medium text-slate-400">Name</span>
         <input
           value={config.name}
           onChange={(e) => set({ name: e.target.value })}
