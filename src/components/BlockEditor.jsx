@@ -8,7 +8,7 @@ import {
 
 function FieldLabel({ children }) {
   return (
-    <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide px-1">
+    <span className="text-[calc(11px*var(--ui-text-scale,1))] font-semibold text-slate-400 uppercase tracking-wide px-1">
       {children}
     </span>
   )
@@ -102,7 +102,7 @@ export default function BlockEditor({ block, isNew, onSave, onCancel, onDelete }
           />
         </div>
         {endsAfterStart && (
-          <span className="text-[11px] text-slate-400 px-1">
+          <span className="text-[calc(11px*var(--ui-text-scale,1))] text-slate-400 px-1">
             {formatDuration(draft.startMin, draft.endMin)} of focus time
           </span>
         )}
@@ -130,7 +130,7 @@ export default function BlockEditor({ block, isNew, onSave, onCancel, onDelete }
       </div>
 
       {problem && (
-        <span className="text-[11px] text-amber-600 px-1">{problem}</span>
+        <span className="text-[calc(11px*var(--ui-text-scale,1))] text-amber-600 px-1">{problem}</span>
       )}
 
       {!isNew && (

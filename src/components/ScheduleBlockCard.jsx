@@ -34,12 +34,12 @@ export default function ScheduleBlockCard({
               {label}
             </span>
             {active && (
-              <span className="shrink-0 text-[10px] font-semibold text-emerald-600 bg-emerald-50 rounded-full px-1.5 py-0.5">
+              <span className="shrink-0 text-[calc(10px*var(--ui-text-scale,1))] font-semibold text-emerald-600 bg-emerald-50 rounded-full px-1.5 py-0.5">
                 Active now
               </span>
             )}
           </span>
-          <span className="text-[11px] text-slate-400 tabular-nums">
+          <span className="text-[calc(11px*var(--ui-text-scale,1))] text-slate-400 tabular-nums">
             {formatRange(startMin, endMin)} · {formatDuration(startMin, endMin)} ·{' '}
             {daysSummary(days)}
           </span>
@@ -58,7 +58,7 @@ export default function ScheduleBlockCard({
         {DAY_LABELS.map((d, i) => (
           <span
             key={i}
-            className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-semibold ${
+            className={`w-6 h-6 rounded-full flex items-center justify-center text-[calc(11px*var(--ui-text-scale,1))] font-semibold ${
               days[i] ? 'bg-sky-50 text-[#2a78d6]' : 'text-slate-300'
             }`}
           >

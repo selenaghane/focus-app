@@ -38,7 +38,7 @@ export default function EnergyMeter({ energy }) {
         <span className="text-xs font-semibold" style={{ color }}>
           {label}
         </span>
-        <span className="text-[11px] text-slate-400 truncate">{blurb}</span>
+        <span className="text-[calc(11px*var(--ui-text-scale,1))] text-slate-400 truncate">{blurb}</span>
       </div>
     </div>
   )

@@ -38,7 +38,7 @@ function BatteryIcon() {
 export default function StatusBar({ time = '9:41' }) {
   return (
     <div className="flex items-center justify-between px-6 pt-3 pb-1 text-slate-900 select-none">
-      <span className="text-[15px] font-semibold tracking-tight">{time}</span>
+      <span className="text-[calc(15px*var(--ui-text-scale,1))] font-semibold tracking-tight">{time}</span>
       <div className="flex items-center gap-1.5">
         <SignalIcon />
         <BatteryIcon />

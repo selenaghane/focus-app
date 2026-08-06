@@ -18,7 +18,7 @@ import { APP_LIST } from '../data/blockingData'
 
 function SectionLabel({ children }) {
   return (
-    <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide px-1">
+    <span className="text-[calc(11px*var(--ui-text-scale,1))] font-semibold text-slate-400 uppercase tracking-wide px-1">
       {children}
     </span>
   )
@@ -42,7 +42,7 @@ function StatusBanner({ blocks, autoOn, now }) {
         <span className="text-xs font-semibold text-emerald-700">
           {running.label} is running now
         </span>
-        <span className="text-[11px] text-emerald-600/80 tabular-nums">
+        <span className="text-[calc(11px*var(--ui-text-scale,1))] text-emerald-600/80 tabular-nums">
           Until {formatTime(running.endMin)} · blocked apps are paused
         </span>
       </div>
@@ -65,7 +65,7 @@ function StatusBanner({ blocks, autoOn, now }) {
       <span className="text-xs font-semibold text-[#2a78d6]">
         Next: {next.block.label}
       </span>
-      <span className="text-[11px] text-[#2a78d6]/70 tabular-nums">
+      <span className="text-[calc(11px*var(--ui-text-scale,1))] text-[#2a78d6]/70 tabular-nums">
         {whenLabel(next, now)} at {formatTime(next.block.startMin)}
       </span>
     </div>
@@ -145,7 +145,7 @@ export default function ScheduleSettings({
           <span className="text-sm font-semibold text-slate-700">
             Open the block screen
           </span>
-          <span className="text-[11px] text-slate-400 leading-snug">
+          <span className="text-[calc(11px*var(--ui-text-scale,1))] text-slate-400 leading-snug">
             What you see when you reach for a blocked app during a focus block
           </span>
         </button>
@@ -194,7 +194,7 @@ export default function ScheduleSettings({
         />
 
         <div className="bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex items-center justify-between">
-          <span className="text-[11px] font-medium text-slate-400">
+          <span className="text-[calc(11px*var(--ui-text-scale,1))] font-medium text-slate-400">
             Currently blocked
           </span>
           <span className="text-sm font-bold text-slate-900 tabular-nums">

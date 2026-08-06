@@ -2,15 +2,15 @@
 // which is what the rules in index.css hang off — so a setting changes the
 // whole app rather than just the switch that set it.
 
-export const TEXT_SIZES = ['Small', 'Default', 'Large']
+// Six steps on the text-size slider. The scale multiplies every `--text-*`
+// token and the handful of `text-[Npx]` labels in index.css — layout, icons,
+// and images are untouched, so only the text itself grows or shrinks.
+export const TEXT_SIZE_STEPS = [0.85, 0.925, 1, 1.075, 1.15, 1.25]
+export const TEXT_SIZE_LABELS = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+export const DEFAULT_TEXT_SIZE_INDEX = 2
 
-// Applied as a zoom on the app surface. The screens are laid out in fixed
-// pixels throughout, so scaling the surface is what actually moves every
-// label — a root font-size would leave all the `text-[11px]` sizes behind.
-export const TEXT_SCALES = {
-  Small: 0.9,
-  Default: 1,
-  Large: 1.15,
+function textScale(textSize) {
+  return TEXT_SIZE_STEPS[textSize] ?? TEXT_SIZE_STEPS[DEFAULT_TEXT_SIZE_INDEX]
 }
 
 function prefersDark() {
@@ -24,7 +24,7 @@ function prefersDark() {
 export function defaultAppearance() {
   return {
     darkMode: prefersDark(),
-    textSize: 'Default',
+    textSize: DEFAULT_TEXT_SIZE_INDEX,
     dyslexiaFont: false,
     reduceMotion: false,
   }
@@ -38,5 +38,5 @@ export function applyAppearance(appearance) {
   // The OS-level reduced-motion preference is honoured in CSS regardless;
   // this only lets someone additionally force it on.
   el.dataset.motion = appearance.reduceMotion ? 'reduced' : 'full'
-  el.style.setProperty('--ui-scale', TEXT_SCALES[appearance.textSize] ?? 1)
+  el.style.setProperty('--ui-text-scale', textScale(appearance.textSize))
 }
