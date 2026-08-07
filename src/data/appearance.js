@@ -26,7 +26,6 @@ export function defaultAppearance() {
     darkMode: prefersDark(),
     textSize: DEFAULT_TEXT_SIZE_INDEX,
     dyslexiaFont: false,
-    reduceMotion: false,
   }
 }
 
@@ -35,8 +34,5 @@ export function applyAppearance(appearance) {
   const el = document.documentElement
   el.dataset.theme = appearance.darkMode ? 'dark' : 'light'
   el.dataset.font = appearance.dyslexiaFont ? 'dyslexia' : 'default'
-  // The OS-level reduced-motion preference is honoured in CSS regardless;
-  // this only lets someone additionally force it on.
-  el.dataset.motion = appearance.reduceMotion ? 'reduced' : 'full'
   el.style.setProperty('--ui-text-scale', textScale(appearance.textSize))
 }

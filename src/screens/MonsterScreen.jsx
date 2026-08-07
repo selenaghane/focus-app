@@ -11,6 +11,7 @@ export default function MonsterScreen({
   onGoalChange,
   unlockMin,
   onUnlockChange,
+  onOpenBlockScreen,
 }) {
   const [view, setView] = useState('companion')
   return (
@@ -38,6 +39,22 @@ export default function MonsterScreen({
         />
       ) : (
         <MonsterCustomizeView config={config} onChange={onConfigChange} />
+      )}
+
+      {onOpenBlockScreen && (
+        <button
+          type="button"
+          data-flat
+          onClick={onOpenBlockScreen}
+          className="rounded-2xl bg-surface/80 border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-0.5 text-left"
+        >
+          <span className="text-sm font-semibold text-slate-700">
+            Open the block screen
+          </span>
+          <span className="text-[calc(11px*var(--ui-text-scale,1))] text-slate-400 leading-snug">
+            What you see when you reach for a blocked app during a focus block
+          </span>
+        </button>
       )}
     </div>
   )
