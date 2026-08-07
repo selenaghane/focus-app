@@ -232,9 +232,7 @@ body {
 }
 
 /* Reduce motion -------------------------------------------------------
-   The OS-level preference is honoured on its own; the in-app switch is an
-   additional way to force it, for someone who wants it here but not
-   everywhere. */
+   Honours the OS-level preference only; there's no in-app override. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -244,15 +242,6 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-html[data-motion="reduced"] *,
-html[data-motion="reduced"] *::before,
-html[data-motion="reduced"] *::after {
-  animation-duration: 0.01ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.01ms !important;
-  scroll-behavior: auto !important;
 }
 
 /* Dyslexia-friendly text ----------------------------------------------

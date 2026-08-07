@@ -77,7 +77,6 @@ export default function ScheduleSettings({
   onBlocksChange,
   autoOn,
   onAutoOnChange,
-  onOpenBlockScreen,
   now = nowFromClock(),
 }) {
   const [editing, setEditing] = useState(null) // { block, isNew } | null
@@ -134,22 +133,6 @@ export default function ScheduleSettings({
   return (
     <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar px-5 pt-2 pb-4 flex flex-col gap-4">
       <StatusBanner blocks={blocks} autoOn={autoOn} now={now} />
-
-      {onOpenBlockScreen && (
-        <button
-          type="button"
-          data-flat
-          onClick={onOpenBlockScreen}
-          className="rounded-2xl bg-surface/80 border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-0.5 text-left"
-        >
-          <span className="text-sm font-semibold text-slate-700">
-            Open the block screen
-          </span>
-          <span className="text-[calc(11px*var(--ui-text-scale,1))] text-slate-400 leading-snug">
-            What you see when you reach for a blocked app during a focus block
-          </span>
-        </button>
-      )}
 
       <SettingRow
         label="Automatic scheduling"
