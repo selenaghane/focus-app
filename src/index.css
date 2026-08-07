@@ -256,12 +256,28 @@ html[data-motion="reduced"] *::after {
 }
 
 /* Dyslexia-friendly text ----------------------------------------------
-   Wide, unambiguous letterforms with the counters kept open, plus looser
-   tracking and word spacing so words don't crowd. Verdana is the usual
-   recommendation here and ships on effectively every device, which beats
-   pulling a web font over the network on a phone. */
+   OpenDyslexic weights each letter bottom-heavy so similar shapes (b/d,
+   p/q, n/u) are harder to flip or mirror. Bundled locally rather than
+   pulled from a CDN, so it's still there with no network — same reasoning
+   as the service worker in main.jsx. */
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("./assets/fonts/OpenDyslexic-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("./assets/fonts/OpenDyslexic-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 html[data-font="dyslexia"] body {
-  font-family: Verdana, Tahoma, "DejaVu Sans", sans-serif;
+  font-family: "OpenDyslexic", Verdana, Tahoma, "DejaVu Sans", sans-serif;
   letter-spacing: 0.02em;
   word-spacing: 0.09em;
 }

@@ -26,6 +26,7 @@ const RY = 66
 //
 // `smooth` is short plush fur rather than bare skin: lots of small, even
 // bumps on a near-perfect round body — visibly furry, but no spikes.
+// uniform texture unlike spikes, so smooth will always look smooth, simple, & clean
 const EDGE = {
   smooth: { spacing: 10, push: 3.2, jagged: false, irregular: 0.18 },
   curly: { spacing: 17, push: 9, jagged: false, irregular: 0.75 },

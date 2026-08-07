@@ -33,7 +33,6 @@ const LOCAL_SOURCE = 'unlocks recorded on this device'
 const REFRESH_MS = 60_000
 
 // Local calendar day. toISOString() would roll the day over at UTC midnight,
-// which is the middle of the afternoon for a good part of the world.
 export function todayKey(date = new Date()) {
   const y = date.getFullYear()
   const m = String(date.getMonth() + 1).padStart(2, '0')
@@ -48,6 +47,7 @@ function seededApps() {
 function emptyLedger(date) {
   // A day starts at zero. Demo mode starts mid-afternoon with a day's worth
   // of scrolling already banked, so the screens have something to show.
+  //demo mode not used anymore or for real product, leaving in case need to demo again
   return { date, apps: DEMO_MODE ? seededApps() : {} }
 }
 

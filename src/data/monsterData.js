@@ -32,6 +32,7 @@ export const MONSTER_STAGES = [
 // 100 -> stage 0, 0 -> stage 4. Floors rather than rounds, so a stage is only
 // lost once its full share of the drop has actually been used up — that keeps
 // this in step with the "each 5% over the goal costs one stage" rule.
+// might change 5% over limit to do something more extreme after, say, 50%
 export function stageFromEnergy(energy) {
   const clamped = Math.max(0, Math.min(MAX_ENERGY, energy))
   const perStage = MAX_ENERGY / (MONSTER_STAGES.length - 1)

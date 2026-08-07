@@ -33,6 +33,7 @@ const AVAILABLE_TABS = ['schedule', 'monster', 'settings']
 const DEFAULT_TAB = 'schedule'
 // The block screen isn't a tab — it takes over the whole surface, the way it
 // would if the OS had thrown it up over Instagram.
+// display slash demo thing
 const BLOCK_ROUTE = 'blocked'
 
 function App() {

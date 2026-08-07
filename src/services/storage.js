@@ -4,6 +4,7 @@
 // It all lives under one versioned key. When a shape changes, bump
 // SCHEMA_VERSION and stale data is dropped in exactly one place, rather than
 // half-migrated objects lingering in people's browsers.
+// Github reload currently resets it though
 
 import { DEMO_MODE } from '../config'
 
