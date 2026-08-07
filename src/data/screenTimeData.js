@@ -1,6 +1,7 @@
 // Screen Time constants and the maths built on them. Live usage figures come
 // from services/screenTime.js instead, which is the one seam a native Screen
 // Time bridge has to fill.
+// Filler screentime data is in demo mode so something can be shown
 
 // Only shown once a native bridge is genuinely supplying the numbers.
 export const SCREEN_TIME_SOURCE = 'Apple Screen Time'
