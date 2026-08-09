@@ -3,42 +3,40 @@ import AppShell from './components/AppShell'
 import PhoneFrame from './components/PhoneFrame'
 import PhoneDevice from './components/PhoneDevice'
 import TabBar from './components/TabBar'
-import ScheduleSettings from './screens/ScheduleSettings'
+import InsightsScreen from './screens/InsightsScreen'
 import Settings from './screens/Settings'
 import InstagramBlockScreen from './screens/InstagramBlockScreen'
 import MonsterScreen from './screens/MonsterScreen'
 import { DEMO_MODE } from './config'
 import useHashRoute from './hooks/useHashRoute'
-import useNow from './hooks/useNow'
 import usePersistentState from './hooks/usePersistentState'
 import useScreenTime from './hooks/useScreenTime'
 import { recordUnlock } from './services/screenTime'
 import { syncStatusBar } from './services/nativeShell'
 import { DEFAULT_MONSTER } from './data/monsterData'
 import { applyAppearance, defaultAppearance } from './data/appearance'
+import { APP_LIST } from './data/blockingData'
 import {
   DEFAULT_GOAL_MIN,
   DEFAULT_UNLOCK_MIN,
   energyFromUsage,
 } from './data/screenTimeData'
-import { DEFAULT_BLOCKS, activeBlock, nextBlock } from './data/scheduleData'
 import { WEEK_HISTORY, snapshotFor } from './data/screenTimeHistory'
 
 const SCREENS = {
-  schedule: ScheduleSettings,
+  insights: InsightsScreen,
   monster: MonsterScreen,
   settings: Settings,
 }
 
-const AVAILABLE_TABS = ['schedule', 'monster', 'settings']
-const DEFAULT_TAB = 'schedule'
+const AVAILABLE_TABS = ['insights', 'monster', 'settings']
+const DEFAULT_TAB = 'insights'
 // The block screen isn't a tab — it takes over the whole surface, the way it
 // would if the OS had thrown it up over Instagram.
 // display slash demo thing
 const BLOCK_ROUTE = 'blocked'
 
 function App() {
-  const now = useNow()
   const liveUsage = useScreenTime()
   const [route, navigate] = useHashRoute(DEFAULT_TAB)
 
@@ -51,8 +49,13 @@ function App() {
   )
   const [goalMin] = usePersistentState('goalMin', DEFAULT_GOAL_MIN)
   const [unlockMin] = usePersistentState('unlockMin', DEFAULT_UNLOCK_MIN)
-  const [blocks, setBlocks] = usePersistentState('blocks', DEFAULT_BLOCKS)
-  const [autoOn, setAutoOn] = usePersistentState('autoOn', true)
+  // Only the ids are stored, not whole app records: that way adding an app to
+  // APP_LIST later actually shows up for people who already have state
+  // saved, instead of being masked by a stale copy of the old list.
+  const [blockedIds, setBlockedIds] = usePersistentState(
+    'blockedAppIds',
+    APP_LIST.filter((a) => a.blocked).map((a) => a.id),
+  )
   const [appearance, setAppearance] = usePersistentState(
     'appearance',
     defaultAppearance,
@@ -69,6 +72,18 @@ function App() {
   const weekDays = [...historyDays, { label: 'Today', ...liveUsage }]
   const isToday = selectedDay === weekDays.length - 1
   const demoUsage = isToday ? liveUsage : historyDays[selectedDay]
+
+  // The window Insights ranks apps against — the demo's week of history plus
+  // today, or just today outside demo mode, which is all a browser without a
+  // native bridge can ever really know.
+  const usageDays = DEMO_MODE ? weekDays : [{ perApp: liveUsage.perApp }]
+  const toggleApp = useCallback(
+    (id) =>
+      setBlockedIds((prev) =>
+        prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+      ),
+    [setBlockedIds],
+  )
 
   // Dark mode, text size, motion and the font are all CSS hanging off
   // attributes on <html>, so they have to be pushed out of React onto the
@@ -106,12 +121,6 @@ function App() {
   const usedMin = DEMO_MODE ? demoUsage.totalMin : liveUsage.totalMin
   const monsterEnergy = energyFromUsage(usedMin, goalMin)
 
-  // The block screen belongs to whichever focus block is actually running;
-  // if none is, it previews the next one so the screen still reads.
-  const running = autoOn ? activeBlock(blocks, now) : null
-  const upcoming = nextBlock(blocks, now)
-  const shownBlock = running || upcoming?.block || null
-
   // Unlocking spends real minutes on a blocked app, which is what pushes the
   // day further past the goal. Staying focused simply doesn't add any.
   const handleUnlock = useCallback(() => recordUnlock(unlockMin), [unlockMin])
@@ -121,11 +130,9 @@ function App() {
     config: monsterConfig,
     onConfigChange: setMonsterConfig,
     energy: monsterEnergy,
-    blocks,
-    onBlocksChange: setBlocks,
-    autoOn,
-    onAutoOnChange: setAutoOn,
-    now,
+    days: usageDays,
+    blockedIds,
+    onToggleApp: toggleApp,
     usedMin,
     goalMin,
     appearance,
@@ -144,8 +151,6 @@ function App() {
   const blockScreenProps = {
     monsterConfig,
     monsterEnergy,
-    block: shownBlock,
-    isBlockRunning: Boolean(running),
     unlockMin,
     onUnlock: handleUnlock,
     onStayFocused: handleStayFocused,

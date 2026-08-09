@@ -1,11 +1,19 @@
-function ScheduleIcon({ active }) {
+function InsightsIcon({ active }) {
   const color = active ? '#2a78d6' : '#94a3b8'
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <rect x="3.5" y="5" width="17" height="15" rx="2.4" stroke={color} strokeWidth="1.8" />
-      <path d="M3.5 9.5h17" stroke={color} strokeWidth="1.8" />
-      <path d="M8 3v3.5M16 3v3.5" stroke={color} strokeWidth="1.8" strokeLinecap="round" />
-      <path d="M12 12.3v3.2l2.2 1.3" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M12 3l1.5 3.9L17.4 8.4l-3.9 1.5L12 13.8l-1.5-3.9L6.6 8.4l3.9-1.5L12 3z"
+        stroke={color}
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M18.5 13l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z"
+        stroke={color}
+        strokeWidth="1.3"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }
@@ -42,7 +50,7 @@ function SettingsIcon({ active }) {
 }
 
 const TABS = [
-  { id: 'schedule', label: 'Schedule', Icon: ScheduleIcon },
+  { id: 'insights', label: 'Insights', Icon: InsightsIcon },
   { id: 'monster', label: 'MediaMonster', Icon: MonsterIcon },
   { id: 'settings', label: 'Settings', Icon: SettingsIcon },
 ]

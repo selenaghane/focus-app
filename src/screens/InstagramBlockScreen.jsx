@@ -4,7 +4,6 @@ import MonsterNudge from '../components/MonsterNudge'
 import AppIcon from '../components/AppIcon'
 import { DEMO_MODE } from '../config'
 import { DEFAULT_ENERGY } from '../data/monsterData'
-import { formatRange } from '../data/scheduleData'
 import { hasNativeScreenTime } from '../services/screenTime'
 
 function LockIcon() {
@@ -77,8 +76,6 @@ function DoneButton({ onClose }) {
 export default function InstagramBlockScreen({
   monsterConfig,
   monsterEnergy = DEFAULT_ENERGY,
-  block,
-  isBlockRunning = false,
   unlockMin = 5,
   onUnlock,
   onStayFocused,
@@ -174,14 +171,7 @@ export default function InstagramBlockScreen({
           <h1 className="text-lg font-bold text-slate-900 mt-0.5">
             Instagram is paused
           </h1>
-          <p className="text-xs text-slate-500">
-            {block
-              ? `${isBlockRunning ? '' : 'Next: '}${block.label} · ${formatRange(
-                  block.startMin,
-                  block.endMin,
-                )}`
-              : 'Focus block'}
-          </p>
+          <p className="text-xs text-slate-500">Blocked to help you stay focused</p>
         </div>
 
         {/* Say plainly what this is. A web build can't put itself in front of
