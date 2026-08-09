@@ -11,9 +11,6 @@ export default function PhoneDevice({ children }) {
 
       {/* Screen */}
       <div className="relative w-full h-full rounded-[42px] overflow-hidden bg-gradient-to-b from-sky-50 via-white to-emerald-50 flex flex-col">
-        {/* Dynamic island */}
-        <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-[110px] h-[30px] rounded-full bg-slate-900 z-20" />
-
         <StatusBar />
 
         <div className="flex-1 min-h-0 flex flex-col">{children}</div>
