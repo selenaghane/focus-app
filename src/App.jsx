@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import AppShell from './components/AppShell'
 import PhoneFrame from './components/PhoneFrame'
 import PhoneDevice from './components/PhoneDevice'
@@ -19,9 +19,11 @@ import { applyAppearance, defaultAppearance } from './data/appearance'
 import {
   DEFAULT_GOAL_MIN,
   DEFAULT_UNLOCK_MIN,
+  SCREEN_TIME_SOURCE,
   energyFromUsage,
 } from './data/screenTimeData'
 import { DEFAULT_BLOCKS, activeBlock, nextBlock } from './data/scheduleData'
+import { WEEK_HISTORY, snapshotFor } from './data/screenTimeHistory'
 
 const SCREENS = {
   schedule: ScheduleSettings,
@@ -38,7 +40,7 @@ const BLOCK_ROUTE = 'blocked'
 
 function App() {
   const now = useNow()
-  const usage = useScreenTime()
+  const liveUsage = useScreenTime()
   const [route, navigate] = useHashRoute(DEFAULT_TAB)
 
   // Everything below outlives the session now. A hand-typed URL can name a
@@ -59,6 +61,23 @@ function App() {
     'appearance',
     defaultAppearance,
   )
+
+  // Demo-only: which day of the week chart is selected. Six hardcoded days
+  // plus "Today" (the real, live ledger) — index 6 is "Today", so the demo
+  // opens on the same live behaviour it always has.
+  const [selectedDay, setSelectedDay] = useState(WEEK_HISTORY.length)
+  const historyDays = WEEK_HISTORY.map((entry) => ({
+    label: entry.day,
+    ...snapshotFor(entry),
+  }))
+  const weekDays = [...historyDays, { label: 'Today', ...liveUsage }]
+  const isToday = selectedDay === weekDays.length - 1
+  // Historical days aren't off a real bridge, but they're presented as
+  // Screen Time figures the same way a bridge's would be, not as unlock
+  // grants — so they borrow that label rather than the local-ledger one.
+  const demoUsage = isToday
+    ? liveUsage
+    : { ...historyDays[selectedDay], native: true, sourceLabel: SCREEN_TIME_SOURCE, syncedAt: null }
 
   // Dark mode, text size, motion and the font are all CSS hanging off
   // attributes on <html>, so they have to be pushed out of React onto the
@@ -89,9 +108,11 @@ function App() {
     if (window.location.hash !== `#/${tab}`) navigate(tab, { replace: true })
   }, [route, tab, navigate])
 
-  // Minutes on blocked apps today, straight from the Screen Time service.
-  // How far past the daily goal that lands is what wears the monster down.
-  const usedMin = usage.totalMin
+  // Minutes on blocked apps, straight from the Screen Time service — or, in
+  // demo mode, whichever day of the week chart is selected. How far past the
+  // daily goal that lands is what wears the monster down, so scrubbing the
+  // week is what drives the monster's energy in the demo.
+  const usedMin = DEMO_MODE ? demoUsage.totalMin : liveUsage.totalMin
   const monsterEnergy = energyFromUsage(usedMin, goalMin)
 
   // The block screen belongs to whichever focus block is actually running;
@@ -121,6 +142,12 @@ function App() {
     onUnlockChange: setUnlockMin,
     appearance,
     onAppearanceChange: setAppearance,
+    // The week chart only makes sense as a presentation device — the
+    // installed app has just the one, live, real day.
+    ...(DEMO_MODE && {
+      usage: demoUsage,
+      week: { days: weekDays, selectedIndex: selectedDay, onSelect: setSelectedDay },
+    }),
     // Demo mode already has the block screen up on its own phone, so it has
     // nowhere to navigate to.
     onOpenBlockScreen: DEMO_MODE ? undefined : () => navigate(BLOCK_ROUTE),

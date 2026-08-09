@@ -12,6 +12,8 @@ export default function MonsterScreen({
   unlockMin,
   onUnlockChange,
   onOpenBlockScreen,
+  usage,
+  week,
 }) {
   const [view, setView] = useState('companion')
   return (
@@ -36,6 +38,8 @@ export default function MonsterScreen({
           onGoalChange={onGoalChange}
           unlockMin={unlockMin}
           onUnlockChange={onUnlockChange}
+          usage={usage}
+          week={week}
         />
       ) : (
         <MonsterCustomizeView config={config} onChange={onConfigChange} />

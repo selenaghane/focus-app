@@ -1,4 +1,5 @@
 import AppIcon from './AppIcon'
+import WeekChart from './WeekChart'
 import useScreenTime from '../hooks/useScreenTime'
 import { APP_LIST } from '../data/blockingData'
 import {
@@ -15,8 +16,12 @@ function AppleIcon() {
   )
 }
 
-export default function ScreenTimeCard({ usedMin, goalMin }) {
-  const usage = useScreenTime()
+export default function ScreenTimeCard({ usedMin, goalMin, usage: usageOverride, week }) {
+  // The live ledger, unless a specific day's snapshot has been handed down
+  // (demo mode, scrubbing the week chart) — the hook still has to run
+  // unconditionally either way.
+  const liveUsage = useScreenTime()
+  const usage = usageOverride ?? liveUsage
   const over = minutesOver(usedMin, goalMin)
   const pct = pctOverGoal(usedMin, goalMin)
   const isOver = over > 0
@@ -47,6 +52,15 @@ export default function ScreenTimeCard({ usedMin, goalMin }) {
           {formatMinutes(usedMin)}
         </span>
       </div>
+
+      {week && (
+        <WeekChart
+          days={week.days}
+          goalMin={goalMin}
+          selectedIndex={week.selectedIndex}
+          onSelect={week.onSelect}
+        />
+      )}
 
       <div>
         <div className="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden flex">

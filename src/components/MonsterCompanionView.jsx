@@ -37,6 +37,8 @@ export default function MonsterCompanionView({
   onGoalChange,
   unlockMin,
   onUnlockChange,
+  usage,
+  week,
 }) {
   useEffect(() => {
     playChirp()
@@ -51,7 +53,7 @@ export default function MonsterCompanionView({
       </MonsterScene>
       <span className="text-base font-bold text-slate-900">{config.name}</span>
       <EnergyMeter energy={energy} />
-      <ScreenTimeCard usedMin={usedMin} goalMin={goalMin} />
+      <ScreenTimeCard usedMin={usedMin} goalMin={goalMin} usage={usage} week={week} />
       <ScreenTimeSettings
         goalMin={goalMin}
         onGoalChange={onGoalChange}
