@@ -2,6 +2,8 @@
 // which is what the rules in index.css hang off — so a setting changes the
 // whole app rather than just the switch that set it.
 
+import { DEMO_MODE } from '../config'
+
 // Six steps on the text-size slider. The scale multiplies every `--text-*`
 // token and the handful of `text-[Npx]` labels in index.css — layout, icons,
 // and images are untouched, so only the text itself grows or shrinks.
@@ -20,10 +22,12 @@ function prefersDark() {
 
 // First run follows the phone's own appearance setting, which is what someone
 // who keeps their device in dark mode expects. After that the toggle wins,
-// because it's been stored.
+// because it's been stored. The pitch demo isn't anyone's phone though — it
+// opens in light mode regardless of the visitor's system preference, so the
+// screen doesn't come up dark against someone's expectations mid-pitch.
 export function defaultAppearance() {
   return {
-    darkMode: prefersDark(),
+    darkMode: DEMO_MODE ? false : prefersDark(),
     textSize: DEFAULT_TEXT_SIZE_INDEX,
     dyslexiaFont: false,
   }
