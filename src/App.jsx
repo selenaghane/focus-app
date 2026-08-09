@@ -19,7 +19,6 @@ import { applyAppearance, defaultAppearance } from './data/appearance'
 import {
   DEFAULT_GOAL_MIN,
   DEFAULT_UNLOCK_MIN,
-  SCREEN_TIME_SOURCE,
   energyFromUsage,
 } from './data/screenTimeData'
 import { DEFAULT_BLOCKS, activeBlock, nextBlock } from './data/scheduleData'
@@ -69,12 +68,7 @@ function App() {
   }))
   const weekDays = [...historyDays, { label: 'Today', ...liveUsage }]
   const isToday = selectedDay === weekDays.length - 1
-  // Historical days aren't off a real bridge, but they're presented as
-  // Screen Time figures the same way a bridge's would be, not as unlock
-  // grants — so they borrow that label rather than the local-ledger one.
-  const demoUsage = isToday
-    ? liveUsage
-    : { ...historyDays[selectedDay], native: true, sourceLabel: SCREEN_TIME_SOURCE, syncedAt: null }
+  const demoUsage = isToday ? liveUsage : historyDays[selectedDay]
 
   // Dark mode, text size, motion and the font are all CSS hanging off
   // attributes on <html>, so they have to be pushed out of React onto the

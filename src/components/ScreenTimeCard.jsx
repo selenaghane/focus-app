@@ -8,14 +8,6 @@ import {
   pctOverGoal,
 } from '../data/screenTimeData'
 
-function AppleIcon() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="#94a3b8" aria-hidden="true">
-      <path d="M17.05 12.9c-.03-2.67 2.18-3.95 2.28-4.01-1.24-1.82-3.17-2.07-3.86-2.1-1.64-.17-3.2.96-4.03.96-.83 0-2.11-.94-3.47-.91-1.79.03-3.44 1.04-4.36 2.64-1.86 3.22-.48 7.99 1.33 10.6.88 1.28 1.94 2.71 3.32 2.66 1.33-.05 1.84-.86 3.45-.86 1.61 0 2.06.86 3.47.83 1.43-.02 2.34-1.3 3.22-2.59 1.01-1.48 1.43-2.92 1.45-3-.03-.01-2.78-1.07-2.8-4.22zM14.4 4.9c.73-.89 1.22-2.12 1.09-3.35-1.05.04-2.32.7-3.07 1.58-.67.78-1.26 2.03-1.1 3.23 1.17.09 2.36-.59 3.08-1.46z" />
-    </svg>
-  )
-}
-
 export default function ScreenTimeCard({ usedMin, goalMin, usage: usageOverride, week }) {
   // The live ledger, unless a specific day's snapshot has been handed down
   // (demo mode, scrubbing the week chart) — the hook still has to run
@@ -115,19 +107,6 @@ export default function ScreenTimeCard({ usedMin, goalMin, usage: usageOverride,
             </span>
           </div>
         ))}
-      </div>
-
-      {/* Where the numbers came from. The Apple mark only appears once a
-          native bridge is genuinely supplying them — without one these are
-          the app's own unlock grants, and the line says so. */}
-      <div className="flex items-center gap-1.5 pt-0.5">
-        {usage.native && <AppleIcon />}
-        <span className="text-[calc(10px*var(--ui-text-scale,1))] text-slate-400">
-          From {usage.sourceLabel}
-          {usage.native
-            ? usage.syncedAt && ` · synced ${usage.syncedAt}`
-            : ' · resets at midnight'}
-        </span>
       </div>
     </div>
   )
