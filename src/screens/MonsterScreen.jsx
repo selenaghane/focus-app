@@ -8,9 +8,6 @@ export default function MonsterScreen({
   energy,
   usedMin,
   goalMin,
-  onGoalChange,
-  unlockMin,
-  onUnlockChange,
   onOpenBlockScreen,
   usage,
   week,
@@ -35,9 +32,6 @@ export default function MonsterScreen({
           energy={energy}
           usedMin={usedMin}
           goalMin={goalMin}
-          onGoalChange={onGoalChange}
-          unlockMin={unlockMin}
-          onUnlockChange={onUnlockChange}
           usage={usage}
           week={week}
         />

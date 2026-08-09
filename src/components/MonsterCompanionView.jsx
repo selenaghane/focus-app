@@ -3,7 +3,6 @@ import Monster from './Monster'
 import MonsterScene from './MonsterScene'
 import EnergyMeter from './EnergyMeter'
 import ScreenTimeCard from './ScreenTimeCard'
-import ScreenTimeSettings from './ScreenTimeSettings'
 import { DEFAULT_ENERGY } from '../data/monsterData'
 
 function playChirp() {
@@ -34,9 +33,6 @@ export default function MonsterCompanionView({
   energy = DEFAULT_ENERGY,
   usedMin,
   goalMin,
-  onGoalChange,
-  unlockMin,
-  onUnlockChange,
   usage,
   week,
 }) {
@@ -54,12 +50,6 @@ export default function MonsterCompanionView({
       <span className="text-base font-bold text-slate-900">{config.name}</span>
       <EnergyMeter energy={energy} />
       <ScreenTimeCard usedMin={usedMin} goalMin={goalMin} usage={usage} week={week} />
-      <ScreenTimeSettings
-        goalMin={goalMin}
-        onGoalChange={onGoalChange}
-        unlockMin={unlockMin}
-        onUnlockChange={onUnlockChange}
-      />
     </div>
   )
 }

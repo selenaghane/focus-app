@@ -15,11 +15,8 @@ export const BLOCKED_APP_USAGE = [
   { id: 'snapchat', minutes: 22 },
 ]
 
-// How long each unlock buys, and the daily cap for blocked apps. Both are
-// user-editable on the companion tab.
-export const UNLOCK_LENGTH_OPTIONS = [2, 5, 10, 15]
+// How long each unlock buys, and the daily cap for blocked apps.
 export const DEFAULT_UNLOCK_MIN = 5
-export const GOAL_OPTIONS = [30, 60, 90, 120]
 export const DEFAULT_GOAL_MIN = 90
 
 // Going over the daily goal is what wears the monster down: every 5% of the

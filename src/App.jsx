@@ -50,11 +50,8 @@ function App() {
     'monsterConfig',
     DEFAULT_MONSTER,
   )
-  const [goalMin, setGoalMin] = usePersistentState('goalMin', DEFAULT_GOAL_MIN)
-  const [unlockMin, setUnlockMin] = usePersistentState(
-    'unlockMin',
-    DEFAULT_UNLOCK_MIN,
-  )
+  const [goalMin] = usePersistentState('goalMin', DEFAULT_GOAL_MIN)
+  const [unlockMin] = usePersistentState('unlockMin', DEFAULT_UNLOCK_MIN)
   const [blocks, setBlocks] = usePersistentState('blocks', DEFAULT_BLOCKS)
   const [autoOn, setAutoOn] = usePersistentState('autoOn', true)
   const [appearance, setAppearance] = usePersistentState(
@@ -137,9 +134,6 @@ function App() {
     now,
     usedMin,
     goalMin,
-    onGoalChange: setGoalMin,
-    unlockMin,
-    onUnlockChange: setUnlockMin,
     appearance,
     onAppearanceChange: setAppearance,
     // The week chart only makes sense as a presentation device — the
