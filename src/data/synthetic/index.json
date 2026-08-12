@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-08-11T07:00:00.000Z",
+  "dayCount": 30,
+  "personas": [
+    {
+      "id": "late-night-tiktok",
+      "label": "Late-night TikTok scroller",
+      "blurb": "Barely touches her phone by day, then one long TikTok binge well past midnight most nights.",
+      "file": "late-night-tiktok.json"
+    },
+    {
+      "id": "steady-instagram",
+      "label": "Steady all-day Instagram user",
+      "blurb": "Checks Instagram in short bursts all day long — mornings, lunch, after school, before bed — with very little day-to-day variance.",
+      "file": "steady-instagram.json"
+    },
+    {
+      "id": "weekend-blowup",
+      "label": "Fine on weekdays, blows up on weekends",
+      "blurb": "Barely opens anything Monday–Friday, then loses most of Saturday and Sunday to Instagram, TikTok, YouTube and Snapchat.",
+      "file": "weekend-blowup.json"
+    }
+  ]
+}

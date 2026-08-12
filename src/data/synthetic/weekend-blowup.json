@@ -1,0 +1,664 @@
+{
+  "id": "weekend-blowup",
+  "label": "Fine on weekdays, blows up on weekends",
+  "blurb": "Barely opens anything Monday–Friday, then loses most of Saturday and Sunday to Instagram, TikTok, YouTube and Snapchat.",
+  "days": [
+    {
+      "date": "2026-07-13",
+      "sessions": [
+        {
+          "app": "youtube",
+          "start": "2026-07-14T04:20:00.000Z",
+          "minutes": 22
+        }
+      ],
+      "perApp": [
+        {
+          "id": "youtube",
+          "minutes": 22
+        }
+      ],
+      "totalMin": 22
+    },
+    {
+      "date": "2026-07-14",
+      "sessions": [],
+      "perApp": [],
+      "totalMin": 0
+    },
+    {
+      "date": "2026-07-15",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-07-16T02:32:00.000Z",
+          "minutes": 32
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 32
+        }
+      ],
+      "totalMin": 32
+    },
+    {
+      "date": "2026-07-16",
+      "sessions": [],
+      "perApp": [],
+      "totalMin": 0
+    },
+    {
+      "date": "2026-07-17",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-18T04:28:00.000Z",
+          "minutes": 28
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 28
+        }
+      ],
+      "totalMin": 28
+    },
+    {
+      "date": "2026-07-18",
+      "sessions": [
+        {
+          "app": "youtube",
+          "start": "2026-07-18T17:39:00.000Z",
+          "minutes": 40
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-07-18T18:56:00.000Z",
+          "minutes": 69
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-18T19:26:00.000Z",
+          "minutes": 44
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-19T05:38:00.000Z",
+          "minutes": 27
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 71
+        },
+        {
+          "id": "tiktok",
+          "minutes": 69
+        },
+        {
+          "id": "youtube",
+          "minutes": 40
+        }
+      ],
+      "totalMin": 180
+    },
+    {
+      "date": "2026-07-19",
+      "sessions": [
+        {
+          "app": "snapchat",
+          "start": "2026-07-19T17:29:00.000Z",
+          "minutes": 69
+        },
+        {
+          "app": "snapchat",
+          "start": "2026-07-19T18:16:00.000Z",
+          "minutes": 67
+        },
+        {
+          "app": "snapchat",
+          "start": "2026-07-20T00:31:00.000Z",
+          "minutes": 27
+        },
+        {
+          "app": "snapchat",
+          "start": "2026-07-20T01:01:00.000Z",
+          "minutes": 51
+        },
+        {
+          "app": "youtube",
+          "start": "2026-07-20T03:16:00.000Z",
+          "minutes": 26
+        },
+        {
+          "app": "youtube",
+          "start": "2026-07-20T05:10:00.000Z",
+          "minutes": 64
+        }
+      ],
+      "perApp": [
+        {
+          "id": "snapchat",
+          "minutes": 214
+        },
+        {
+          "id": "youtube",
+          "minutes": 90
+        }
+      ],
+      "totalMin": 304
+    },
+    {
+      "date": "2026-07-20",
+      "sessions": [
+        {
+          "app": "youtube",
+          "start": "2026-07-21T03:26:00.000Z",
+          "minutes": 18
+        }
+      ],
+      "perApp": [
+        {
+          "id": "youtube",
+          "minutes": 18
+        }
+      ],
+      "totalMin": 18
+    },
+    {
+      "date": "2026-07-21",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-07-22T04:30:00.000Z",
+          "minutes": 23
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 23
+        }
+      ],
+      "totalMin": 23
+    },
+    {
+      "date": "2026-07-22",
+      "sessions": [
+        {
+          "app": "youtube",
+          "start": "2026-07-23T02:36:00.000Z",
+          "minutes": 14
+        }
+      ],
+      "perApp": [
+        {
+          "id": "youtube",
+          "minutes": 14
+        }
+      ],
+      "totalMin": 14
+    },
+    {
+      "date": "2026-07-23",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-07-24T03:53:00.000Z",
+          "minutes": 15
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 15
+        }
+      ],
+      "totalMin": 15
+    },
+    {
+      "date": "2026-07-24",
+      "sessions": [
+        {
+          "app": "youtube",
+          "start": "2026-07-25T02:08:00.000Z",
+          "minutes": 19
+        }
+      ],
+      "perApp": [
+        {
+          "id": "youtube",
+          "minutes": 19
+        }
+      ],
+      "totalMin": 19
+    },
+    {
+      "date": "2026-07-25",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-25T20:14:00.000Z",
+          "minutes": 31
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-07-25T21:30:00.000Z",
+          "minutes": 56
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-26T00:41:00.000Z",
+          "minutes": 54
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 85
+        },
+        {
+          "id": "tiktok",
+          "minutes": 56
+        }
+      ],
+      "totalMin": 141
+    },
+    {
+      "date": "2026-07-26",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-07-26T20:07:00.000Z",
+          "minutes": 51
+        },
+        {
+          "app": "snapchat",
+          "start": "2026-07-26T23:38:00.000Z",
+          "minutes": 40
+        },
+        {
+          "app": "youtube",
+          "start": "2026-07-27T00:20:00.000Z",
+          "minutes": 61
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-27T03:37:00.000Z",
+          "minutes": 20
+        }
+      ],
+      "perApp": [
+        {
+          "id": "youtube",
+          "minutes": 61
+        },
+        {
+          "id": "tiktok",
+          "minutes": 51
+        },
+        {
+          "id": "snapchat",
+          "minutes": 40
+        },
+        {
+          "id": "instagram",
+          "minutes": 20
+        }
+      ],
+      "totalMin": 172
+    },
+    {
+      "date": "2026-07-27",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-28T02:44:00.000Z",
+          "minutes": 13
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 13
+        }
+      ],
+      "totalMin": 13
+    },
+    {
+      "date": "2026-07-28",
+      "sessions": [
+        {
+          "app": "youtube",
+          "start": "2026-07-29T02:10:00.000Z",
+          "minutes": 29
+        }
+      ],
+      "perApp": [
+        {
+          "id": "youtube",
+          "minutes": 29
+        }
+      ],
+      "totalMin": 29
+    },
+    {
+      "date": "2026-07-29",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-07-30T02:08:00.000Z",
+          "minutes": 16
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 16
+        }
+      ],
+      "totalMin": 16
+    },
+    {
+      "date": "2026-07-30",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-07-31T03:20:00.000Z",
+          "minutes": 32
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 32
+        }
+      ],
+      "totalMin": 32
+    },
+    {
+      "date": "2026-07-31",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-08-01T02:18:00.000Z",
+          "minutes": 13
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 13
+        }
+      ],
+      "totalMin": 13
+    },
+    {
+      "date": "2026-08-01",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-08-01T23:19:00.000Z",
+          "minutes": 70
+        },
+        {
+          "app": "youtube",
+          "start": "2026-08-01T23:44:00.000Z",
+          "minutes": 43
+        },
+        {
+          "app": "snapchat",
+          "start": "2026-08-02T06:14:00.000Z",
+          "minutes": 29
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 70
+        },
+        {
+          "id": "youtube",
+          "minutes": 43
+        },
+        {
+          "id": "snapchat",
+          "minutes": 29
+        }
+      ],
+      "totalMin": 142
+    },
+    {
+      "date": "2026-08-02",
+      "sessions": [
+        {
+          "app": "youtube",
+          "start": "2026-08-02T18:49:00.000Z",
+          "minutes": 45
+        },
+        {
+          "app": "youtube",
+          "start": "2026-08-03T01:15:00.000Z",
+          "minutes": 25
+        },
+        {
+          "app": "youtube",
+          "start": "2026-08-03T01:17:00.000Z",
+          "minutes": 45
+        }
+      ],
+      "perApp": [
+        {
+          "id": "youtube",
+          "minutes": 115
+        }
+      ],
+      "totalMin": 115
+    },
+    {
+      "date": "2026-08-03",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-08-04T02:34:00.000Z",
+          "minutes": 12
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 12
+        }
+      ],
+      "totalMin": 12
+    },
+    {
+      "date": "2026-08-04",
+      "sessions": [
+        {
+          "app": "youtube",
+          "start": "2026-08-05T02:58:00.000Z",
+          "minutes": 10
+        }
+      ],
+      "perApp": [
+        {
+          "id": "youtube",
+          "minutes": 10
+        }
+      ],
+      "totalMin": 10
+    },
+    {
+      "date": "2026-08-05",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-08-06T02:36:00.000Z",
+          "minutes": 29
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 29
+        }
+      ],
+      "totalMin": 29
+    },
+    {
+      "date": "2026-08-06",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-08-07T03:21:00.000Z",
+          "minutes": 35
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 35
+        }
+      ],
+      "totalMin": 35
+    },
+    {
+      "date": "2026-08-07",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-08-08T03:00:00.000Z",
+          "minutes": 26
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 26
+        }
+      ],
+      "totalMin": 26
+    },
+    {
+      "date": "2026-08-08",
+      "sessions": [
+        {
+          "app": "youtube",
+          "start": "2026-08-08T20:02:00.000Z",
+          "minutes": 30
+        },
+        {
+          "app": "youtube",
+          "start": "2026-08-08T21:40:00.000Z",
+          "minutes": 65
+        },
+        {
+          "app": "snapchat",
+          "start": "2026-08-08T23:11:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-09T04:17:00.000Z",
+          "minutes": 53
+        },
+        {
+          "app": "youtube",
+          "start": "2026-08-09T05:31:00.000Z",
+          "minutes": 67
+        },
+        {
+          "app": "snapchat",
+          "start": "2026-08-09T06:21:00.000Z",
+          "minutes": 62
+        }
+      ],
+      "perApp": [
+        {
+          "id": "youtube",
+          "minutes": 162
+        },
+        {
+          "id": "snapchat",
+          "minutes": 77
+        },
+        {
+          "id": "instagram",
+          "minutes": 53
+        }
+      ],
+      "totalMin": 292
+    },
+    {
+      "date": "2026-08-09",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-08-09T19:54:00.000Z",
+          "minutes": 33
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-08-09T23:17:00.000Z",
+          "minutes": 26
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-08-10T00:57:00.000Z",
+          "minutes": 44
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-08-10T05:57:00.000Z",
+          "minutes": 19
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 122
+        }
+      ],
+      "totalMin": 122
+    },
+    {
+      "date": "2026-08-10",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-08-11T03:13:00.000Z",
+          "minutes": 18
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 18
+        }
+      ],
+      "totalMin": 18
+    },
+    {
+      "date": "2026-08-11",
+      "sessions": [
+        {
+          "app": "tiktok",
+          "start": "2026-08-12T02:20:00.000Z",
+          "minutes": 15
+        }
+      ],
+      "perApp": [
+        {
+          "id": "tiktok",
+          "minutes": 15
+        }
+      ],
+      "totalMin": 15
+    }
+  ]
+}

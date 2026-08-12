@@ -1,0 +1,1066 @@
+{
+  "id": "steady-instagram",
+  "label": "Steady all-day Instagram user",
+  "blurb": "Checks Instagram in short bursts all day long — mornings, lunch, after school, before bed — with very little day-to-day variance.",
+  "days": [
+    {
+      "date": "2026-07-13",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-13T14:50:00.000Z",
+          "minutes": 9
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-13T20:13:00.000Z",
+          "minutes": 16
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-13T23:12:00.000Z",
+          "minutes": 19
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-14T04:05:00.000Z",
+          "minutes": 28
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 72
+        }
+      ],
+      "totalMin": 72
+    },
+    {
+      "date": "2026-07-14",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-14T14:56:00.000Z",
+          "minutes": 5
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-14T19:44:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-15T00:05:00.000Z",
+          "minutes": 17
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-07-15T01:11:00.000Z",
+          "minutes": 12
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-15T03:39:00.000Z",
+          "minutes": 21
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 58
+        },
+        {
+          "id": "tiktok",
+          "minutes": 12
+        }
+      ],
+      "totalMin": 70
+    },
+    {
+      "date": "2026-07-15",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-15T14:48:00.000Z",
+          "minutes": 9
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-15T19:28:00.000Z",
+          "minutes": 14
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-15T23:24:00.000Z",
+          "minutes": 12
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-07-16T01:48:00.000Z",
+          "minutes": 13
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-16T04:13:00.000Z",
+          "minutes": 29
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 64
+        },
+        {
+          "id": "tiktok",
+          "minutes": 13
+        }
+      ],
+      "totalMin": 77
+    },
+    {
+      "date": "2026-07-16",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-16T14:12:00.000Z",
+          "minutes": 7
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-16T19:48:00.000Z",
+          "minutes": 16
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-16T23:44:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-17T04:07:00.000Z",
+          "minutes": 23
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 61
+        }
+      ],
+      "totalMin": 61
+    },
+    {
+      "date": "2026-07-17",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-17T14:41:00.000Z",
+          "minutes": 12
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-17T20:14:00.000Z",
+          "minutes": 17
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-17T22:43:00.000Z",
+          "minutes": 18
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-18T02:52:00.000Z",
+          "minutes": 20
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 67
+        }
+      ],
+      "totalMin": 67
+    },
+    {
+      "date": "2026-07-18",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-18T14:37:00.000Z",
+          "minutes": 7
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-18T19:49:00.000Z",
+          "minutes": 11
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-18T23:21:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-19T04:18:00.000Z",
+          "minutes": 26
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 59
+        }
+      ],
+      "totalMin": 59
+    },
+    {
+      "date": "2026-07-19",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-19T14:00:00.000Z",
+          "minutes": 8
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-19T19:28:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-19T23:10:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-20T03:31:00.000Z",
+          "minutes": 29
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 67
+        }
+      ],
+      "totalMin": 67
+    },
+    {
+      "date": "2026-07-20",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-20T14:11:00.000Z",
+          "minutes": 11
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-20T20:02:00.000Z",
+          "minutes": 8
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-20T22:36:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-21T02:39:00.000Z",
+          "minutes": 17
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-07-21T03:44:00.000Z",
+          "minutes": 20
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 51
+        },
+        {
+          "id": "tiktok",
+          "minutes": 20
+        }
+      ],
+      "totalMin": 71
+    },
+    {
+      "date": "2026-07-21",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-21T14:35:00.000Z",
+          "minutes": 10
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-21T19:46:00.000Z",
+          "minutes": 8
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-21T22:43:00.000Z",
+          "minutes": 13
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-07-22T04:04:00.000Z",
+          "minutes": 21
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-22T04:38:00.000Z",
+          "minutes": 28
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 59
+        },
+        {
+          "id": "tiktok",
+          "minutes": 21
+        }
+      ],
+      "totalMin": 80
+    },
+    {
+      "date": "2026-07-22",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-22T14:22:00.000Z",
+          "minutes": 13
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-22T19:19:00.000Z",
+          "minutes": 9
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-22T23:36:00.000Z",
+          "minutes": 24
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-07-23T01:13:00.000Z",
+          "minutes": 18
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-23T03:23:00.000Z",
+          "minutes": 15
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 61
+        },
+        {
+          "id": "tiktok",
+          "minutes": 18
+        }
+      ],
+      "totalMin": 79
+    },
+    {
+      "date": "2026-07-23",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-23T15:04:00.000Z",
+          "minutes": 9
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-23T19:48:00.000Z",
+          "minutes": 17
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-07-23T23:35:00.000Z",
+          "minutes": 11
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-23T23:43:00.000Z",
+          "minutes": 21
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-24T02:32:00.000Z",
+          "minutes": 33
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 80
+        },
+        {
+          "id": "tiktok",
+          "minutes": 11
+        }
+      ],
+      "totalMin": 91
+    },
+    {
+      "date": "2026-07-24",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-24T14:44:00.000Z",
+          "minutes": 11
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-24T19:25:00.000Z",
+          "minutes": 8
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-24T22:48:00.000Z",
+          "minutes": 18
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-25T03:04:00.000Z",
+          "minutes": 22
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 59
+        }
+      ],
+      "totalMin": 59
+    },
+    {
+      "date": "2026-07-25",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-25T15:05:00.000Z",
+          "minutes": 11
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-25T19:29:00.000Z",
+          "minutes": 18
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-25T22:56:00.000Z",
+          "minutes": 22
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-07-25T23:36:00.000Z",
+          "minutes": 13
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-26T02:32:00.000Z",
+          "minutes": 27
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 78
+        },
+        {
+          "id": "tiktok",
+          "minutes": 13
+        }
+      ],
+      "totalMin": 91
+    },
+    {
+      "date": "2026-07-26",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-26T14:34:00.000Z",
+          "minutes": 10
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-26T20:08:00.000Z",
+          "minutes": 12
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-26T22:45:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-07-27T01:32:00.000Z",
+          "minutes": 22
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-27T04:24:00.000Z",
+          "minutes": 22
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 59
+        },
+        {
+          "id": "tiktok",
+          "minutes": 22
+        }
+      ],
+      "totalMin": 81
+    },
+    {
+      "date": "2026-07-27",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-27T14:36:00.000Z",
+          "minutes": 7
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-27T19:38:00.000Z",
+          "minutes": 8
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-28T00:04:00.000Z",
+          "minutes": 12
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-28T03:11:00.000Z",
+          "minutes": 17
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 44
+        }
+      ],
+      "totalMin": 44
+    },
+    {
+      "date": "2026-07-28",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-28T14:44:00.000Z",
+          "minutes": 12
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-28T19:39:00.000Z",
+          "minutes": 11
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-29T00:05:00.000Z",
+          "minutes": 22
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-29T04:34:00.000Z",
+          "minutes": 24
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 69
+        }
+      ],
+      "totalMin": 69
+    },
+    {
+      "date": "2026-07-29",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-29T15:00:00.000Z",
+          "minutes": 7
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-29T19:25:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-30T00:09:00.000Z",
+          "minutes": 25
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-30T03:46:00.000Z",
+          "minutes": 17
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 64
+        }
+      ],
+      "totalMin": 64
+    },
+    {
+      "date": "2026-07-30",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-30T14:34:00.000Z",
+          "minutes": 14
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-30T19:40:00.000Z",
+          "minutes": 12
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-30T23:46:00.000Z",
+          "minutes": 22
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-31T04:06:00.000Z",
+          "minutes": 18
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 66
+        }
+      ],
+      "totalMin": 66
+    },
+    {
+      "date": "2026-07-31",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-07-31T14:34:00.000Z",
+          "minutes": 8
+        },
+        {
+          "app": "instagram",
+          "start": "2026-07-31T19:05:00.000Z",
+          "minutes": 12
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-01T00:15:00.000Z",
+          "minutes": 13
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-01T04:27:00.000Z",
+          "minutes": 18
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 51
+        }
+      ],
+      "totalMin": 51
+    },
+    {
+      "date": "2026-08-01",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-08-01T14:22:00.000Z",
+          "minutes": 10
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-01T20:09:00.000Z",
+          "minutes": 16
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-01T22:57:00.000Z",
+          "minutes": 25
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-02T03:23:00.000Z",
+          "minutes": 29
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 80
+        }
+      ],
+      "totalMin": 80
+    },
+    {
+      "date": "2026-08-02",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-08-02T14:32:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-02T20:02:00.000Z",
+          "minutes": 12
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-02T23:11:00.000Z",
+          "minutes": 24
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-08-02T23:52:00.000Z",
+          "minutes": 22
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-03T03:58:00.000Z",
+          "minutes": 20
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 71
+        },
+        {
+          "id": "tiktok",
+          "minutes": 22
+        }
+      ],
+      "totalMin": 93
+    },
+    {
+      "date": "2026-08-03",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-08-03T14:50:00.000Z",
+          "minutes": 13
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-03T19:25:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-03T22:58:00.000Z",
+          "minutes": 19
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-04T03:45:00.000Z",
+          "minutes": 17
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 64
+        }
+      ],
+      "totalMin": 64
+    },
+    {
+      "date": "2026-08-04",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-08-04T14:13:00.000Z",
+          "minutes": 6
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-04T20:04:00.000Z",
+          "minutes": 11
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-04T22:53:00.000Z",
+          "minutes": 11
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-05T03:50:00.000Z",
+          "minutes": 22
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 50
+        }
+      ],
+      "totalMin": 50
+    },
+    {
+      "date": "2026-08-05",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-08-05T15:13:00.000Z",
+          "minutes": 5
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-05T20:10:00.000Z",
+          "minutes": 10
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-05T22:51:00.000Z",
+          "minutes": 19
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-08-06T03:36:00.000Z",
+          "minutes": 10
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-06T03:40:00.000Z",
+          "minutes": 26
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 60
+        },
+        {
+          "id": "tiktok",
+          "minutes": 10
+        }
+      ],
+      "totalMin": 70
+    },
+    {
+      "date": "2026-08-06",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-08-06T15:08:00.000Z",
+          "minutes": 7
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-06T19:43:00.000Z",
+          "minutes": 11
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-06T23:16:00.000Z",
+          "minutes": 19
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-07T03:16:00.000Z",
+          "minutes": 25
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 62
+        }
+      ],
+      "totalMin": 62
+    },
+    {
+      "date": "2026-08-07",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-08-07T14:58:00.000Z",
+          "minutes": 7
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-07T19:05:00.000Z",
+          "minutes": 9
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-07T23:06:00.000Z",
+          "minutes": 10
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-08T03:29:00.000Z",
+          "minutes": 32
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 58
+        }
+      ],
+      "totalMin": 58
+    },
+    {
+      "date": "2026-08-08",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-08-08T14:26:00.000Z",
+          "minutes": 10
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-08T19:23:00.000Z",
+          "minutes": 8
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-08T23:06:00.000Z",
+          "minutes": 16
+        },
+        {
+          "app": "tiktok",
+          "start": "2026-08-09T00:38:00.000Z",
+          "minutes": 17
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-09T02:35:00.000Z",
+          "minutes": 15
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 49
+        },
+        {
+          "id": "tiktok",
+          "minutes": 17
+        }
+      ],
+      "totalMin": 66
+    },
+    {
+      "date": "2026-08-09",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-08-09T14:03:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-09T20:04:00.000Z",
+          "minutes": 17
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-09T22:30:00.000Z",
+          "minutes": 11
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-10T04:22:00.000Z",
+          "minutes": 19
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 62
+        }
+      ],
+      "totalMin": 62
+    },
+    {
+      "date": "2026-08-10",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-08-10T14:45:00.000Z",
+          "minutes": 12
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-10T19:47:00.000Z",
+          "minutes": 11
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-10T23:21:00.000Z",
+          "minutes": 23
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-11T02:32:00.000Z",
+          "minutes": 15
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 61
+        }
+      ],
+      "totalMin": 61
+    },
+    {
+      "date": "2026-08-11",
+      "sessions": [
+        {
+          "app": "instagram",
+          "start": "2026-08-11T14:34:00.000Z",
+          "minutes": 13
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-11T19:16:00.000Z",
+          "minutes": 13
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-11T22:36:00.000Z",
+          "minutes": 15
+        },
+        {
+          "app": "instagram",
+          "start": "2026-08-12T03:01:00.000Z",
+          "minutes": 29
+        }
+      ],
+      "perApp": [
+        {
+          "id": "instagram",
+          "minutes": 70
+        }
+      ],
+      "totalMin": 70
+    }
+  ]
+}

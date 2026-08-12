@@ -1,5 +1,4 @@
 import { MAX_ENERGY, stageInfo, stageFromEnergy } from '../data/monsterData'
-
 // Colour tracks the same five stages the artwork uses, so the bar and the
 // creature always agree about how the monster is doing.
 const STAGE_COLORS = ['#1baf7a', '#5cc08d', '#eda100', '#f08a4b', '#e2635f']
@@ -10,6 +9,9 @@ export default function EnergyMeter({ energy }) {
   const { label, blurb } = stageInfo(clamped)
   const color = STAGE_COLORS[stage]
 
+
+
+  
   return (
     <div className="w-full bg-surface/80 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-2">
       <div className="flex items-baseline justify-between gap-2">
