@@ -34,7 +34,7 @@ export default function WeekChart({ days, goalMin, selectedIndex, onSelect }) {
         {days.map((d, i) => (
           <span
             key={d.label}
-            className={`flex-1 text-center text-[calc(10px*var(--ui-text-scale,1))] font-semibold tabular-nums ${
+            className={`flex-1 text-center text-[10px] font-semibold tabular-nums ${
               i === selectedIndex ? 'text-slate-700' : 'text-slate-400'
             }`}
           >

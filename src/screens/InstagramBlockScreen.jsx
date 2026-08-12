@@ -169,7 +169,7 @@ export default function InstagramBlockScreen({
             idea to a room, and doesn't need the footnote. */}
         {!DEMO_MODE && !hasNativeScreenTime() && (
           <div className="rounded-2xl bg-amber-50/90 border border-amber-100 px-3.5 py-2.5">
-            <span className="text-[calc(11px*var(--ui-text-scale,1))] text-amber-700 leading-snug">
+            <span className="text-[11px] text-amber-700 leading-snug">
               Blocked apps can&rsquo;t be interrupted automatically yet — that
               needs the native build. Unlocking here still spends{' '}
               {unlockMin} minutes against today&rsquo;s goal.
@@ -196,7 +196,7 @@ export default function InstagramBlockScreen({
             className="w-full resize-none rounded-xl border border-slate-200 bg-surface px-3.5 py-3 text-sm text-slate-700 placeholder:text-slate-300 outline-none focus:border-[#2a78d6] transition-colors"
           />
 
-          <div className="flex items-center gap-1.5 text-[calc(11px*var(--ui-text-scale,1))] font-medium">
+          <div className="flex items-center gap-1.5 text-[11px] font-medium">
             {enoughWords ? (
               <>
                 <CheckCircleIcon />

@@ -25,7 +25,7 @@ export default function InsightsScreen({
             "Recommended" pills in the list below — the explainer line is
             redundant there and just eats space on the phone. */}
         {!DEMO_MODE && (
-          <p className="text-[calc(11px*var(--ui-text-scale,1))] text-slate-400 leading-snug">
+          <p className="text-[11px] text-slate-400 leading-snug">
             {recommendedCount > 0
               ? `Based on recent usage, ${recommendedCount === 1 ? "there's one app" : `there are ${recommendedCount} apps`} worth limiting. You have the final say — toggle any app on or off below.`
               : "Based on recent usage, nothing stands out enough to flag. Toggle any app on or off below."}

@@ -1,104 +1,12 @@
 @import "tailwindcss";
 
-/* Card and bar surfaces. These were literal `bg-white`, which is a colour
-   rather than a role — and a role is what's needed, because in dark mode the
-   same surfaces have to go dark while `text-white` on the coloured buttons
-   stays white. */
+/* Card and bar surfaces, named by role rather than literal `bg-white`. */
 @theme {
   --color-surface: #fff;
-
-  /* Text size ------------------------------------------------------------
-     Every named Tailwind text utility resolves through one of these tokens,
-     so scaling them here scales every label in the app — while spacing,
-     icons, and images (which read from `--spacing`, not `--text-*`) don't
-     move at all. Line-heights are unitless ratios in Tailwind's own theme,
-     so they track the scaled font-size automatically without being restated
-     here. */
-  --text-xs: calc(0.75rem * var(--ui-text-scale, 1));
-  --text-sm: calc(0.875rem * var(--ui-text-scale, 1));
-  --text-base: calc(1rem * var(--ui-text-scale, 1));
-  --text-lg: calc(1.125rem * var(--ui-text-scale, 1));
-  --text-xl: calc(1.25rem * var(--ui-text-scale, 1));
-  --text-2xl: calc(1.5rem * var(--ui-text-scale, 1));
-  --text-3xl: calc(1.875rem * var(--ui-text-scale, 1));
 }
 
 body {
   margin: 0;
-}
-
-/* Dark mode ----------------------------------------------------------
-   Tailwind v4 compiles every colour utility down to `var(--color-*)`, so
-   redefining those variables here re-themes all thirty-odd components
-   without touching one of them.
-
-   Only the variables that are *always* a surface or a border can be
-   remapped wholesale. The slate scale can't: `text-slate-900` is body copy
-   and wants to become near-white, while `bg-slate-900` is a dark chip and
-   wants to stay dark. Those are handled per-utility below. */
-html[data-theme="dark"] {
-  --color-surface: #172033;
-  --color-slate-50: #131d2f;
-  --color-slate-100: #26324a;
-  --color-slate-200: #33415c;
-
-  /* Tinted status panels: same jobs, dark enough to sit on the page. */
-  --color-sky-50: #14263d;
-  --color-sky-100: #1d3352;
-  --color-emerald-50: #10291f;
-  --color-emerald-100: #1a3f30;
-  --color-amber-50: #2d2411;
-  --color-amber-100: #3d3116;
-  --color-rose-50: #2e1620;
-}
-
-/* Text tones, mapped by role rather than by inverting the scale. */
-html[data-theme="dark"] .text-slate-900,
-html[data-theme="dark"] .text-slate-800,
-html[data-theme="dark"] .text-slate-700 {
-  color: #e9eff8;
-}
-
-html[data-theme="dark"] .text-slate-600,
-html[data-theme="dark"] .text-slate-500 {
-  color: #b9c4d4;
-}
-
-html[data-theme="dark"] .text-slate-400 {
-  color: #8fa0b6;
-}
-
-html[data-theme="dark"] .text-slate-300 {
-  color: #64748b;
-}
-
-/* Accent text is legible on white but muddy on a dark card, so the
-   foreground shades lift. The matching `bg-*` utilities are deliberately
-   left alone — those are filled buttons that already carry white text. */
-html[data-theme="dark"] .text-emerald-600 {
-  color: #34d399;
-}
-
-html[data-theme="dark"] .text-emerald-700 {
-  color: #6ee7b7;
-}
-
-html[data-theme="dark"] .text-amber-600 {
-  color: #fbbf24;
-}
-
-html[data-theme="dark"] .text-amber-700 {
-  color: #fcd34d;
-}
-
-html[data-theme="dark"] .text-rose-500 {
-  color: #fb7185;
-}
-
-/* The decorative wash behind the block screen is tuned for a white page and
-   glows through a dark one. */
-html[data-theme="dark"] .app-shell .blur-2xl {
-  opacity: 0.25;
 }
 
 .no-scrollbar {
@@ -157,14 +65,6 @@ html[data-theme="dark"] .app-shell .blur-2xl {
   flex-direction: column;
 }
 
-html[data-theme="dark"] .app-viewport {
-  background: #05080e;
-}
-
-html[data-theme="dark"] .app-shell {
-  background: linear-gradient(to bottom, #0e1a2b, #0b1220 45%, #0c1b18);
-}
-
 /* Installed on a phone, the gap below the tab bar has to be whatever the
    device's home indicator actually needs. In a browser tab and inside the
    demo frame the inset is 0 and the 24px floor wins, so one rule covers
@@ -215,33 +115,6 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* Dyslexia-friendly text ----------------------------------------------
-   OpenDyslexic weights each letter bottom-heavy so similar shapes (b/d,
-   p/q, n/u) are harder to flip or mirror. Bundled locally rather than
-   pulled from a CDN, so it's still there with no network — same reasoning
-   as the service worker in main.jsx. */
-@font-face {
-  font-family: "OpenDyslexic";
-  src: url("./assets/fonts/OpenDyslexic-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "OpenDyslexic";
-  src: url("./assets/fonts/OpenDyslexic-Bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-html[data-font="dyslexia"] body {
-  font-family: "OpenDyslexic", Verdana, Tahoma, "DejaVu Sans", sans-serif;
-  letter-spacing: 0.02em;
-  word-spacing: 0.09em;
 }
 
 /* Fit-to-viewport phone -----------------------------------------------

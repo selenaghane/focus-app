@@ -22,15 +22,3 @@ export async function hideSplash() {
     // Nothing to do: the shell hides it on its own timer.
   }
 }
-
-// Naming here is the opposite of what it looks like: Style.Dark means light
-// text *for* a dark background, so dark mode wants Style.Dark.
-export async function syncStatusBar(darkMode) {
-  if (!IS_NATIVE) return
-  try {
-    const { StatusBar, Style } = await import('@capacitor/status-bar')
-    await StatusBar.setStyle({ style: darkMode ? Style.Dark : Style.Light })
-  } catch {
-    // Leaves the status bar at the system default, which is still legible.
-  }
-}

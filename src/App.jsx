@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import AppShell from './components/AppShell'
 import PhoneFrame from './components/PhoneFrame'
 import PhoneDevice from './components/PhoneDevice'
@@ -11,8 +11,6 @@ import useHashRoute from './hooks/useHashRoute'
 import usePersistentState from './hooks/usePersistentState'
 import useScreenTime from './hooks/useScreenTime'
 import { recordUnlock } from './services/screenTime'
-import { syncStatusBar } from './services/nativeShell'
-import { applyAppearance, defaultAppearance } from './data/appearance'
 import { APP_LIST } from './data/blockingData'
 import { DEFAULT_GOAL_MIN, DEFAULT_UNLOCK_MIN } from './data/screenTimeData'
 import { WEEK_HISTORY, snapshotFor } from './data/screenTimeHistory'
@@ -45,10 +43,6 @@ function App() {
     'blockedAppIds',
     APP_LIST.filter((a) => a.blocked).map((a) => a.id),
   )
-  const [appearance, setAppearance] = usePersistentState(
-    'appearance',
-    defaultAppearance,
-  )
 
   // Demo-only: which day of the week chart is selected. Six hardcoded days
   // plus "Today" (the real, live ledger) — index 6 is "Today", so the demo
@@ -73,18 +67,6 @@ function App() {
       ),
     [setBlockedIds],
   )
-
-  // Dark mode, text size, motion and the font are all CSS hanging off
-  // attributes on <html>, so they have to be pushed out of React onto the
-  // document — that's also what puts them outside the app's own subtree,
-  // where the page background lives. Layout effect rather than effect, so
-  // the attributes land before the browser paints instead of a frame after.
-  useLayoutEffect(() => {
-    applyAppearance(appearance)
-    // The iOS status bar sits above the web view and doesn't know the app
-    // went dark, so its text stays black on a black bar without this.
-    syncStatusBar(appearance.darkMode)
-  }, [appearance])
 
   // A hand-typed or bookmarked URL can name a tab that doesn't exist, so the
   // route is always resolved against the real screen list.
@@ -118,8 +100,6 @@ function App() {
     onToggleApp: toggleApp,
     usedMin,
     goalMin,
-    appearance,
-    onAppearanceChange: setAppearance,
     // The week chart only makes sense as a presentation device — the
     // installed app has just the one, live, real day.
     ...(DEMO_MODE && {

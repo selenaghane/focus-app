@@ -63,7 +63,7 @@ export default function TabBar({ active, tabs, onChange }) {
           >
             <Icon active={isActive} />
             <span
-              className={`text-[calc(11px*var(--ui-text-scale,1))] font-medium whitespace-nowrap ${
+              className={`text-[11px] font-medium whitespace-nowrap ${
                 isActive ? 'text-[#2a78d6]' : 'text-slate-400'
               }`}
             >

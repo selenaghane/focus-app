@@ -11,12 +11,12 @@ export default function AppInsightRow({ id, name, avgMin, recommended, blocked, 
           <div className="flex items-center gap-1.5">
             <span className="text-sm font-semibold text-slate-700 truncate">{name}</span>
             {recommended && (
-              <span className="shrink-0 text-[calc(9px*var(--ui-text-scale,1))] font-bold uppercase tracking-wide text-[#2a78d6] bg-sky-50 rounded-full px-1.5 py-0.5">
+              <span className="shrink-0 text-[9px] font-bold uppercase tracking-wide text-[#2a78d6] bg-sky-50 rounded-full px-1.5 py-0.5">
                 Recommended
               </span>
             )}
           </div>
-          <span className="text-[calc(11px*var(--ui-text-scale,1))] text-slate-400 tabular-nums">
+          <span className="text-[11px] text-slate-400 tabular-nums">
             {avgMin > 0 ? `${formatMinutes(avgMin)}/day avg` : 'No recent usage'}
           </span>
         </div>
