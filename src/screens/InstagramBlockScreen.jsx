@@ -1,9 +1,6 @@
 import { useState } from 'react'
-import Monster from '../components/Monster'
-import MonsterNudge from '../components/MonsterNudge'
 import AppIcon from '../components/AppIcon'
 import { DEMO_MODE } from '../config'
-import { DEFAULT_ENERGY } from '../data/monsterData'
 import { hasNativeScreenTime } from '../services/screenTime'
 
 function LockIcon() {
@@ -74,8 +71,6 @@ function DoneButton({ onClose }) {
 }
 
 export default function InstagramBlockScreen({
-  monsterConfig,
-  monsterEnergy = DEFAULT_ENERGY,
   unlockMin = 5,
   onUnlock,
   onStayFocused,
@@ -110,10 +105,6 @@ export default function InstagramBlockScreen({
         <p className="text-sm text-slate-500">
           Instagram will pause again automatically when time&rsquo;s up.
         </p>
-        <Monster {...monsterConfig} energy={monsterEnergy} size={96} />
-        <p className="text-xs text-slate-400">
-          {monsterConfig.name} looks a little tired...
-        </p>
         <DoneButton onClose={onClose} />
       </div>
     )
@@ -130,10 +121,6 @@ export default function InstagramBlockScreen({
         </h1>
         <p className="text-sm text-slate-500">
           Instagram stays paused for the rest of this block.
-        </p>
-        <Monster {...monsterConfig} energy={monsterEnergy} size={96} />
-        <p className="text-xs text-slate-400">
-          {monsterConfig.name} is so proud of you!
         </p>
         <DoneButton onClose={onClose} />
       </div>
@@ -189,8 +176,6 @@ export default function InstagramBlockScreen({
             </span>
           </div>
         )}
-
-        <MonsterNudge config={monsterConfig} energy={monsterEnergy} />
 
         <div className="bg-surface/85 rounded-2xl border border-slate-100 shadow-sm px-4 py-3.5 flex flex-col gap-3">
           <p className="text-sm text-slate-600 leading-snug">

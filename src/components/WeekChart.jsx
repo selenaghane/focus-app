@@ -1,7 +1,7 @@
 // The weekly bar chart on the Screen Time card, styled after iOS Screen
 // Time's own "This Week" view. Each bar is tappable — tapping one is how the
-// rest of the phone (the app list below, the goal bar, the monster's energy)
-// switches to that day, so this doubles as the demo's day scrubber.
+// rest of the phone (the app list below, the goal bar) switches to that day,
+// so this doubles as the demo's day scrubber.
 export default function WeekChart({ days, goalMin, selectedIndex, onSelect }) {
   const maxMin = Math.max(goalMin, ...days.map((d) => d.totalMin), 1)
 

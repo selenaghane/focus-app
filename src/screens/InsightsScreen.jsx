@@ -1,10 +1,19 @@
+import ScreenTimeCard from '../components/ScreenTimeCard'
 import AppInsightRow from '../components/AppInsightRow'
 import { DEMO_MODE } from '../config'
 import { rankAppsByUsage, withRecommendations } from '../data/recommendations'
 
 // `days` is the usage window recommendations are ranked against — the
 // demo's week of history plus today, or just today outside demo mode.
-export default function InsightsScreen({ days, blockedIds, onToggleApp }) {
+export default function InsightsScreen({
+  days,
+  blockedIds,
+  onToggleApp,
+  usedMin,
+  goalMin,
+  usage,
+  week,
+}) {
   const apps = withRecommendations(rankAppsByUsage(days), blockedIds)
   const recommendedCount = apps.filter((a) => a.recommended).length
 
@@ -23,6 +32,8 @@ export default function InsightsScreen({ days, blockedIds, onToggleApp }) {
           </p>
         )}
       </div>
+
+      <ScreenTimeCard usedMin={usedMin} goalMin={goalMin} usage={usage} week={week} />
 
       <div className="flex flex-col gap-2">
         {apps.map((a) => (

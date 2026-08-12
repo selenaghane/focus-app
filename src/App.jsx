@@ -6,30 +6,23 @@ import TabBar from './components/TabBar'
 import InsightsScreen from './screens/InsightsScreen'
 import Settings from './screens/Settings'
 import InstagramBlockScreen from './screens/InstagramBlockScreen'
-import MonsterScreen from './screens/MonsterScreen'
 import { DEMO_MODE } from './config'
 import useHashRoute from './hooks/useHashRoute'
 import usePersistentState from './hooks/usePersistentState'
 import useScreenTime from './hooks/useScreenTime'
 import { recordUnlock } from './services/screenTime'
 import { syncStatusBar } from './services/nativeShell'
-import { DEFAULT_MONSTER } from './data/monsterData'
 import { applyAppearance, defaultAppearance } from './data/appearance'
 import { APP_LIST } from './data/blockingData'
-import {
-  DEFAULT_GOAL_MIN,
-  DEFAULT_UNLOCK_MIN,
-  energyFromUsage,
-} from './data/screenTimeData'
+import { DEFAULT_GOAL_MIN, DEFAULT_UNLOCK_MIN } from './data/screenTimeData'
 import { WEEK_HISTORY, snapshotFor } from './data/screenTimeHistory'
 
 const SCREENS = {
   insights: InsightsScreen,
-  monster: MonsterScreen,
   settings: Settings,
 }
 
-const AVAILABLE_TABS = ['insights', 'monster', 'settings']
+const AVAILABLE_TABS = ['insights', 'settings']
 const DEFAULT_TAB = 'insights'
 // The block screen isn't a tab — it takes over the whole surface, the way it
 // would if the OS had thrown it up over Instagram.
@@ -43,10 +36,6 @@ function App() {
   // Everything below outlives the session now. A hand-typed URL can name a
   // route that doesn't exist, so the tab is always resolved against the real
   // screen list rather than trusted.
-  const [monsterConfig, setMonsterConfig] = usePersistentState(
-    'monsterConfig',
-    DEFAULT_MONSTER,
-  )
   const [goalMin] = usePersistentState('goalMin', DEFAULT_GOAL_MIN)
   const [unlockMin] = usePersistentState('unlockMin', DEFAULT_UNLOCK_MIN)
   // Only the ids are stored, not whole app records: that way adding an app to
@@ -115,11 +104,8 @@ function App() {
   }, [route, tab, navigate])
 
   // Minutes on blocked apps, straight from the Screen Time service — or, in
-  // demo mode, whichever day of the week chart is selected. How far past the
-  // daily goal that lands is what wears the monster down, so scrubbing the
-  // week is what drives the monster's energy in the demo.
+  // demo mode, whichever day of the week chart is selected.
   const usedMin = DEMO_MODE ? demoUsage.totalMin : liveUsage.totalMin
-  const monsterEnergy = energyFromUsage(usedMin, goalMin)
 
   // Unlocking spends real minutes on a blocked app, which is what pushes the
   // day further past the goal. Staying focused simply doesn't add any.
@@ -127,9 +113,6 @@ function App() {
   const handleStayFocused = useCallback(() => {}, [])
 
   const screenProps = {
-    config: monsterConfig,
-    onConfigChange: setMonsterConfig,
-    energy: monsterEnergy,
     days: usageDays,
     blockedIds,
     onToggleApp: toggleApp,
@@ -143,14 +126,9 @@ function App() {
       usage: demoUsage,
       week: { days: weekDays, selectedIndex: selectedDay, onSelect: setSelectedDay },
     }),
-    // Demo mode already has the block screen up on its own phone, so it has
-    // nowhere to navigate to.
-    onOpenBlockScreen: DEMO_MODE ? undefined : () => navigate(BLOCK_ROUTE),
   }
 
   const blockScreenProps = {
-    monsterConfig,
-    monsterEnergy,
     unlockMin,
     onUnlock: handleUnlock,
     onStayFocused: handleStayFocused,

@@ -1,4 +1,4 @@
-// Everything the app remembers between launches: the schedule, the monster,
+// Everything the app remembers between launches: which apps are blocked,
 // the day's usage and every setting.
 //
 // It all lives under one versioned key. When a shape changes, bump

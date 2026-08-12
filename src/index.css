@@ -101,33 +101,6 @@ html[data-theme="dark"] .app-shell .blur-2xl {
   opacity: 0.25;
 }
 
-/* Night versions of the monster's habitats. Each is stated in full so the
-   three stops stay in step with each other. */
-html[data-theme="dark"] .monster-scene[data-scene="Room"] {
-  background-image: linear-gradient(to bottom, #2a2114, #2a1a16, #2a1620);
-}
-
-html[data-theme="dark"] .monster-scene[data-scene="Forest"] {
-  background-image: linear-gradient(to bottom, #12291d, #14291a, #1b2c14);
-}
-
-html[data-theme="dark"] .monster-scene[data-scene="Space"] {
-  background-image: linear-gradient(to bottom, #1a1b3a, #201a33, #141c2b);
-}
-
-html[data-theme="dark"] .monster-scene[data-scene="Beach"] {
-  background-image: linear-gradient(to bottom, #12283f, #133038, #2a2414);
-}
-
-/* The scene's decorative blobs are the same tints, and only live here — apart
-   from one active-block border, which wants darkening too. */
-html[data-theme="dark"] {
-  --color-amber-200: #6b4f1a;
-  --color-emerald-200: #1f5a43;
-  --color-green-200: #235c30;
-  --color-sky-200: #1d4a72;
-}
-
 .no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -321,29 +294,4 @@ html[data-font="dyslexia"] body {
     opacity: 0.55;
     transition-duration: 40ms;
   }
-}
-
-@keyframes monster-greet {
-  0% {
-    transform: translateY(0) rotate(0deg);
-  }
-  20% {
-    transform: translateY(-18px) rotate(-6deg);
-  }
-  40% {
-    transform: translateY(0) rotate(6deg);
-  }
-  55% {
-    transform: translateY(-8px) rotate(-4deg);
-  }
-  70% {
-    transform: translateY(0) rotate(3deg);
-  }
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-}
-
-.monster-greet {
-  animation: monster-greet 1s ease-in-out;
 }
