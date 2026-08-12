@@ -2,9 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import AppShell from './components/AppShell'
 import PhoneFrame from './components/PhoneFrame'
 import PhoneDevice from './components/PhoneDevice'
-import TabBar from './components/TabBar'
 import InsightsScreen from './screens/InsightsScreen'
-import Settings from './screens/Settings'
 import InstagramBlockScreen from './screens/InstagramBlockScreen'
 import { DEMO_MODE } from './config'
 import useHashRoute from './hooks/useHashRoute'
@@ -15,25 +13,15 @@ import { APP_LIST } from './data/blockingData'
 import { DEFAULT_GOAL_MIN, DEFAULT_UNLOCK_MIN } from './data/screenTimeData'
 import { WEEK_HISTORY, snapshotFor } from './data/screenTimeHistory'
 
-const SCREENS = {
-  insights: InsightsScreen,
-  settings: Settings,
-}
-
-const AVAILABLE_TABS = ['insights', 'settings']
-const DEFAULT_TAB = 'insights'
-// The block screen isn't a tab — it takes over the whole surface, the way it
-// would if the OS had thrown it up over Instagram.
-// display slash demo thing
+const DEFAULT_ROUTE = 'insights'
+// The block screen takes over the whole surface, the way it would if the OS
+// had thrown it up over Instagram — it isn't part of the normal flow.
 const BLOCK_ROUTE = 'blocked'
 
 function App() {
   const liveUsage = useScreenTime()
-  const [route, navigate] = useHashRoute(DEFAULT_TAB)
+  const [route, navigate] = useHashRoute(DEFAULT_ROUTE)
 
-  // Everything below outlives the session now. A hand-typed URL can name a
-  // route that doesn't exist, so the tab is always resolved against the real
-  // screen list rather than trusted.
   const [goalMin] = usePersistentState('goalMin', DEFAULT_GOAL_MIN)
   const [unlockMin] = usePersistentState('unlockMin', DEFAULT_UNLOCK_MIN)
   // Only the ids are stored, not whole app records: that way adding an app to
@@ -68,22 +56,15 @@ function App() {
     [setBlockedIds],
   )
 
-  // A hand-typed or bookmarked URL can name a tab that doesn't exist, so the
-  // route is always resolved against the real screen list.
-  const tab = AVAILABLE_TABS.includes(route) ? route : DEFAULT_TAB
-  const Screen = SCREENS[tab]
-
-  // Put the resolved tab in the URL when it doesn't match — a bare '/' or a
-  // bookmark to a section that's since been hidden would otherwise show one
-  // screen while the address bar claimed another. Replace rather than push,
-  // so correcting the URL doesn't leave a dead entry in the back history.
+  // A hand-typed or bookmarked URL can name a route that doesn't exist
+  // anymore (an old tab, say) — anything but the block screen normalizes
+  // back to the one real screen there is.
   useEffect(() => {
     if (route === BLOCK_ROUTE) return
-    // Checked against the address bar rather than against `route`, because a
-    // bare '/' already reads back as the fallback tab — the two would agree
-    // while the URL still said nothing at all.
-    if (window.location.hash !== `#/${tab}`) navigate(tab, { replace: true })
-  }, [route, tab, navigate])
+    if (window.location.hash !== `#/${DEFAULT_ROUTE}`) {
+      navigate(DEFAULT_ROUTE, { replace: true })
+    }
+  }, [route, navigate])
 
   // Minutes on blocked apps, straight from the Screen Time service — or, in
   // demo mode, whichever day of the week chart is selected.
@@ -122,8 +103,7 @@ function App() {
     return (
       <PhoneFrame>
         <PhoneDevice>
-          <Screen {...screenProps} />
-          <TabBar active={tab} tabs={AVAILABLE_TABS} onChange={navigate} />
+          <InsightsScreen {...screenProps} />
         </PhoneDevice>
 
         <PhoneDevice>
@@ -134,23 +114,21 @@ function App() {
   }
 
   // The block screen takes the whole surface with no nav: it stands in for
-  // what the OS shows over a blocked app, which has no tab bar either.
+  // what the OS shows over a blocked app.
   if (route === BLOCK_ROUTE) {
     return (
       <AppShell>
         <InstagramBlockScreen
           {...blockScreenProps}
-          onClose={() => navigate(tab)}
+          onClose={() => navigate(DEFAULT_ROUTE)}
         />
       </AppShell>
     )
   }
 
   return (
-    <AppShell
-      nav={<TabBar active={tab} tabs={AVAILABLE_TABS} onChange={navigate} />}
-    >
-      <Screen {...screenProps} />
+    <AppShell>
+      <InsightsScreen {...screenProps} />
     </AppShell>
   )
 }

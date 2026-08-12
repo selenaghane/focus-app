@@ -65,14 +65,6 @@ body {
   flex-direction: column;
 }
 
-/* Installed on a phone, the gap below the tab bar has to be whatever the
-   device's home indicator actually needs. In a browser tab and inside the
-   demo frame the inset is 0 and the 24px floor wins, so one rule covers
-   both. */
-.tab-bar-safe {
-  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
-}
-
 /* Feels like an app rather than a page ---------------------------------
    Things a web view does by default that no native app does: rubber-band
    the whole page past its ends, offer a text-selection I-beam over the
