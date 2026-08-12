@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "icons": "node scripts/generate-icons.mjs",
     "synthetic-data": "node scripts/generate-usage-data.mjs",
+    "simulate": "node scripts/simulate.mjs",
     "preview": "vite preview",
     "deploy": "vite build && gh-pages -d dist",
     "build:ios": "VITE_NATIVE=1 vite build && cap sync ios",
